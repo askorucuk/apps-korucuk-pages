@@ -1,0 +1,44 @@
+{
+  "owner": {
+    "name": "Ahmet Said Korucuk",
+    "company": "Askorucuk Apps",
+    "website": "https://www.apps.korucuk.com",
+    "contactEmail": "apps-support@korucuk.com",
+    "country": "Turkey"
+  },
+  "apps": [
+    {
+      "slug": "swipe-todos",
+      "name": "Swipe Todos",
+      "platforms": ["iOS", "Android"],
+      "effectiveDate": "2026-05-06",
+      "supportEmail": "apps-support@korucuk.com",
+      "description": "Swipe Todos is a simple task management app for creating, organizing, and completing personal to-do items.",
+      "dataCollected": [
+        "Account information, such as email address, display name, authentication provider, and user ID",
+        "Optional profile photo if you choose to upload one",
+        "Task content you create, such as task title, description, priority, tags, category, due date, reminder time, status, and completion history",
+        "App preferences and automation rules you configure inside Swipe Todos",
+        "Limited technical data processed by Firebase and Google Play services to operate authentication, storage, database, security, and app distribution features"
+      ],
+      "dataNotCollected": [
+        "Precise location",
+        "Contacts",
+        "Payment information",
+        "Health or fitness information",
+        "Advertising identifiers for targeted advertising"
+      ],
+      "thirdParties": [
+        "Google Firebase Authentication for email, anonymous, and Google sign-in",
+        "Google Cloud Firestore for storing your tasks, settings, and rules",
+        "Google Firebase Storage for optional profile photos",
+        "Google Play services and Google Play Store for app distribution and platform security",
+        "Expo notification APIs for scheduling reminders on your device"
+      ],
+      "permissions": [
+        "Notifications permission, used only to show task reminders when you enable reminders",
+        "Photo library permission, used only when you choose to upload a profile photo"
+      ]
+    }
+  ]
+}

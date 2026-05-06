@@ -1,0 +1,14 @@
+{
+  "name": "apps-korucuk-pages",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs --watch",
+    "serve": "npx serve dist"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
