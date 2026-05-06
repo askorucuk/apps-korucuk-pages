@@ -38,7 +38,7 @@ const layout = ({ title, app, content }) => {
         <a href="/${app.slug}/terms/">Terms</a>
         <a href="/${app.slug}/support/">Support</a>
         <a href="/${app.slug}/referer/">Referer</a>
-        <a href="/${app.slug}/account-deletion/">Delete Account</a>
+        <a href="/${app.slug}/account-deletion/">Account Deletion</a>
       </nav>`
     : `<nav class="nav" aria-label="Site navigation"><a href="/">Apps</a></nav>`;
 
@@ -190,11 +190,11 @@ const refererPage = (owner, app) =>
       <p>This page verifies that ${escapeHtml(app.name)} is published by ${escapeHtml(owner.name)} and uses ${escapeHtml(owner.website)} as its official policy and reference domain.</p>
       <h2>Allowed URLs</h2>
       <ul>
-        <li><code>https://www.apps.korucuk.com/${app.slug}/policy/</code></li>
-        <li><code>https://www.apps.korucuk.com/${app.slug}/terms/</code></li>
-        <li><code>https://www.apps.korucuk.com/${app.slug}/support/</code></li>
-        <li><code>https://www.apps.korucuk.com/${app.slug}/referer/</code></li>
-        <li><code>https://www.apps.korucuk.com/${app.slug}/account-deletion/</code></li>
+        <li><code>https://apps.korucuk.com/${app.slug}/policy/</code></li>
+        <li><code>https://apps.korucuk.com/${app.slug}/terms/</code></li>
+        <li><code>https://apps.korucuk.com/${app.slug}/support/</code></li>
+        <li><code>https://apps.korucuk.com/${app.slug}/referer/</code></li>
+        <li><code>https://apps.korucuk.com/${app.slug}/account-deletion/</code></li>
       </ul>
     </article>`
   });

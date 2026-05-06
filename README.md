@@ -3,13 +3,13 @@
 Static policy, terms, support, and referer pages for apps hosted under:
 
 ```text
-https://www.apps.korucuk.com/swipe-todos/privacy/
-https://www.apps.korucuk.com/<app-slug>/policy/
-https://www.apps.korucuk.com/<app-slug>/privacy/
-https://www.apps.korucuk.com/<app-slug>/terms/
-https://www.apps.korucuk.com/<app-slug>/support/
-https://www.apps.korucuk.com/<app-slug>/referer/
-https://www.apps.korucuk.com/<app-slug>/account-deletion/
+https://apps.korucuk.com/swipe-todos/privacy/
+https://apps.korucuk.com/<app-slug>/policy/
+https://apps.korucuk.com/<app-slug>/privacy/
+https://apps.korucuk.com/<app-slug>/terms/
+https://apps.korucuk.com/<app-slug>/support/
+https://apps.korucuk.com/<app-slug>/referer/
+https://apps.korucuk.com/<app-slug>/account-deletion/
 ```
 
 ## Add or Update an App
@@ -48,11 +48,11 @@ Generated pages are written to `dist/`.
 1. Create a GitHub repository and push this project.
 2. In GitHub, open repository Settings -> Pages.
 3. Set Source to "GitHub Actions".
-4. Keep `CNAME` as `www.apps.korucuk.com`.
-5. In Cloudflare DNS, create a CNAME for the canonical `www` hostname:
+4. Keep `CNAME` as `apps.korucuk.com`.
+5. In Cloudflare DNS, create a CNAME for the `apps` hostname:
 
 ```text
-www.apps -> <github-username>.github.io
+apps -> <github-username>.github.io
 ```
 
 GitHub Pages will serve `dist/` after the workflow runs.
@@ -61,13 +61,7 @@ GitHub Pages will serve `dist/` after the workflow runs.
 
 Use DNS-only while GitHub validates the custom domain if validation gets stuck. After validation, proxied mode can work, but DNS-only is simpler for GitHub Pages.
 
-For the apex `apps.korucuk.com`, add a Cloudflare redirect rule:
-
-```text
-https://apps.korucuk.com/* -> https://www.apps.korucuk.com/$1
-```
-
-That way opening `apps.korucuk.com` lands on the GitHub Pages custom domain, while app stores can use the canonical URL `https://www.apps.korucuk.com/swipe-todos/privacy/`.
+The canonical app policy domain is `https://apps.korucuk.com`.
 
 ## Legal Note
 
