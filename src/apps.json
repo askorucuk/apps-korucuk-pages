@@ -38,7 +38,100 @@
       "permissions": [
         "Notifications permission, used only to show task reminders when you enable reminders",
         "Photo library permission, used only when you choose to upload a profile photo"
-      ]
+      ],
+      "dataUsage": [
+        "To create, sync, display, update, complete, skip, restore, and delete your Swipe Todos tasks",
+        "To provide account sign-in, account management, and optional profile features",
+        "To save app preferences and reminder settings",
+        "To send local task reminders when you enable notifications",
+        "To maintain app security, prevent abuse, and troubleshoot service issues",
+        "To respond to support requests and privacy requests"
+      ],
+      "retention": "We keep your account information, tasks, preferences, rules, and optional profile photo while your account remains active or as needed to provide Swipe Todos. Tasks moved to trash may be permanently deleted automatically after 10 days. If you delete your account, the app attempts to delete your tasks, rules, settings, and optional profile photo associated with that account, unless retention is required by law or needed for legitimate security purposes.",
+      "choices": "You can update your profile information in the app where available. You can delete individual tasks, permanently delete tasks, or delete your account from the app. You may also request access, correction, or deletion of your personal information by contacting us at apps-support@korucuk.com.",
+      "accountDeletion": {
+        "inApp": "You can request deletion of your Swipe Todos account from inside the app by opening Profile and choosing Delete Account. When account deletion is completed, Swipe Todos attempts to delete the account and associated app data, including tasks, rules, settings, and optional profile photo.",
+        "dataDeleted": [
+          "Your app account identifier and account profile data controlled by the app",
+          "Tasks and task history stored for your account",
+          "Rules, settings, and preferences stored for your account",
+          "Optional profile photo uploaded through the app"
+        ]
+      }
+    },
+    {
+      "slug": "mirror-draw",
+      "name": "Mirror Draw",
+      "platforms": ["iOS", "Android"],
+      "effectiveDate": "2026-09-14",
+      "supportEmail": "apps-support@korucuk.com",
+      "description": "Mirror Draw is a mobile drawing game for practicing symmetry through free play, levels, daily challenges, leaderboards, and community challenges.",
+      "dataCollected": [
+        "Account information, such as email address, display name, authentication provider data, user ID, and session identifiers",
+        "Profile and gameplay information, such as best score, total games, XP, streaks, score, grade, symmetry percentage, difficulty, elapsed time, and leaderboard entries",
+        "Daily challenge participation, including challenge ID, score, grade, and play history for leaderboard and streak features",
+        "Community challenge information you choose to submit, such as title, description, drawing stroke data, difficulty, complexity score, vote counts, play counts, and related scores",
+        "App preferences, such as layout mode, stroke color, haptic setting, sound and music settings, volume levels, notification setting, grid setting, and anti-cheat setting",
+        "Push notification information if you enable notifications, such as Expo push token, device platform, timezone, registration status, and notification delivery metadata",
+        "Local-only app state stored on your device, such as guest play count, Ink balance, level progress, rewarded challenge IDs, cached settings, and authentication flow state",
+        "Limited technical data processed by Supabase, Expo, Apple, and Google platform services to operate authentication, database, push notification, security, and app distribution features"
+      ],
+      "dataNotCollected": [
+        "Precise location",
+        "Contacts",
+        "Payment information",
+        "Health or fitness information",
+        "Photo library or camera content",
+        "Advertising identifiers for targeted advertising"
+      ],
+      "thirdParties": [
+        "Supabase Authentication for email sign-up, email verification, sign-in, and session management",
+        "Supabase Database for profiles, gameplay scores, daily challenges, community challenges, votes, settings, and push notification records",
+        "Expo SecureStore for secure local storage of authentication tokens on your device",
+        "Expo Notifications for optional daily challenge push notifications",
+        "Apple App Store, Google Play Store, and related platform services for app distribution, platform security, and app review"
+      ],
+      "permissions": [
+        "Notifications permission, used only if you enable daily challenge notifications"
+      ],
+      "dataUsage": [
+        "To provide sign-up, sign-in, email verification, profile, and account features",
+        "To run free play, levels, daily challenges, leaderboards, streaks, and community challenges",
+        "To save and sync your app preferences and selected settings",
+        "To process scores, grades, symmetry results, XP, streaks, and leaderboard placement",
+        "To manage local Ink balance, level progress, and assist features such as extra strokes or Draw For Me",
+        "To show and moderate community challenge submissions, votes, and related gameplay activity",
+        "To send daily challenge notifications when you enable notifications",
+        "To maintain app security, prevent abuse, troubleshoot service issues, and respond to support or privacy requests"
+      ],
+      "retention": "We keep account, profile, settings, scores, challenge, vote, and notification records while your account remains active or as needed to provide Mirror Draw. Ordinary free-play drawing strokes are processed in the app for gameplay and are not described here as a permanent backup of every drawing. Community challenge drawings you submit may be stored because they become playable challenge content. If you delete your account in Settings, Mirror Draw calls its account deletion service to delete your Supabase authentication account; app records tied to that account are deleted through database relationships where technically available. Some limited records may be retained if required by law or needed for legitimate security, integrity, dispute, or operational purposes.",
+      "choices": "You can update your display name in the app where available, sign out, disable notifications in the app or system settings, and delete your account from Settings when signed in. If you cannot access the app, you can request account or data deletion by contacting us at apps-support@korucuk.com. You may also request access, correction, or deletion of your personal information by email.",
+      "termsSpecific": [
+        "Mirror Draw is provided for entertainment, practice, and casual competition. Scores, leaderboards, streaks, XP, and challenge availability may change as the app evolves.",
+        "Ink is an in-app gameplay resource used for assists such as extra strokes or Draw For Me. It is not money, has no cash value, and is not currently sold through store billing.",
+        "If you submit community challenges, you are responsible for the title, description, and drawing data you submit. Do not submit unlawful, harmful, abusive, hateful, infringing, misleading, or otherwise inappropriate content.",
+        "We may remove, reject, hide, or limit community challenge content or leaderboard activity when needed for safety, abuse prevention, app integrity, legal compliance, or platform review requirements.",
+        "Mirror Draw is not intended to be a permanent archive or backup service for every drawing you create during gameplay."
+      ],
+      "supportTopics": [
+        "Sign-up, sign-in, and email verification help",
+        "Daily challenge or leaderboard issues",
+        "Ink, assists, and level progress questions",
+        "Notification setup or disabling notifications",
+        "Community challenge questions or removal requests",
+        "Account deletion and privacy requests"
+      ],
+      "accountDeletion": {
+        "inApp": "When signed in, open Settings, go to Account, and tap Delete Account. Confirm the warning to permanently remove your account and app data. Mirror Draw calls its account deletion service, signs you out locally, and removes app records tied to your account through Supabase database relationships where technically available.",
+        "dataDeleted": [
+          "Your Supabase authentication account and Mirror Draw profile data",
+          "Settings and preferences stored for your account",
+          "Game scores, daily challenge activity, streaks, XP, and leaderboard data tied to your account where deletion is technically and legally available",
+          "Community challenge submissions, votes, and community scores tied to your account where deletion or de-identification is technically and legally available",
+          "Push notification tokens and notification registration data tied to your account",
+          "Local sign-in state on the device after the deletion request succeeds"
+        ]
+      }
     }
   ]
 }

@@ -4,6 +4,7 @@ Static policy, terms, support, and referer pages for apps hosted under:
 
 ```text
 https://apps.korucuk.com/swipe-todos/privacy/
+https://apps.korucuk.com/mirror-draw/privacy/
 https://apps.korucuk.com/<app-slug>/policy/
 https://apps.korucuk.com/<app-slug>/privacy/
 https://apps.korucuk.com/<app-slug>/terms/

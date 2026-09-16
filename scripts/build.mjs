@@ -25,6 +25,27 @@ const slugify = (value) =>
 const asList = (items) =>
   `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 
+const defaultDataUsage = (app) => [
+  `To operate, display, sync, update, and delete your ${app.name} app data`,
+  "To provide account sign-in, account management, and optional profile features",
+  "To save app preferences and settings",
+  "To send notifications when you enable notification features",
+  "To maintain app security, prevent abuse, and troubleshoot service issues",
+  "To respond to support requests and privacy requests"
+];
+
+const defaultRetention = (app) =>
+  `We keep your account information, app content, preferences, and settings while your account remains active or as needed to provide ${app.name}. If you delete your account or request deletion, we work to delete or de-identify associated app data unless retention is required by law or needed for legitimate security, integrity, dispute, or operational purposes.`;
+
+const defaultChoices = (app) =>
+  `You can update information in the app where available, sign out, disable optional permissions in your device settings, and request access, correction, or deletion of your personal information by contacting us at ${app.supportEmail}.`;
+
+const defaultAccountDeletionData = (app) => [
+  `Your ${app.name} account identifier and account profile data controlled by the app`,
+  "App content, settings, and preferences stored for your account",
+  "Optional notification or device records tied to your account where applicable"
+];
+
 const writePage = async (route, html) => {
   const pageDir = join(distPath, route);
   await mkdir(pageDir, { recursive: true });
@@ -92,26 +113,19 @@ const policyPage = (owner, app) =>
       ${asList(app.dataCollected)}
       ${app.dataNotCollected ? `<h2>Information We Do Not Collect</h2>${asList(app.dataNotCollected)}` : ""}
       <h2>How We Use Information</h2>
-      ${asList([
-        `To create, sync, display, update, complete, skip, restore, and delete your ${app.name} tasks`,
-        "To provide account sign-in, account management, and optional profile features",
-        "To save app preferences and reminder settings",
-        "To send local task reminders when you enable notifications",
-        "To maintain app security, prevent abuse, and troubleshoot service issues",
-        "To respond to support requests and privacy requests"
-      ])}
+      ${asList(app.dataUsage || defaultDataUsage(app))}
       <h2>Data Sharing</h2>
       <p>We do not sell your personal information and do not use your data for targeted advertising. We share or process information only with service providers needed to operate ${escapeHtml(app.name)}, when you ask us to, or when required by law.</p>
       <h2>Third-Party Services</h2>
-      <p>${escapeHtml(app.name)} relies on trusted third-party services to provide authentication, database, storage, app distribution, and reminder features.</p>
+      <p>${escapeHtml(app.name)} relies on trusted third-party services to provide the app features listed below.</p>
       ${asList(app.thirdParties)}
       ${app.permissions ? `<h2>App Permissions</h2>${asList(app.permissions)}` : ""}
       <h2>Security</h2>
       <p>We use reasonable technical and organizational measures to protect information handled by ${escapeHtml(app.name)}. No method of transmission or storage is completely secure, but we work to keep your information protected through platform and provider security controls.</p>
       <h2>Data Retention</h2>
-      <p>We keep your account information, tasks, preferences, rules, and optional profile photo while your account remains active or as needed to provide ${escapeHtml(app.name)}. Tasks moved to trash may be permanently deleted automatically after 10 days. If you delete your account, the app attempts to delete your tasks, rules, settings, and optional profile photo associated with that account, unless retention is required by law or needed for legitimate security purposes.</p>
+      <p>${escapeHtml(app.retention || defaultRetention(app))}</p>
       <h2>Your Choices</h2>
-      <p>You can update your profile information in the app where available. You can delete individual tasks, permanently delete tasks, or delete your account from the app. You may also request access, correction, or deletion of your personal information by contacting us at <a href="mailto:${escapeHtml(app.supportEmail)}">${escapeHtml(app.supportEmail)}</a>.</p>
+      <p>${escapeHtml(app.choices || defaultChoices(app))}</p>
       <h2>Children</h2>
       <p>${escapeHtml(app.name)} is not directed to children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided personal information, contact us so we can review and delete it where appropriate.</p>
       <h2>Changes to This Policy</h2>
@@ -132,6 +146,7 @@ const termsPage = (owner, app) =>
       <p>You are responsible for your use of the app and for complying with applicable laws and platform rules.</p>
       <h2>Accounts and Content</h2>
       <p>You are responsible for information you provide and for keeping account credentials secure where account features exist.</p>
+      ${app.termsSpecific ? `<h2>App-Specific Terms</h2>${asList(app.termsSpecific)}` : ""}
       <h2>Service Changes</h2>
       <p>We may update, suspend, or discontinue parts of the app when needed to improve or maintain the service.</p>
       <h2>Disclaimer</h2>
@@ -155,6 +170,7 @@ const supportPage = (owner, app) =>
         <li><a href="/${app.slug}/referer/">Referer Page</a></li>
         <li><a href="/${app.slug}/account-deletion/">Account Deletion</a></li>
       </ul>
+      ${app.supportTopics ? `<h2>Common Support Topics</h2>${asList(app.supportTopics)}` : ""}
     </article>`
   });
 
@@ -163,17 +179,12 @@ const accountDeletionPage = (owner, app) =>
     title: `${app.name} Account Deletion`,
     app,
     content: `${documentHeader("Account Deletion", app, `${app.name} Account Deletion`)}
-      <h2>Delete Your Account In the App</h2>
-      <p>You can request deletion of your ${escapeHtml(app.name)} account from inside the app by opening Profile and choosing Delete Account. When account deletion is completed, ${escapeHtml(app.name)} attempts to delete the account and associated app data, including tasks, rules, settings, and optional profile photo.</p>
+      <h2>Delete Your Account</h2>
+      <p>${escapeHtml(app.accountDeletion?.inApp || `You can request deletion of your ${app.name} account by contacting support. If an in-app deletion control is available in your installed version, you may also use that control from the account or profile area.`)}</p>
       <h2>Request Deletion by Email</h2>
       <p>If you cannot access the app, email <a href="mailto:${escapeHtml(app.supportEmail)}">${escapeHtml(app.supportEmail)}</a> from the email address associated with your account and include the app name, ${escapeHtml(app.name)}, in your message.</p>
       <h2>Data Deleted</h2>
-      ${asList([
-        "Your app account identifier and account profile data controlled by the app",
-        "Tasks and task history stored for your account",
-        "Rules, settings, and preferences stored for your account",
-        "Optional profile photo uploaded through the app"
-      ])}
+      ${asList(app.accountDeletion?.dataDeleted || defaultAccountDeletionData(app))}
       <h2>Retention</h2>
       <p>Most associated app data is deleted when the deletion request is processed. Some limited records may be retained if required by law, for security, fraud prevention, dispute resolution, or legitimate operational needs.</p>
       <h2>Contact</h2>
@@ -191,6 +202,7 @@ const refererPage = (owner, app) =>
       <h2>Allowed URLs</h2>
       <ul>
         <li><code>https://apps.korucuk.com/${app.slug}/policy/</code></li>
+        <li><code>https://apps.korucuk.com/${app.slug}/privacy/</code></li>
         <li><code>https://apps.korucuk.com/${app.slug}/terms/</code></li>
         <li><code>https://apps.korucuk.com/${app.slug}/support/</code></li>
         <li><code>https://apps.korucuk.com/${app.slug}/referer/</code></li>
