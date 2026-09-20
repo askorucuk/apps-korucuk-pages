@@ -1,11 +1,32 @@
-import { mkdir, readFile, rm, writeFile, copyFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { mkdir, readFile, rm, writeFile, copyFile, readdir, cp, stat } from "node:fs/promises";
+import { dirname, join, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const sourcePath = join(root, "src", "apps.json");
 const distPath = join(root, "dist");
 const publicPath = join(root, "public");
+const screenshotsSrc = join(publicPath, "screenshots");
+
+const IMAGE_EXTS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif"]);
+
+const listScreenshots = async (slug) => {
+  const dir = join(screenshotsSrc, slug);
+  try {
+    const entries = await readdir(dir);
+    return entries
+      .filter((f) => IMAGE_EXTS.has(extname(f).toLowerCase()))
+      .sort((a, b) => {
+        const na = parseInt(a, 10);
+        const nb = parseInt(b, 10);
+        if (!Number.isNaN(na) && !Number.isNaN(nb)) return na - nb;
+        return a.localeCompare(b);
+      })
+      .map((f) => `/screenshots/${slug}/${f}`);
+  } catch {
+    return [];
+  }
+};
 
 const escapeHtml = (value) =>
   String(value)
@@ -55,10 +76,10 @@ const writePage = async (route, html) => {
 const layout = ({ title, app, content }) => {
   const nav = app
     ? `<nav class="nav" aria-label="Document navigation">
+        <a href="/${app.slug}/">Overview</a>
         <a href="/${app.slug}/policy/">Policy</a>
         <a href="/${app.slug}/terms/">Terms</a>
         <a href="/${app.slug}/support/">Support</a>
-        <a href="/${app.slug}/referer/">Referer</a>
         <a href="/${app.slug}/account-deletion/">Account Deletion</a>
       </nav>`
     : `<nav class="nav" aria-label="Site navigation"><a href="/">Apps</a></nav>`;
@@ -215,20 +236,161 @@ const homePage = ({ owner, apps }) =>
   layout({
     title: "Korucuk Apps",
     content: `<section class="document">
-      <p class="eyebrow">App Documents</p>
+      <p class="eyebrow">Apps</p>
       <h1>Korucuk Apps</h1>
-      <p>Official policy, terms, support, and referer pages for apps published by ${escapeHtml(owner.name)}.</p>
+      <p>Apps published by ${escapeHtml(owner.name)}.</p>
       <div class="app-grid">
         ${apps
           .map(
-            (app) => `<a class="app-card" href="/${app.slug}/policy/">
-              <strong>${escapeHtml(app.name)}</strong>
-              <span>${escapeHtml(app.description)}</span>
+            (app) => `<a class="app-card" href="/${app.slug}/">
+              <img class="app-card__icon" src="/icons/${escapeHtml(app.slug)}.png" alt="">
+              <div class="app-card__body">
+                <strong>${escapeHtml(app.name)}</strong>
+                <span>${escapeHtml(app.marketing?.tagline || app.description)}</span>
+              </div>
             </a>`
           )
           .join("")}
       </div>
     </section>`
+  });
+
+const storeBadges = (app) => {
+  const appStore = app.storeLinks?.appStore || "#";
+  const playStore = app.storeLinks?.playStore || "#";
+  return `<div class="store-badges">
+    <a class="store-badge" href="${escapeHtml(appStore)}" aria-label="Download on the App Store">
+      <img class="store-badge__icon store-badge__icon--apple" src="/badges/apple.svg" alt="" aria-hidden="true">
+      <span class="store-badge__text">
+        <span class="store-badge__caption">Download on the</span>
+        <span class="store-badge__title">App Store</span>
+      </span>
+    </a>
+    <a class="store-badge" href="${escapeHtml(playStore)}" aria-label="Get it on Google Play">
+      <img class="store-badge__icon" src="/badges/playstore.svg" alt="" aria-hidden="true">
+      <span class="store-badge__text">
+        <span class="store-badge__caption">GET IT ON</span>
+        <span class="store-badge__title">Google Play</span>
+      </span>
+    </a>
+  </div>
+  <p class="store-note"><span aria-hidden="true">*</span> Links will become active once the app is launched.</p>`;
+};
+
+const gallery = (shots) => {
+  if (!shots.length) {
+    return `<div class="gallery gallery--empty">
+      <p>Screenshots coming soon.</p>
+    </div>`;
+  }
+  const slides = shots
+    .map(
+      (src, i) =>
+        `<figure class="gallery__slide">
+          <img src="${escapeHtml(src)}" alt="App view ${i + 1}" loading="${i < 2 ? "eager" : "lazy"}">
+        </figure>`
+    )
+    .join("");
+  return `<div class="gallery gallery--coverflow" data-count="${shots.length}">
+    <button class="gallery__nav gallery__nav--prev" type="button" aria-label="Previous view">&larr;</button>
+    <div class="gallery__viewport">
+      <div class="gallery__track">${slides}</div>
+    </div>
+    <button class="gallery__nav gallery__nav--next" type="button" aria-label="Next view">&rarr;</button>
+    <div class="gallery__counter"><span class="gallery__current">1</span> / ${shots.length}</div>
+  </div>
+  <script>
+  (function(){
+    var g = document.currentScript.previousElementSibling;
+    while (g && !g.classList.contains('gallery')) g = g.previousElementSibling;
+    if (!g) return;
+    var track = g.querySelector('.gallery__track');
+    var slides = Array.prototype.slice.call(g.querySelectorAll('.gallery__slide'));
+    var current = g.querySelector('.gallery__current');
+    var idx = 0;
+    function show(n){
+      idx = (n + slides.length) % slides.length;
+      slides.forEach(function(s, i){
+        s.classList.remove('is-active', 'is-near', 'is-far');
+        var d = Math.abs(i - idx);
+        if (d === 0) s.classList.add('is-active');
+        else if (d === 1) s.classList.add('is-near');
+        else s.classList.add('is-far');
+      });
+      var slideW = slides[0].offsetWidth;
+      var viewportW = g.querySelector('.gallery__viewport').offsetWidth;
+      var offset = (viewportW / 2) - slideW / 2 - idx * slideW;
+      track.style.transform = 'translateX(' + offset + 'px)';
+      if (current) current.textContent = String(idx + 1);
+    }
+    g.querySelector('.gallery__nav--prev').addEventListener('click', function(){ show(idx - 1); });
+    g.querySelector('.gallery__nav--next').addEventListener('click', function(){ show(idx + 1); });
+    slides.forEach(function(s, i){
+      s.addEventListener('click', function(){ if (i !== idx) show(i); });
+    });
+    // Touch swipe
+    var sx = null;
+    g.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
+    g.addEventListener('touchend', function(e){
+      if (sx == null) return;
+      var dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) show(idx + (dx < 0 ? 1 : -1));
+      sx = null;
+    });
+    window.addEventListener('resize', function(){ show(idx); });
+    show(0);
+  })();
+  </script>`;
+};
+
+const marketingPage = (owner, app, shots) =>
+  layout({
+    title: `${app.name} — ${app.marketing?.tagline || app.description}`,
+    app,
+    content: `<article class="document marketing">
+      <div class="marketing__hero">
+        <img class="app-icon" src="/icons/${escapeHtml(app.slug)}.png" alt="${escapeHtml(app.name)} icon">
+        <div class="marketing__hero-text">
+          <p class="eyebrow">${escapeHtml(app.platforms.join(" · "))}</p>
+          <h1>${escapeHtml(app.name)}</h1>
+          <p class="lede">${escapeHtml(app.marketing?.tagline || app.description)}</p>
+        </div>
+      </div>
+      ${storeBadges(app)}
+
+      ${
+        app.marketing?.sections
+          ? app.marketing.sections
+              .map((s) => `<h2>${escapeHtml(s.heading)}</h2>${s.html}`)
+              .join("")
+          : `<h2>About</h2>
+      <p>${escapeHtml(app.marketing?.longDescription || app.description)}</p>
+
+      <h2>What you can do</h2>
+      ${asList(app.marketing?.features || ["Placeholder"])}`
+      }
+
+      <h2>App Views</h2>
+      ${gallery(shots)}
+
+      <h2>Feedback</h2>
+      <p>For feedback, bug reports, or suggestions, email <a href="mailto:${escapeHtml(app.supportEmail)}">${escapeHtml(app.supportEmail)}</a>.</p>
+
+      <h2>Legal</h2>
+      <ul>
+        <li><a href="/${app.slug}/policy/">Privacy Policy</a></li>
+        <li><a href="/${app.slug}/terms/">Terms of Use</a></li>
+        <li><a href="/${app.slug}/support/">Support</a></li>
+        <li><a href="/${app.slug}/account-deletion/">Account Deletion</a></li>
+      </ul>
+
+      <section class="creator">
+        <p class="eyebrow">Creator</p>
+        <h3>${escapeHtml(owner.name)}</h3>
+        <p>Independent maker of small, focused apps.</p>
+        <p><a class="creator__link" href="${escapeHtml(owner.personalSite || owner.website)}">${escapeHtml((owner.personalSite || owner.website).replace(/^https?:\/\//, ""))}</a></p>
+      </section>
+    </article>`
   });
 
 const build = async () => {
@@ -242,9 +404,33 @@ const build = async () => {
   await mkdir(distPath, { recursive: true });
   await copyFile(join(root, "CNAME"), join(distPath, "CNAME"));
   await copyFile(join(publicPath, "styles.css"), join(distPath, "styles.css"));
+
+  try {
+    await stat(screenshotsSrc);
+    await cp(screenshotsSrc, join(distPath, "screenshots"), { recursive: true });
+  } catch {
+    // no screenshots directory yet
+  }
+
+  try {
+    await stat(join(publicPath, "badges"));
+    await cp(join(publicPath, "badges"), join(distPath, "badges"), { recursive: true });
+  } catch {
+    // no badges directory
+  }
+
+  try {
+    await stat(join(publicPath, "icons"));
+    await cp(join(publicPath, "icons"), join(distPath, "icons"), { recursive: true });
+  } catch {
+    // no icons directory
+  }
+
   await writePage("", homePage({ owner: source.owner, apps }));
 
   for (const app of apps) {
+    const shots = await listScreenshots(app.slug);
+    await writePage(app.slug, marketingPage(source.owner, app, shots));
     await writePage(`${app.slug}/policy`, policyPage(source.owner, app));
     await writePage(`${app.slug}/privacy`, policyPage(source.owner, app));
     await writePage(`${app.slug}/terms`, termsPage(source.owner, app));

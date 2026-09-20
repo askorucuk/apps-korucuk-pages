@@ -3,6 +3,7 @@
     "name": "Ahmet Said Korucuk",
     "company": "Askorucuk Apps",
     "website": "https://apps.korucuk.com",
+    "personalSite": "https://ahmetsaid.korucuk.com",
     "contactEmail": "apps-support@korucuk.com",
     "country": "Turkey"
   },
@@ -14,6 +15,31 @@
       "effectiveDate": "2026-05-06",
       "supportEmail": "apps-support@korucuk.com",
       "description": "Swipe Todos is a simple task management app for creating, organizing, and completing personal to-do items.",
+      "marketing": {
+        "tagline": "Manage your tasks like a deck of cards. Swipe right → done, swipe left → skip for later.",
+        "sections": [
+          {
+            "heading": "Why this app",
+            "html": "<p>Most to-do apps drop dozens of rows in your face at once and quietly cause decision fatigue. Swipe Todos is designed to remove that weight. Instead of the endless, exhausting scroll of a classic to-do list, it puts one card in front of you at a time so you can focus and decide in a single gesture.</p><ul><li><strong>One task at a time.</strong> The next card takes the stage; the rest stays out of the way.</li><li><strong>Effortless decisions.</strong> A single swipe is enough — &ldquo;if it's done, it's done; if not, skip it.&rdquo;</li><li><strong>You define the order.</strong> Sort by priority, due date, or estimated time — in whatever order matters to you — and build your own deck flow.</li></ul><p>The goal is fast decisions, low cognitive load, and a focused daily flow.</p>"
+          },
+          {
+            "heading": "Highlights",
+            "html": "<h3>Swipe-first flow</h3><ul><li><strong>Swipe right</strong> → mark the task complete.</li><li><strong>Swipe left</strong> → skip it (it can come back later).</li><li><strong>Undo</strong> — recover a mis-swipe with a single tap.</li><li>Haptic feedback for a tactile confirmation.</li></ul><h3>Deck Rules — the sorting engine</h3><p>The card that comes up next is entirely under your control:</p><ul><li>Sort by Priority, Due Date, Creation Date, or Estimated Time.</li><li>Drag rules up and down to change which one wins ties.</li><li><strong>Custom Rules</strong> — save presets that combine multiple sort fields (&ldquo;Quick wins first&rdquo;, &ldquo;Deadline crunch&rdquo;, &hellip;) and apply them with one tap.</li><li>Show or hide completed / skipped cards in the deck.</li><li><strong>Auto-skip</strong> — cards that have been sitting for more than 7 days can be skipped automatically.</li></ul><h3>Rich task model</h3><p>Every card can carry:</p><ul><li>Title and details</li><li>Priority (Low / Medium / High)</li><li>Due date (date + time)</li><li>Reminder (quick presets: 15 min, 1 hour, tonight 8PM, tomorrow 9AM, &hellip;)</li><li>Estimated duration (minutes)</li><li>Category &amp; tags</li><li>Schedule: weekday / weekend recurrence</li></ul><h3>Reminders</h3><p>Local push notifications with a custom sound.</p><h3>Deck view (My Deck)</h3><p>A traditional list view sits alongside the swipe view:</p><ul><li>Active / Completed / Skipped / Deleted filters</li><li>Search</li><li>Multi-select with bulk &ldquo;move to folder&rdquo;</li></ul><h3>Profile &amp; stats</h3><ul><li>Active card count and success rate</li><li>Priority breakdown</li><li>Upcoming deadlines</li><li>Total estimated time for active tasks</li></ul><h3>Accounts</h3><ul><li>Email/password and Google Sign-In</li><li><strong>Guest mode</strong> — no account required (limited card count, no cross-device sync)</li><li>Email verification and password reset</li><li>Editable profile (name + auto-generated avatar color)</li><li>Full account deletion (GDPR/KVKK-friendly hard delete)</li></ul><h3>Personalization</h3><ul><li><strong>Dark mode</strong></li><li><strong>Floating navbar</strong> — swap the standard tab bar for a floating pill</li><li><strong>Welcome walkthrough</strong> — a guided tour on first launch, replayable any time from Settings</li></ul><h3>Multilingual</h3><p>Fully localized in 7 languages: English, Türkçe, Deutsch, Español, Français, 日本語, 中文. Follows the device language automatically; switchable from Settings.</p><h3>Cloud sync</h3><p>Real-time sync — swipe on one device, see it update on the other.</p>"
+          },
+          {
+            "heading": "How it's different from a classic to-do",
+            "html": "<table><thead><tr><th>Classic to-do</th><th>Swipe Todos</th></tr></thead><tbody><tr><td>A long list, endless scrolling</td><td>One card, left/right swipe</td></tr><tr><td>&ldquo;Which one should I pick?&rdquo;</td><td>The app picks the next one for you</td></tr><tr><td>Ordering = manual drag &amp; drop</td><td>Ordering = rules (priority, deadline, estimate&hellip;)</td></tr><tr><td>Delete ↔ Complete only</td><td>Right = done, Left = later</td></tr><tr><td>Plain rows</td><td>Cards, haptics, micro-animations</td></tr></tbody></table>"
+          },
+          {
+            "heading": "What's next",
+            "html": "<ul><li>Home-screen widget showing the next card</li><li>Apple Watch / Wear OS companion</li><li>Subtasks (checklist inside a card)</li><li>Streaks and badges</li><li>Voice input for creating tasks</li></ul>"
+          }
+        ]
+      },
+      "storeLinks": {
+        "appStore": "#",
+        "playStore": "#"
+      },
       "dataCollected": [
         "Account information, such as email address, display name, authentication provider, and user ID",
         "Optional profile photo if you choose to upload one",
@@ -60,12 +86,49 @@
       }
     },
     {
-      "slug": "mirror-draw",
-      "name": "Mirror Draw",
+      "slug": "mirror-art",
+      "name": "Mirror Art",
       "platforms": ["iOS", "Android"],
       "effectiveDate": "2026-09-14",
       "supportEmail": "apps-support@korucuk.com",
-      "description": "Mirror Draw is a mobile drawing game for practicing symmetry through free play, levels, daily challenges, leaderboards, and community challenges.",
+      "description": "Mirror Art is a mobile drawing game for practicing symmetry through free play, levels, daily challenges, leaderboards, and community challenges.",
+      "marketing": {
+        "tagline": "Draw. Mirror. Reflect. — A meditative drawing game where every stroke you make becomes half of a symmetric composition.",
+        "sections": [
+          {
+            "heading": "What is Mirror Art?",
+            "html": "<p>Mirror Art is a mindful drawing experience for iPhone and Android. A shape appears on one side of your screen — your job is to draw its mirror image on the other side. The closer your reflection matches the target, the higher your score.</p><p>It's part game, part art tool, part focus practice. No penalties, no rush unless you want it. Just you, your finger, and a mirror.</p>"
+          },
+          {
+            "heading": "Why play?",
+            "html": "<p><strong>Focus.</strong> Mirror-drawing quiets the loud parts of the mind. It's a five-minute reset between meetings, or a wind-down before bed. The task is simple, the feedback immediate, and the surface never runs out of new shapes.</p><p><strong>Coordination.</strong> Reflecting a curve you can see through a mental axis trains hand–eye coordination the way rhythm games train timing. Get better with every play.</p><p><strong>Creativity.</strong> Once you learn the mechanic, you start to see mirror lines everywhere — in nature, in architecture, in your own doodles.</p><p><strong>Art.</strong> Every completed piece is genuinely symmetric. Screenshot the good ones. Some players keep a folder.</p><p><em>Suitable for ages 8 and up. No violence, no chat, no ads.</em></p>"
+          },
+          {
+            "heading": "How it works",
+            "html": "<p>Pick a difficulty. A shape appears on one half of the canvas as your <strong>template</strong>. On the other half, you draw its reflection. When you finish, Mirror Art scores your work on four axes:</p><ul><li><strong>Accuracy</strong> — how close your strokes land to the mirrored target</li><li><strong>Coverage</strong> — how completely you traced the shape</li><li><strong>Cleanliness</strong> — a penalty for stray marks far from the template</li><li><strong>Efficiency</strong> — a penalty for excess strokes or over-drawing</li></ul><p>Your final score maps to a grade: <strong>F → D → C → B → A → S</strong>. Grade thresholds scale to the mode — Easy and Medium have no time bonus, so S is reachable there without racing the clock.</p><h3>The mirror axis</h3><p>The mirror line runs between the two canvas halves. You choose the layout in Settings:</p><ul><li><strong>Left–Right</strong> (default) — vertical mirror line. Perfect for most shapes; your drawing appears the &ldquo;right way up.&rdquo;</li><li><strong>Top–Bottom</strong> — horizontal mirror line. More challenging; some shapes appear upside-down when reflected.</li></ul><p>Because top–bottom flips can feel unnatural, there's an <strong>Auto-Flip Canvas</strong> setting (on by default). When enabled, your drawing area is quietly flipped along the mirror axis — so shapes always appear the natural way up while you draw, and the score still measures a true reflection.</p>"
+          },
+          {
+            "heading": "Modes",
+            "html": "<h3>Free</h3><p>Pick a difficulty — <strong>Easy</strong>, <strong>Medium</strong>, or <strong>Hard</strong> — and draw a fresh shape. New shape every game. No pressure, no time limit on Easy/Medium. Great for warming up.</p><h3>Series</h3><p>Five rounds back-to-back — Easy, Medium, or a <strong>Mixed</strong> series that ramps difficulty as you go. Your scores across the run are tracked, and completing a full series feels like completing a small ceremony.</p><h3>Daily Challenge</h3><p>One shape per day, the same for every player worldwide. Your score enters the daily leaderboard. Miss a day, lose your streak.</p><h3>Campaign — Challenge Levels</h3><p>Ten hand-tuned levels with target scores and stroke limits. <strong>First Reflection</strong> is easy. <strong>Master Reflection</strong> is not. Each level unlocks the next.</p><h3>Community</h3><p>Play shapes drawn and submitted by other players. Vote thumbs-up or thumbs-down. Great creators rise to the top of the feed. Anyone can create one.</p><h3>Create your own</h3><p>Draw a shape, name it, publish it. If enough players enjoy it, the game rewards you. There's a light moderation system — every published shape is reviewable, and any player can report content.</p>"
+          },
+          {
+            "heading": "The shape library",
+            "html": "<p>Mirror Art ships with a curated library of shapes hand-selected across four categories:</p><ul><li><strong>Nature</strong> — leaves, waves, hills, creatures, blossoms</li><li><strong>Symbols</strong> — hearts, stars, arrows, crowns, notes</li><li><strong>Objects</strong> — homes, keys, vessels, tools</li><li><strong>Geometric</strong> — polygons, spirals, curves, patterns</li></ul><p>Each category spans all three difficulties. The pool grows over time.</p><p>Every shape you'll ever meet in Free and Daily comes from this library — deterministic when Daily needs to be the same worldwide, random when Free lets you explore.</p>"
+          },
+          {
+            "heading": "Progression & scoring",
+            "html": "<ul><li><strong>Best score</strong> — your all-time high, shown on your profile.</li><li><strong>Streak</strong> — consecutive days playing the Daily Challenge.</li><li><strong>Leaderboards</strong> — global (all-time best) and daily (today's players).</li><li><strong>Grades</strong> — every play gets an F–S grade. Chasing a first S in Hard mode is its own reward.</li></ul><p>Your profile shows recent games, your streak, and lets you share Mirror Art with a friend.</p>"
+          },
+          {
+            "heading": "Settings",
+            "html": "<p>Tune the experience:</p><ul><li><strong>Layout</strong> — Left–Right or Top–Bottom mirror axis</li><li><strong>Auto-Flip Canvas</strong> — keep shapes visually upright while drawing</li><li><strong>Show Grid</strong> — subtle guide grid for precision</li><li><strong>Anti-Cheat</strong> — prevent screenshots during play (personal integrity)</li><li><strong>Haptics</strong> — vibration on stroke events</li><li><strong>Sound & Music</strong> — with independent volume sliders</li><li><strong>Daily Notifications</strong> — one gentle ping when the day's challenge is ready</li></ul>"
+          }
+        ]
+      },
+      "storeLinks": {
+        "appStore": "#",
+        "playStore": "#"
+      },
       "dataCollected": [
         "Account information, such as email address, display name, authentication provider data, user ID, and session identifiers",
         "Profile and gameplay information, such as best score, total games, XP, streaks, score, grade, symmetry percentage, difficulty, elapsed time, and leaderboard entries",
@@ -104,14 +167,14 @@
         "To send daily challenge notifications when you enable notifications",
         "To maintain app security, prevent abuse, troubleshoot service issues, and respond to support or privacy requests"
       ],
-      "retention": "We keep account, profile, settings, scores, challenge, vote, and notification records while your account remains active or as needed to provide Mirror Draw. Ordinary free-play drawing strokes are processed in the app for gameplay and are not described here as a permanent backup of every drawing. Community challenge drawings you submit may be stored because they become playable challenge content. If you delete your account in Settings, Mirror Draw calls its account deletion service to delete your Supabase authentication account; app records tied to that account are deleted through database relationships where technically available. Some limited records may be retained if required by law or needed for legitimate security, integrity, dispute, or operational purposes.",
+      "retention": "We keep account, profile, settings, scores, challenge, vote, and notification records while your account remains active or as needed to provide Mirror Art. Ordinary free-play drawing strokes are processed in the app for gameplay and are not described here as a permanent backup of every drawing. Community challenge drawings you submit may be stored because they become playable challenge content. If you delete your account in Settings, Mirror Art calls its account deletion service to delete your Supabase authentication account; app records tied to that account are deleted through database relationships where technically available. Some limited records may be retained if required by law or needed for legitimate security, integrity, dispute, or operational purposes.",
       "choices": "You can update your display name in the app where available, sign out, disable notifications in the app or system settings, and delete your account from Settings when signed in. If you cannot access the app, you can request account or data deletion by contacting us at apps-support@korucuk.com. You may also request access, correction, or deletion of your personal information by email.",
       "termsSpecific": [
-        "Mirror Draw is provided for entertainment, practice, and casual competition. Scores, leaderboards, streaks, XP, and challenge availability may change as the app evolves.",
+        "Mirror Art is provided for entertainment, practice, and casual competition. Scores, leaderboards, streaks, XP, and challenge availability may change as the app evolves.",
         "Ink is an in-app gameplay resource used for assists such as extra strokes or Draw For Me. It is not money, has no cash value, and is not currently sold through store billing.",
         "If you submit community challenges, you are responsible for the title, description, and drawing data you submit. Do not submit unlawful, harmful, abusive, hateful, infringing, misleading, or otherwise inappropriate content.",
         "We may remove, reject, hide, or limit community challenge content or leaderboard activity when needed for safety, abuse prevention, app integrity, legal compliance, or platform review requirements.",
-        "Mirror Draw is not intended to be a permanent archive or backup service for every drawing you create during gameplay."
+        "Mirror Art is not intended to be a permanent archive or backup service for every drawing you create during gameplay."
       ],
       "supportTopics": [
         "Sign-up, sign-in, and email verification help",
@@ -122,9 +185,9 @@
         "Account deletion and privacy requests"
       ],
       "accountDeletion": {
-        "inApp": "When signed in, open Settings, go to Account, and tap Delete Account. Confirm the warning to permanently remove your account and app data. Mirror Draw calls its account deletion service, signs you out locally, and removes app records tied to your account through Supabase database relationships where technically available.",
+        "inApp": "When signed in, open Settings, go to Account, and tap Delete Account. Confirm the warning to permanently remove your account and app data. Mirror Art calls its account deletion service, signs you out locally, and removes app records tied to your account through Supabase database relationships where technically available.",
         "dataDeleted": [
-          "Your Supabase authentication account and Mirror Draw profile data",
+          "Your Supabase authentication account and Mirror Art profile data",
           "Settings and preferences stored for your account",
           "Game scores, daily challenge activity, streaks, XP, and leaderboard data tied to your account where deletion is technically and legally available",
           "Community challenge submissions, votes, and community scores tied to your account where deletion or de-identification is technically and legally available",
