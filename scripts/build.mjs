@@ -287,7 +287,9 @@ const gallery = (shots) => {
     .map(
       (src, i) =>
         `<figure class="gallery__slide">
-          <img src="${escapeHtml(src)}" alt="App view ${i + 1}" loading="${i < 2 ? "eager" : "lazy"}">
+          <div class="gallery__frame">
+            <img src="${escapeHtml(src)}" alt="App view ${i + 1}" loading="${i < 2 ? "eager" : "lazy"}">
+          </div>
         </figure>`
     )
     .join("");
@@ -360,18 +362,26 @@ const marketingPage = (owner, app, shots) =>
 
       ${
         app.marketing?.sections
-          ? app.marketing.sections
-              .map((s) => `<h2>${escapeHtml(s.heading)}</h2>${s.html}`)
-              .join("")
+          ? (() => {
+              const s = app.marketing.sections;
+              const first = s[0]
+                ? `<h2>${escapeHtml(s[0].heading)}</h2>${s[0].html}`
+                : "";
+              const rest = s
+                .slice(1)
+                .map((x) => `<h2>${escapeHtml(x.heading)}</h2>${x.html}`)
+                .join("");
+              return `${first}<h2>App Views</h2>${gallery(shots)}${rest}`;
+            })()
           : `<h2>About</h2>
       <p>${escapeHtml(app.marketing?.longDescription || app.description)}</p>
+
+      <h2>App Views</h2>
+      ${gallery(shots)}
 
       <h2>What you can do</h2>
       ${asList(app.marketing?.features || ["Placeholder"])}`
       }
-
-      <h2>App Views</h2>
-      ${gallery(shots)}
 
       <h2>Feedback</h2>
       <p>For feedback, bug reports, or suggestions, email <a href="mailto:${escapeHtml(app.supportEmail)}">${escapeHtml(app.supportEmail)}</a>.</p>
