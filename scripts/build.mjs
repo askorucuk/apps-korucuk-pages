@@ -471,7 +471,7 @@ const homePage = ({ owner, apps, media }) => {
           .map((a) => `<a href="/${a.slug}/" aria-label="${escapeHtml(a.name)}"><img src="${escapeHtml(iconSrc(a))}" alt="" width="96" height="96"></a>`)
           .join("")}</div>
         <p class="mk-eyebrow">Korucuk Apps</p>
-        <h1>Apps crafted for <span class="mk-grad">your everyday.</span></h1>
+        <h1><canvas class="mk-forge" aria-hidden="true"></canvas>Apps <span class="mk-craft">craf<span class="mk-craft__t">t</span><span class="mk-craft__e">e</span><span class="mk-craft__gap" aria-hidden="true"><span class="mk-craft__tool"><svg viewBox="0 0 24 24"><defs><linearGradient id="mk-wood" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a5a32"/><stop offset=".5" stop-color="#c58c55"/><stop offset="1" stop-color="#6e4424"/></linearGradient><linearGradient id="mk-steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d3d8df"/><stop offset=".45" stop-color="#7c8491"/><stop offset="1" stop-color="#3b414b"/></linearGradient></defs><path d="M21.2 2.8 10 14" stroke="url(#mk-wood)" stroke-width="2.4" stroke-linecap="round" fill="none"/><g transform="rotate(45 8 16)"><rect x="1.5" y="12.6" width="13" height="6.8" rx="1" fill="url(#mk-steel)"/><rect x="12.3" y="12.6" width="2.2" height="6.8" rx=".6" fill="#2b3038"/><rect x="2" y="13.1" width="10" height=".9" rx=".45" fill="#fff" opacity=".4"/></g></svg></span></span><span class="mk-craft__d">d</span></span> for <span class="mk-grad">your everyday.</span></h1>
         <p class="mk-lede">Your hub for iOS and Android apps made by ${escapeHtml(owner.name)}. Explore the collection and find your next favorite.</p>
         <a class="mk-btn" href="#apps">Explore the apps</a>
       </section>

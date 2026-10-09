@@ -1410,7 +1410,31 @@ html[data-theme="dark"] .mk-themed {
   animation: mk-bob 6s ease-in-out infinite alternate;
 }
 
-.mk-orbit img:nth-child(2) {
+.mk-orbit a {
+  display: inline-block;
+  border-radius: 24%;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+
+.mk-orbit a:hover,
+.mk-orbit a:focus-visible {
+  transform: scale(1.18) translateY(-4px);
+  filter: drop-shadow(0 18px 28px rgba(15, 27, 61, 0.28));
+}
+
+.mk-orbit a:focus-visible {
+  outline: 3px solid var(--mk-accent);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-orbit a:hover,
+  .mk-orbit a:focus-visible {
+    transform: none;
+  }
+}
+
+.mk-orbit a:nth-child(2) img {
   animation-delay: -3s;
   animation-direction: alternate-reverse;
 }
@@ -1673,6 +1697,68 @@ html[data-theme="dark"] .mk-docapp img {
   .mk-chapter--first .mk-head > * {
     animation: none;
   }
+}
+
+/* ---------- Home: "crafted" gets hammered into place ---------- */
+.mk-craft {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.mk-craft__gap {
+  position: relative;
+  display: inline-block;
+  width: 0;
+}
+
+.mk-craft__d {
+  display: inline-block;
+}
+
+.mk-craft__tool {
+  position: absolute;
+  bottom: 0.44em;
+  left: -0.38em;
+  width: 0.72em;
+  height: 0.72em;
+  opacity: 0;
+  transform: rotate(40deg);
+  transform-origin: 92% 8%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.mk-craft.is-forging .mk-craft__tool {
+  opacity: 1;
+}
+
+.mk-craft__tool svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0.04em 0.05em rgba(0, 0, 0, 0.35));
+}
+
+.mk-craft__e,
+.mk-craft__d {
+  display: inline-block;
+  transform-origin: 50% 100%;
+}
+
+.mk-home-hero h1 {
+  position: relative;
+  margin-top: 0.42em;
+}
+
+.mk-forge {
+  position: absolute;
+  top: -80%;
+  left: -15%;
+  z-index: 2;
+  width: 130%;
+  height: 260%;
+  pointer-events: none;
 }
 
 /* ---------- Home: Today cards ---------- */
