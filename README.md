@@ -1,15 +1,15 @@
 # Korucuk Apps Pages
 
-Static policy, terms, support, and referer pages for apps hosted under:
+Static policy, terms, support, and referrer pages for apps hosted under:
 
 ```text
 https://apps.korucuk.com/swipe-todos/privacy/
 https://apps.korucuk.com/mirror-art/privacy/
-https://apps.korucuk.com/<app-slug>/policy/
+https://apps.korucuk.com/<app-slug>/policy/    (old path, redirects to /privacy/)
 https://apps.korucuk.com/<app-slug>/privacy/
 https://apps.korucuk.com/<app-slug>/terms/
 https://apps.korucuk.com/<app-slug>/support/
-https://apps.korucuk.com/<app-slug>/referer/
+https://apps.korucuk.com/<app-slug>/referrer/   (old /referer/ redirects here)
 https://apps.korucuk.com/<app-slug>/account-deletion/
 ```
 
@@ -54,7 +54,7 @@ Each app's base URL (`/<slug>/`) is its marketing page. Assets live in three pla
 | `public/screenshots/<slug>/` | In-app screens, named `1.png`, `2.png`, ... (App Views carousel) |
 | `public/icons/<slug>.png` | App icon (hero, favicon, social image fallback) |
 
-Every page (home, marketing, policy, terms, support, account deletion, referer) shares one shell: top bar, per-app theme, and footer. Styles live in `public/site.css`, behavior in `public/site.js`.
+Every page (home, marketing, policy, terms, support, account deletion, referrer) shares one shell: top bar, per-app theme, and footer. Styles live in `public/site.css`, behavior in `public/site.js`.
 
 Dark mode follows the system setting and can be toggled from the top bar (the choice is remembered). Each app supplies both palettes under `theme` / `theme.dark`.
 

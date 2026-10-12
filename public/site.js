@@ -89,16 +89,21 @@
     var pill = nav.querySelector(".mk-tabs__pill");
     var tabs = Array.prototype.slice.call(nav.querySelectorAll("a"));
     if (!pill || !tabs.length) return;
-    var active = nav.querySelector("[aria-current]") || tabs[0];
+    // Pages outside the tab set (e.g. the referrer page) start with no tab selected
+    var active = nav.querySelector("[aria-current]");
     var move = function (el) {
       tabs.forEach(function (t) { t.classList.toggle("is-under", t === el); });
+      if (!el) {
+        pill.style.opacity = "0";
+        return;
+      }
+      pill.style.opacity = "1";
       pill.style.width = el.offsetWidth + "px";
       pill.style.height = el.offsetHeight + "px";
       pill.style.transform = "translate(" + el.offsetLeft + "px, " + el.offsetTop + "px)";
     };
     pill.style.transition = "none";
     move(active);
-    pill.style.opacity = "1";
     void pill.offsetWidth;
     pill.style.transition = "";
     tabs.forEach(function (t) {

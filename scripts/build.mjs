@@ -48,6 +48,17 @@ const slugify = (value) =>
 const asList = (items) =>
   `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 
+// App-specific extra sections: [{ heading, paragraphs?: [html], items?: [html] }] (trusted HTML from src/apps.json)
+const extraSections = (sections = []) =>
+  sections
+    .map(
+      (sec) =>
+        `<h2>${escapeHtml(sec.heading)}</h2>${(sec.paragraphs || []).map((p) => `<p>${p}</p>`).join("")}${
+          sec.items ? `<ul>${sec.items.map((i) => `<li>${i}</li>`).join("")}</ul>` : ""
+        }`
+    )
+    .join("");
+
 const defaultDataUsage = (app) => [
   `To operate, display, sync, update, and delete your ${app.name} app data`,
   "To provide account sign-in, account management, and optional profile features",
@@ -125,7 +136,7 @@ const topBar = (app, active) => {
     ? [
         ["Overview", `/${app.slug}/`, "overview"],
         ["Support", `/${app.slug}/support/`, "support"],
-        ["Privacy", `/${app.slug}/policy/`, "policy"],
+        ["Privacy", `/${app.slug}/privacy/`, "privacy"],
         ["Terms", `/${app.slug}/terms/`, "terms"]
       ]
     : site.apps.map((a) => [a.name, `/${a.slug}/`, a.slug]);
@@ -163,9 +174,10 @@ const siteFooter = (app) => {
         <ul>
           <li><a href="/${app.slug}/">Overview</a></li>
           <li><a href="/${app.slug}/support/">Support</a></li>
-          <li><a href="/${app.slug}/policy/">Privacy Policy</a></li>
+          <li><a href="/${app.slug}/privacy/">Privacy Policy</a></li>
           <li><a href="/${app.slug}/terms/">Terms of Use</a></li>
           <li><a href="/${app.slug}/account-deletion/">Account Deletion</a></li>
+          <li><a href="/${app.slug}/referrer/">Referrer Page</a></li>
         </ul>`
     : `<h3>Apps</h3>
         <ul>${site.apps.map((a) => `<li><a href="/${a.slug}/">${escapeHtml(a.name)}</a></li>`).join("")}</ul>`;
@@ -263,10 +275,11 @@ const shell = ({ title, description, app, active, path, ogImage, jsonLd, main, r
 };
 
 const DOC_TABS = [
-  ["policy", "Privacy Policy"],
+  ["privacy", "Privacy Policy"],
   ["terms", "Terms of Use"],
   ["support", "Support"],
-  ["account-deletion", "Account Deletion"]
+  ["account-deletion", "Account Deletion"],
+  ["referrer", "Referrer"]
 ];
 
 const docTabs = (app, key) =>
@@ -277,13 +290,13 @@ const docTabs = (app, key) =>
 
 const layout = ({ title, app, content }) => {
   const key = /Privacy/.test(title)
-    ? "policy"
+    ? "privacy"
     : /Terms/.test(title)
       ? "terms"
       : /Account Deletion/.test(title)
         ? "account-deletion"
-        : /Referer/.test(title)
-          ? "referer"
+        : /Referrer/.test(title)
+          ? "referrer"
           : "support";
 
   return shell({
@@ -291,7 +304,7 @@ const layout = ({ title, app, content }) => {
     description: app.description,
     app,
     active: key,
-    path: `/${app.slug}/${key === "policy" ? "policy" : key}/`,
+    path: `/${app.slug}/${key}/`,
     main: `<div class="mk-wrap mk-docwrap">
       <a class="mk-docapp" href="/${app.slug}/"><img src="${escapeHtml(iconSrc(app))}" alt="" width="46" height="46"><span>${escapeHtml(app.name)}<small>&larr; Back to overview</small></span></a>
       ${docTabs(app, key)}
@@ -331,6 +344,7 @@ const policyPage = (owner, app) =>
       <p>${escapeHtml(app.name)} relies on trusted third-party services to provide the app features listed below.</p>
       ${asList(app.thirdParties)}
       ${app.permissions ? `<h2>App Permissions</h2>${asList(app.permissions)}` : ""}
+      ${extraSections(app.policySections)}
       <h2>Security</h2>
       <p>We use reasonable technical and organizational measures to protect information handled by ${escapeHtml(app.name)}. No method of transmission or storage is completely secure, but we work to keep your information protected through platform and provider security controls.</p>
       <h2>Data Retention</h2>
@@ -338,7 +352,7 @@ const policyPage = (owner, app) =>
       <h2>Your Choices</h2>
       <p>${escapeHtml(app.choices || defaultChoices(app))}</p>
       <h2>Children</h2>
-      <p>${escapeHtml(app.name)} is not directed to children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided personal information, contact us so we can review and delete it where appropriate.</p>
+      <p>${escapeHtml(app.children || `${app.name} is not directed to children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided personal information, contact us so we can review and delete it where appropriate.`)}</p>
       <h2>Changes to This Policy</h2>
       <p>We may update this Privacy Policy from time to time. When we make changes, we will update the effective date on this page.</p>
       <h2>Contact</h2>
@@ -356,8 +370,9 @@ const termsPage = (owner, app) =>
       <h2>Use of the App</h2>
       <p>You are responsible for your use of the app and for complying with applicable laws and platform rules.</p>
       <h2>Accounts and Content</h2>
-      <p>You are responsible for information you provide and for keeping account credentials secure where account features exist.</p>
+      <p>You are responsible for information you provide and for keeping account credentials secure where account features exist.${app.termsAccountsNote ? ` ${escapeHtml(app.termsAccountsNote)}` : ""}</p>
       ${app.termsSpecific ? `<h2>App-Specific Terms</h2>${asList(app.termsSpecific)}` : ""}
+      ${extraSections(app.termsSections)}
       <h2>Service Changes</h2>
       <p>We may update, suspend, or discontinue parts of the app when needed to improve or maintain the service.</p>
       <h2>Disclaimer</h2>
@@ -376,12 +391,13 @@ const supportPage = (owner, app) =>
       <p>For help with ${escapeHtml(app.name)}, contact <a href="mailto:${escapeHtml(app.supportEmail)}">${escapeHtml(app.supportEmail)}</a>.</p>
       <h2>Useful Links</h2>
       <ul>
-        <li><a href="/${app.slug}/policy/">Privacy Policy</a></li>
+        <li><a href="/${app.slug}/privacy/">Privacy Policy</a></li>
         <li><a href="/${app.slug}/terms/">Terms of Use</a></li>
-        <li><a href="/${app.slug}/referer/">Referer Page</a></li>
+        <li><a href="/${app.slug}/referrer/">Referrer Page</a></li>
         <li><a href="/${app.slug}/account-deletion/">Account Deletion</a></li>
       </ul>
       ${app.supportTopics ? `<h2>Common Support Topics</h2>${asList(app.supportTopics)}` : ""}
+      ${extraSections(app.supportSections)}
     </article>`
   });
 
@@ -392,35 +408,47 @@ const accountDeletionPage = (owner, app) =>
     content: `${documentHeader("Account Deletion", app, `${app.name} Account Deletion`)}
       <h2>Delete Your Account</h2>
       <p>${escapeHtml(app.accountDeletion?.inApp || `You can request deletion of your ${app.name} account by contacting support. If an in-app deletion control is available in your installed version, you may also use that control from the account or profile area.`)}</p>
+      ${app.accountDeletion?.notice ? `<p>${app.accountDeletion.notice}</p>` : ""}
       <h2>Request Deletion by Email</h2>
       <p>If you cannot access the app, email <a href="mailto:${escapeHtml(app.supportEmail)}">${escapeHtml(app.supportEmail)}</a> from the email address associated with your account and include the app name, ${escapeHtml(app.name)}, in your message.</p>
       <h2>Data Deleted</h2>
       ${asList(app.accountDeletion?.dataDeleted || defaultAccountDeletionData(app))}
       <h2>Retention</h2>
-      <p>Most associated app data is deleted when the deletion request is processed. Some limited records may be retained if required by law, for security, fraud prevention, dispute resolution, or legitimate operational needs.</p>
+      <p>${escapeHtml(app.accountDeletion?.retention || "Most associated app data is deleted when the deletion request is processed. Some limited records may be retained if required by law, for security, fraud prevention, dispute resolution, or legitimate operational needs.")}</p>
       <h2>Contact</h2>
       <p>${escapeHtml(owner.name)}<br>${escapeHtml(owner.country)}<br><a href="mailto:${escapeHtml(app.supportEmail)}">${escapeHtml(app.supportEmail)}</a></p>
     </article>`
   });
 
-const refererPage = (owner, app) =>
-  layout({
-    title: `${app.name} Referer`,
+const referrerPage = (owner, app) => {
+  const origin = owner.website || "https://apps.korucuk.com";
+  const paths = ["", "policy/", "privacy/", "terms/", "support/", "account-deletion/", "referrer/"];
+  return layout({
+    title: `${app.name} Referrer`,
     app,
-    content: `${documentHeader("Verified App Page", app, `${app.name} Referer`)}
+    content: `${documentHeader("Verified App Page", app, `${app.name} Referrer`)}
       <h2>Purpose</h2>
-      <p>This page verifies that ${escapeHtml(app.name)} is published by ${escapeHtml(owner.name)} and uses ${escapeHtml(owner.website)} as its official policy and reference domain.</p>
+      <p>This page verifies that ${escapeHtml(app.name)} is published by ${escapeHtml(owner.name)} and uses ${escapeHtml(origin)} as its official website, policy and reference domain.</p>
       <h2>Allowed URLs</h2>
-      <ul>
-        <li><code>https://apps.korucuk.com/${app.slug}/policy/</code></li>
-        <li><code>https://apps.korucuk.com/${app.slug}/privacy/</code></li>
-        <li><code>https://apps.korucuk.com/${app.slug}/terms/</code></li>
-        <li><code>https://apps.korucuk.com/${app.slug}/support/</code></li>
-        <li><code>https://apps.korucuk.com/${app.slug}/referer/</code></li>
-        <li><code>https://apps.korucuk.com/${app.slug}/account-deletion/</code></li>
-      </ul>
+      <ul>${paths.map((p) => `<li><code>${escapeHtml(origin)}/${app.slug}/${p}</code></li>`).join("")}</ul>
     </article>`
   });
+};
+
+// Old misspelled path: keep it working by forwarding to the referrer page
+const legacyRedirect = (to) => `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting…</title>
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="${escapeHtml(to)}">
+    <meta http-equiv="refresh" content="0; url=${escapeHtml(to)}">
+  </head>
+  <body>
+    <p>This page has moved to <a href="${escapeHtml(to)}">${escapeHtml(to)}</a>.</p>
+  </body>
+</html>`;
 
 const CATEGORY_LABELS = {
   ProductivityApplication: "Productivity",
@@ -752,7 +780,7 @@ const marketingPage = (owner, app, shots, media) => {
 const sitemap = (origin, apps) => {
   const urls = ["/"];
   for (const app of apps) {
-    urls.push(`/${app.slug}/`, `/${app.slug}/policy/`, `/${app.slug}/terms/`, `/${app.slug}/support/`, `/${app.slug}/account-deletion/`);
+    urls.push(`/${app.slug}/`, `/${app.slug}/privacy/`, `/${app.slug}/terms/`, `/${app.slug}/support/`, `/${app.slug}/account-deletion/`);
   }
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -820,11 +848,12 @@ const build = async () => {
     const shots = await listScreenshots(app.slug);
     const media = mediaBySlug[app.slug];
     await writePage(app.slug, marketingPage(source.owner, app, shots, media));
-    await writePage(`${app.slug}/policy`, policyPage(source.owner, app));
+    await writePage(`${app.slug}/policy`, legacyRedirect(`/${app.slug}/privacy/`));
     await writePage(`${app.slug}/privacy`, policyPage(source.owner, app));
     await writePage(`${app.slug}/terms`, termsPage(source.owner, app));
     await writePage(`${app.slug}/support`, supportPage(source.owner, app));
-    await writePage(`${app.slug}/referer`, refererPage(source.owner, app));
+    await writePage(`${app.slug}/referrer`, referrerPage(source.owner, app));
+    await writePage(`${app.slug}/referer`, legacyRedirect(`/${app.slug}/referrer/`));
     await writePage(`${app.slug}/account-deletion`, accountDeletionPage(source.owner, app));
   }
 
