@@ -259,7 +259,95 @@
           "Rules, settings, and preferences stored for your account",
           "Optional profile photo uploaded through the app"
         ]
-      }
+      },
+      "termsEffectiveDate": "2026-10-13",
+      "termsIntro": "These Terms of Use (\"Terms\") govern your use of Swipe Todos (the \"App\"), provided by Ahmet Said Korucuk (\"we\", \"us\"). By creating an account or using the App you agree to these Terms. If you do not agree, please do not create an account or use the App.",
+      "termsFull": [
+        {
+          "heading": "1. The service",
+          "paragraphs": [
+            "Swipe Todos is a personal to-do app that shows one task at a time. You can swipe to complete or skip tasks, organize them with lists, tags and rules, and receive reminders. Some features (such as list rules and cloud sync) require an account."
+          ]
+        },
+        {
+          "heading": "2. Eligibility",
+          "paragraphs": [
+            "You must be at least 13 years old (or the minimum age required in your country to use online services) to create an account. If you are under the age of majority, you confirm that a parent or guardian has agreed to these Terms on your behalf."
+          ]
+        },
+        {
+          "heading": "3. Accounts and guest mode",
+          "paragraphs": [
+            "You can use the App as a guest with a limit of 5 tasks, or create an account with email and password or Google Sign-In to remove the limit and sync your data. You are responsible for keeping your credentials confidential and for all activity under your account. Provide accurate information and tell us if you suspect unauthorized access."
+          ]
+        },
+        {
+          "heading": "4. Your content",
+          "paragraphs": [
+            "The tasks, notes and other information you enter (\"Your Content\") belong to you. You grant us a limited license to store, process and display Your Content solely to operate the App for you. Your Content is private to your account and is not shared with other users."
+          ]
+        },
+        {
+          "heading": "5. Acceptable use",
+          "paragraphs": [
+            "You agree not to misuse the App. This includes trying to break, probe or disrupt the App or its servers, accessing other users' data, reverse engineering the App except where the law allows it, using automated means to create accounts or load the service, or using the App for anything unlawful."
+          ]
+        },
+        {
+          "heading": "6. Notifications",
+          "paragraphs": [
+            "If you allow notifications, the App sends local reminders for your tasks. You can turn notifications off at any time in your device settings."
+          ]
+        },
+        {
+          "heading": "7. Third-party services",
+          "paragraphs": [
+            "The App relies on third-party services such as Firebase (authentication and data storage), Google Sign-In and Sentry (crash reporting). Their own terms and privacy policies apply to their services."
+          ]
+        },
+        {
+          "heading": "8. Privacy",
+          "paragraphs": [
+            "Our Privacy Policy explains what data we collect and how we use it: <a href=\"/swipe-todos/privacy/\">https://apps.korucuk.com/swipe-todos/privacy/</a>. By using the App you acknowledge it."
+          ]
+        },
+        {
+          "heading": "9. Deleting your account",
+          "paragraphs": [
+            "You can delete your account and its data at any time in the App under Profile > Delete Account. Deleted data cannot be recovered. We may suspend or terminate accounts that violate these Terms."
+          ]
+        },
+        {
+          "heading": "10. Availability and changes",
+          "paragraphs": [
+            "We work to keep the App available and reliable but do not guarantee uninterrupted or error-free service. We may change, suspend or discontinue features at any time. We may update these Terms; if the changes are material, we will tell you in the App. Continued use after an update means you accept the new Terms."
+          ]
+        },
+        {
+          "heading": "11. Disclaimer",
+          "paragraphs": [
+            "The App is provided \"as is\" and \"as available\" without warranties of any kind, to the extent permitted by law. Do not rely on the App as your only copy of important information or for time-critical reminders."
+          ]
+        },
+        {
+          "heading": "12. Limitation of liability",
+          "paragraphs": [
+            "To the extent permitted by law, we are not liable for indirect, incidental or consequential damages, or for loss of data, profits or opportunities arising from your use of the App. Nothing in these Terms limits liability that cannot be limited by law, including your statutory consumer rights."
+          ]
+        },
+        {
+          "heading": "13. Governing law",
+          "paragraphs": [
+            "These Terms are governed by the laws of the Republic of Türkiye, without affecting any mandatory consumer protections of the country where you live."
+          ]
+        },
+        {
+          "heading": "14. Contact",
+          "paragraphs": [
+            "Questions about these Terms: <a href=\"mailto:apps-support@korucuk.com\">apps-support@korucuk.com</a>. Support: <a href=\"/swipe-todos/support/\">https://apps.korucuk.com/swipe-todos/support/</a>."
+          ]
+        }
+      ]
     },
     {
       "slug": "mirror-art",

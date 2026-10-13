@@ -364,8 +364,8 @@ const termsPage = (owner, app) =>
   layout({
     title: `${app.name} Terms of Use`,
     app,
-    content: `${documentHeader("Terms of Use", app, `${app.name} Terms of Use`)}
-      <h2>Acceptance</h2>
+    content: `${documentHeader("Terms of Use", app.termsEffectiveDate ? { ...app, effectiveDate: app.termsEffectiveDate } : app, `${app.name} Terms of Use`)}
+      ${app.termsFull ? `${app.termsIntro ? `<p>${app.termsIntro}</p>` : ""}${extraSections(app.termsFull)}` : `      <h2>Acceptance</h2>
       <p>By using ${escapeHtml(app.name)}, you agree to these terms. If you do not agree, do not use the app.</p>
       <h2>Use of the App</h2>
       <p>You are responsible for your use of the app and for complying with applicable laws and platform rules.</p>
@@ -378,7 +378,7 @@ const termsPage = (owner, app) =>
       <h2>Disclaimer</h2>
       <p>The app is provided on an as-is and as-available basis to the fullest extent permitted by law.</p>
       <h2>Contact</h2>
-      <p>Questions about these terms can be sent to <a href="mailto:${escapeHtml(app.supportEmail)}">${escapeHtml(app.supportEmail)}</a>.</p>
+      <p>Questions about these terms can be sent to <a href="mailto:${escapeHtml(app.supportEmail)}">${escapeHtml(app.supportEmail)}</a>.</p>`}
     </article>`
   });
 
