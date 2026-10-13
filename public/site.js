@@ -14,9 +14,19 @@
           }
         });
       },
-      { threshold: 0.01, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.01, rootMargin: "0px 0px 14% 0px" }
     );
     revealEls.forEach(function (el) { revealObserver.observe(el); });
+    // Everything within about a screen and a half of the top plays its entrance right away, in order,
+    // so the area below the hero never sits empty waiting for a scroll.
+    revealEls
+      .filter(function (el) { return el.getBoundingClientRect().top < window.innerHeight * 2.4; })
+      .forEach(function (el, i) {
+        window.setTimeout(function () {
+          el.classList.add("is-in");
+          revealObserver.unobserve(el);
+        }, 140 + Math.min(i, 9) * 90);
+      });
   } else {
     revealEls.forEach(function (el) { el.classList.add("is-in"); });
   }
@@ -37,6 +47,7 @@
       root.dataset.theme = next;
       try { localStorage.setItem("mk-theme", next); } catch (e) {}
       syncTheme();
+      document.dispatchEvent(new Event("mk-themechange"));
     });
   }
   var darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -194,6 +205,7 @@
       var offset = viewport.offsetWidth / 2 - slideW / 2 - idx * slideW;
       track.style.transform = "translateX(" + offset + "px)";
       if (current) current.textContent = String(idx + 1);
+      g.dispatchEvent(new CustomEvent("gallery:change", { detail: { index: idx } }));
     }
 
     g.querySelector(".gallery__nav--prev").addEventListener("click", function () { show(idx - 1); });
@@ -216,6 +228,8 @@
     });
 
     window.addEventListener("resize", function () { show(idx); });
+    g.__mkShow = show;
+    g.__mkIndex = function () { return idx; };
     show(0);
   });
 
@@ -223,6 +237,402 @@
   if (document.documentElement.classList.contains("mk-entering")) {
     window.setTimeout(function () { document.documentElement.classList.remove("mk-entering"); }, 1400);
   }
+
+  // Inside the game: the list drives the carousel, and the carousel drives the list
+  each(".mk-inside", function (sec) {
+    var g = sec.querySelector(".gallery[data-count]");
+    var items = Array.prototype.slice.call(sec.querySelectorAll(".mk-inside__copy li"));
+    if (!g || !g.__mkShow || !items.length) return;
+    var mark = function (idx) {
+      items.forEach(function (li, i) {
+        var on = i === idx;
+        li.classList.toggle("is-active", on);
+        if (on) li.setAttribute("aria-current", "true");
+        else li.removeAttribute("aria-current");
+      });
+    };
+    g.addEventListener("gallery:change", function (e) {
+      mark(e.detail.index);
+    });
+    items.forEach(function (li, i) {
+      li.tabIndex = 0;
+      li.setAttribute("role", "button");
+      li.addEventListener("click", function () {
+        g.__mkShow(i);
+      });
+      li.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          li.click();
+        }
+      });
+    });
+    mark(g.__mkIndex());
+  });
+
+  // Try it (Mirror Art): draw on one half and the other half mirrors it live
+  each('[data-demo="mirror"]', function (demo) {
+    var canvas = demo.querySelector("canvas");
+    var ctx = canvas && canvas.getContext && canvas.getContext("2d");
+    if (!ctx) return;
+    var axisBtns = Array.prototype.slice.call(demo.querySelectorAll("[data-axis]"));
+    var axis = "lr";
+    var strokes = [];
+    var drawing = null;
+    var W = 0;
+    var H = 0;
+    var ghostRaf = 0;
+    var ghostPlayed = false;
+
+    var LEAF = [[0.27, 0.8], [0.215, 0.7], [0.175, 0.56], [0.185, 0.4], [0.235, 0.27], [0.33, 0.19], [0.42, 0.17], [0.435, 0.3], [0.415, 0.46], [0.37, 0.62], [0.3, 0.75], [0.27, 0.8]];
+    var VEIN = [[0.27, 0.8], [0.3, 0.64], [0.345, 0.48], [0.4, 0.34]];
+    var sample = function (poly, n) {
+      var lens = [0];
+      for (var i = 1; i < poly.length; i++) {
+        lens.push(lens[i - 1] + Math.hypot(poly[i][0] - poly[i - 1][0], poly[i][1] - poly[i - 1][1]));
+      }
+      var out = [];
+      for (var k = 0; k < n; k++) {
+        var d = (lens[lens.length - 1] * k) / (n - 1);
+        var j = 1;
+        while (j < lens.length - 1 && lens[j] < d) j++;
+        var f = (d - lens[j - 1]) / (lens[j] - lens[j - 1] || 1);
+        out.push([poly[j - 1][0] + (poly[j][0] - poly[j - 1][0]) * f, poly[j - 1][1] + (poly[j][1] - poly[j - 1][1]) * f]);
+      }
+      return out;
+    };
+    var chaikin = function (poly, rounds) {
+      var out = poly;
+      for (var r = 0; r < rounds; r++) {
+        var next = [out[0]];
+        for (var i = 0; i < out.length - 1; i++) {
+          var p = out[i];
+          var q = out[i + 1];
+          next.push([0.75 * p[0] + 0.25 * q[0], 0.75 * p[1] + 0.25 * q[1]], [0.25 * p[0] + 0.75 * q[0], 0.25 * p[1] + 0.75 * q[1]]);
+        }
+        next.push(out[out.length - 1]);
+        out = next;
+      }
+      return out;
+    };
+    var ghostFull = [sample(chaikin(LEAF, 3), 90), sample(chaikin(VEIN, 3), 28)];
+    var ghostTotal = 118;
+
+    var css = function (name) { return getComputedStyle(demo).getPropertyValue(name).trim(); };
+
+    var tracePath = function (pts, mirror) {
+      var map = function (p) {
+        var x = mirror && axis === "lr" ? 1 - p[0] : p[0];
+        var y = mirror && axis === "tb" ? 1 - p[1] : p[1];
+        return [x * W, y * H];
+      };
+      ctx.beginPath();
+      var a = map(pts[0]);
+      ctx.moveTo(a[0], a[1]);
+      if (pts.length === 1) {
+        ctx.lineTo(a[0] + 0.01, a[1]);
+      } else {
+        for (var i = 1; i < pts.length - 1; i++) {
+          var p = map(pts[i]);
+          var q = map(pts[i + 1]);
+          ctx.quadraticCurveTo(p[0], p[1], (p[0] + q[0]) / 2, (p[1] + q[1]) / 2);
+        }
+        var z = map(pts[pts.length - 1]);
+        ctx.lineTo(z[0], z[1]);
+      }
+      ctx.stroke();
+    };
+
+    var draw = function () {
+      ctx.clearRect(0, 0, W, H);
+      var line = css("--mk-line");
+      var ink = css("--mk-accent");
+      var step = Math.max(28, W / 14);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = line;
+      ctx.globalAlpha = 0.6;
+      var x;
+      var y;
+      for (x = step; x < W; x += step) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+      for (y = step; y < H; y += step) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+      ctx.globalAlpha = 0.7;
+      ctx.setLineDash([7, 7]);
+      ctx.strokeStyle = ink;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      if (axis === "lr") { ctx.moveTo(W / 2, 10); ctx.lineTo(W / 2, H - 10); } else { ctx.moveTo(10, H / 2); ctx.lineTo(W - 10, H / 2); }
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = Math.max(3.5, W / 110);
+      ctx.strokeStyle = ink;
+      strokes.forEach(function (s) {
+        if (!s.pts.length) return;
+        ctx.shadowBlur = 0;
+        tracePath(s.pts, false);
+        ctx.shadowColor = ink;
+        ctx.shadowBlur = ctx.lineWidth * 2.4;
+        tracePath(s.pts, true);
+        ctx.shadowBlur = 0;
+      });
+    };
+
+    var size = function () {
+      var r = canvas.getBoundingClientRect();
+      if (!r.width) return;
+      var dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = r.width;
+      H = r.height;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    };
+
+    var stopGhost = function () {
+      if (ghostRaf) window.cancelAnimationFrame(ghostRaf);
+      ghostRaf = 0;
+      strokes = strokes.filter(function (s) { return !s.auto; });
+    };
+    var playGhost = function () {
+      if (ghostPlayed) return;
+      ghostPlayed = true;
+      if (reduceMotion) {
+        strokes = ghostFull.map(function (p) { return { pts: p, auto: true }; });
+        demo.classList.add("is-drawn");
+        draw();
+        return;
+      }
+      var start = performance.now();
+      demo.classList.add("is-drawn");
+      var step = function (now) {
+        var n = Math.min(ghostTotal, Math.floor(((now - start) / 2600) * ghostTotal));
+        strokes = [
+          { pts: ghostFull[0].slice(0, Math.min(90, n)), auto: true },
+          { pts: n > 90 ? ghostFull[1].slice(0, n - 90) : [], auto: true }
+        ];
+        draw();
+        ghostRaf = n < ghostTotal ? window.requestAnimationFrame(step) : 0;
+      };
+      ghostRaf = window.requestAnimationFrame(step);
+    };
+
+    var point = function (e) {
+      var r = canvas.getBoundingClientRect();
+      return [Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), Math.min(1, Math.max(0, (e.clientY - r.top) / r.height))];
+    };
+    canvas.addEventListener("pointerdown", function (e) {
+      stopGhost();
+      drawing = { pts: [point(e)] };
+      strokes.push(drawing);
+      try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
+      demo.classList.add("is-drawn");
+      draw();
+      e.preventDefault();
+    });
+    canvas.addEventListener("pointermove", function (e) {
+      if (!drawing) return;
+      var p = point(e);
+      var last = drawing.pts[drawing.pts.length - 1];
+      if (Math.hypot((p[0] - last[0]) * W, (p[1] - last[1]) * H) > 2) {
+        drawing.pts.push(p);
+        draw();
+      }
+    });
+    var end = function () { drawing = null; };
+    canvas.addEventListener("pointerup", end);
+    canvas.addEventListener("pointercancel", end);
+
+    axisBtns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        axis = b.getAttribute("data-axis");
+        axisBtns.forEach(function (o) { o.setAttribute("aria-pressed", String(o === b)); });
+        draw();
+      });
+    });
+    var undo = demo.querySelector("[data-undo]");
+    var clear = demo.querySelector("[data-clear]");
+    if (undo) undo.addEventListener("click", function () { stopGhost(); strokes.pop(); if (!strokes.length) demo.classList.remove("is-drawn"); draw(); });
+    if (clear) clear.addEventListener("click", function () { stopGhost(); strokes = []; demo.classList.remove("is-drawn"); draw(); });
+
+    if ("ResizeObserver" in window) new ResizeObserver(size).observe(canvas);
+    window.addEventListener("resize", size);
+    document.addEventListener("mk-themechange", draw);
+    size();
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          io.disconnect();
+          if (!strokes.length) playGhost();
+        }
+      }, { threshold: 0.5 });
+      io.observe(canvas);
+    }
+  });
+
+  // Try it (Swipe Todos): a small deck to swipe
+  each('[data-demo="swipe"]', function (demo) {
+    var cards = [];
+    try { cards = JSON.parse(demo.getAttribute("data-cards") || "[]"); } catch (e) {}
+    var deck = demo.querySelector(".mk-deck");
+    var status = demo.querySelector(".mk-demo__status");
+    var btnDone = demo.querySelector("[data-done]");
+    var btnLater = demo.querySelector("[data-later]");
+    var btnUndo = demo.querySelector("[data-undo]");
+    if (!cards.length || !deck) return;
+
+    var queue = cards.slice();
+    var history = [];
+    var done = 0;
+    var later = 0;
+    var top = null;
+    var busy = false;
+    var THRESH = 90;
+
+    var el = function (tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text != null) n.textContent = text;
+      return n;
+    };
+    var row = function (label, value, cls) {
+      var r = el("div", "mk-sc__row");
+      r.appendChild(el("span", "mk-sc__label", label));
+      r.appendChild(el("span", "mk-sc__value" + (cls ? " " + cls : ""), value));
+      return r;
+    };
+    var build = function (c, depth) {
+      var card = el("div", "mk-sc" + (depth === 0 ? " is-top" : ""));
+      card.style.setProperty("--i", depth);
+      if (depth > 0) card.setAttribute("aria-hidden", "true");
+      var head = el("div", "mk-sc__head");
+      head.appendChild(el("span", "mk-sc__tag", c.tag));
+      head.appendChild(el("span", "mk-sc__count", cards.indexOf(c) + 1 + "/" + cards.length));
+      card.appendChild(head);
+      card.appendChild(el("strong", "mk-sc__title", c.title));
+      var meta = el("div", "mk-sc__meta");
+      meta.appendChild(row("Priority", c.priority, "is-" + String(c.priority).toLowerCase()));
+      meta.appendChild(row("Estimate", c.estimate));
+      meta.appendChild(row("Due", c.due));
+      card.appendChild(meta);
+      card.appendChild(el("span", "mk-sc__stamp mk-sc__stamp--done", "DONE"));
+      card.appendChild(el("span", "mk-sc__stamp mk-sc__stamp--later", "LATER"));
+      return card;
+    };
+    var updateStatus = function () {
+      status.textContent = queue.length + " left · " + done + " done · " + later + " later";
+      btnUndo.disabled = !history.length || busy;
+      btnDone.disabled = btnLater.disabled = !queue.length || busy;
+    };
+    var render = function () {
+      deck.innerHTML = "";
+      top = null;
+      if (!queue.length) {
+        var empty = el("div", "mk-sc__empty");
+        empty.appendChild(el("strong", "", "All clear"));
+        empty.appendChild(el("span", "", "Nothing left in the deck."));
+        var again = el("button", "mk-demo__btn", "Start over");
+        again.type = "button";
+        again.addEventListener("click", function () {
+          queue = cards.slice();
+          history = [];
+          done = 0;
+          later = 0;
+          render();
+        });
+        empty.appendChild(again);
+        deck.appendChild(empty);
+      } else {
+        for (var i = Math.min(2, queue.length - 1); i >= 0; i--) {
+          var c = build(queue[i], i);
+          deck.appendChild(c);
+          if (i === 0) top = c;
+        }
+      }
+      updateStatus();
+    };
+    var stamps = function (dx) {
+      if (!top) return;
+      var p = Math.min(1, Math.abs(dx) / THRESH);
+      top.querySelector(".mk-sc__stamp--done").style.opacity = dx > 0 ? p : 0;
+      top.querySelector(".mk-sc__stamp--later").style.opacity = dx < 0 ? p : 0;
+    };
+    var fly = function (dir) {
+      if (!top || busy) return;
+      busy = true;
+      var t = top;
+      stamps(dir * THRESH);
+      t.style.transition = "transform 0.38s cubic-bezier(0.5, 0, 0.9, 0.4), opacity 0.38s ease";
+      t.style.transform = "translate(" + dir * 520 + "px, -30px) rotate(" + dir * 22 + "deg)";
+      t.style.opacity = "0";
+      updateStatus();
+      window.setTimeout(function () {
+        var c = queue.shift();
+        history.push({ c: c, dir: dir });
+        if (dir > 0) done++; else later++;
+        busy = false;
+        render();
+      }, 340);
+    };
+    var undo = function () {
+      if (!history.length || busy) return;
+      var h = history.pop();
+      queue.unshift(h.c);
+      if (h.dir > 0) done--; else later--;
+      render();
+      var t = top;
+      t.style.transition = "none";
+      t.style.transform = "translate(" + h.dir * 520 + "px, -30px) rotate(" + h.dir * 22 + "deg)";
+      t.style.opacity = "0";
+      void t.offsetWidth;
+      t.style.transition = "transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease";
+      t.style.transform = "";
+      t.style.opacity = "1";
+    };
+
+    var startX = null;
+    var dx = 0;
+    deck.addEventListener("pointerdown", function (e) {
+      if (busy || !top || !top.contains(e.target)) return;
+      startX = e.clientX;
+      dx = 0;
+      try { deck.setPointerCapture(e.pointerId); } catch (err) {}
+      top.style.transition = "none";
+      top.classList.add("is-drag");
+    });
+    deck.addEventListener("pointermove", function (e) {
+      if (startX === null || !top) return;
+      dx = e.clientX - startX;
+      top.style.transform = "translate(" + dx + "px, " + Math.abs(dx) * 0.06 + "px) rotate(" + dx * 0.06 + "deg)";
+      stamps(dx);
+    });
+    var release = function () {
+      if (startX === null || !top) return;
+      startX = null;
+      top.classList.remove("is-drag");
+      if (Math.abs(dx) > THRESH) {
+        fly(dx > 0 ? 1 : -1);
+      } else {
+        top.style.transition = "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)";
+        top.style.transform = "";
+        stamps(0);
+      }
+    };
+    deck.addEventListener("pointerup", release);
+    deck.addEventListener("pointercancel", release);
+
+    btnDone.addEventListener("click", function () { fly(1); });
+    btnLater.addEventListener("click", function () { fly(-1); });
+    btnUndo.addEventListener("click", undo);
+    deck.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { e.preventDefault(); fly(1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); fly(-1); }
+      else if (e.key === "Backspace" || e.key === "z") { e.preventDefault(); undo(); }
+    });
+    render();
+  });
 
   // Home hero: a small forge. "crafted" is heated, struck three times, and cooled.
   var craft = document.querySelector(".mk-craft");
@@ -495,6 +905,11 @@
         });
       }, { threshold: 0.45 });
       cards.forEach(function (c) { openObserver.observe(c); });
+      var early = cards.filter(function (c) { return c.getBoundingClientRect().top < window.innerHeight * 1.5; });
+      early.forEach(function (c, i) {
+        openObserver.unobserve(c);
+        window.setTimeout(function () { openCard(c); }, 700 + i * 260);
+      });
     } else {
       cards.forEach(openCard);
     }

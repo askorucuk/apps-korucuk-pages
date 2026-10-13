@@ -650,7 +650,42 @@ const ribbon = (items) =>
       </div></div>`
     : "";
 
+const demoMarkup = (demo, reveal = true) => {
+  const rv = reveal ? " data-reveal" : "";
+  if (demo.type === "mirror") {
+    return `<div class="mk-demo mk-demo--mirror" data-demo="mirror"${rv}>
+      <div class="mk-demo__bar">
+        <div class="mk-seg" role="group" aria-label="Mirror axis">
+          <button type="button" data-axis="lr" aria-pressed="true">Left&ndash;Right</button>
+          <button type="button" data-axis="tb" aria-pressed="false">Top&ndash;Bottom</button>
+        </div>
+        <span class="mk-demo__tools">
+          <button type="button" class="mk-demo__btn" data-undo>Undo</button>
+          <button type="button" class="mk-demo__btn" data-clear>Clear</button>
+        </span>
+      </div>
+      <div class="mk-demo__stage">
+        <canvas role="img" aria-label="Drawing pad. Whatever you draw is mirrored across the dashed line."></canvas>
+        <p class="mk-demo__hint">Draw here and watch your twin appear</p>
+      </div>
+    </div>`;
+  }
+  if (demo.type === "swipe") {
+    return `<div class="mk-demo mk-demo--swipe" data-demo="swipe" data-cards="${escapeHtml(JSON.stringify(demo.cards || []))}"${rv}>
+      <div class="mk-deck" tabindex="0" role="group" aria-label="Task deck. Drag a card, or use the arrow keys: right for done, left for later, Backspace to undo."></div>
+      <div class="mk-demo__bar mk-demo__bar--center">
+        <button type="button" class="mk-round mk-round--later" data-later aria-label="Later (swipe left)">&larr; Later</button>
+        <button type="button" class="mk-round" data-undo>Undo</button>
+        <button type="button" class="mk-round mk-round--done" data-done aria-label="Done (swipe right)">Done &rarr;</button>
+      </div>
+      <p class="mk-demo__status" aria-live="polite"></p>
+    </div>`;
+  }
+  return "";
+};
+
 const chapterVisual = (chapter, app, reveal = true) => {
+  if (chapter.demo) return demoMarkup(chapter.demo, reveal);
   const rv = reveal ? " data-reveal" : "";
   const [front, back] = chapter.srcs;
   if (front === "@icon") {
@@ -674,7 +709,7 @@ const renderChapter = (chapter, index, app, side) => {
   const heading = `<h2>${escapeHtml(chapter.heading)}</h2>`;
   const copy = chapter.html ? `<div class="mk-copy">${chapter.html}</div>` : "";
 
-  if (chapter.srcs.length) {
+  if (chapter.srcs.length || chapter.demo) {
     return `<section class="mk-chapter mk-chapter--${side}${first ? " mk-chapter--first" : ""} mk-wrap" id="${escapeHtml(id)}">
       <div class="mk-chapter__text${first ? "" : " mk-stagger"}">${eyebrow}${heading}${copy}</div>
       <div class="mk-chapter__media">${chapterVisual(chapter, app, !first)}</div>
@@ -750,7 +785,7 @@ const marketingPage = (owner, app, shots, media) => {
   let mediaIndex = 0;
   const chapterHtml = media.chapters.map((chapter, i) => {
     let side = "center";
-    if (chapter.srcs.length) {
+    if (chapter.srcs.length || chapter.demo) {
       side = chapter.side || (mediaIndex % 2 === 0 ? "right" : "left");
       mediaIndex += 1;
     }

@@ -75,6 +75,53 @@
             "html": "<ul><li><strong>Swipe right</strong> → mark the task complete.</li><li><strong>Swipe left</strong> → skip it (it can come back later).</li><li><strong>Undo</strong> — recover a mis-swipe with a single tap.</li><li>Haptic feedback for a tactile confirmation.</li></ul>"
           },
           {
+            "id": "try",
+            "eyebrow": "Try it",
+            "heading": "Swipe a card. Feel the flow.",
+            "side": "right",
+            "demo": {
+              "type": "swipe",
+              "cards": [
+                {
+                  "tag": "Work",
+                  "title": "Send the Q3 invoice",
+                  "priority": "Medium",
+                  "estimate": "15 mins",
+                  "due": "Tomorrow"
+                },
+                {
+                  "tag": "Family",
+                  "title": "Call mom",
+                  "priority": "Medium",
+                  "estimate": "30 mins",
+                  "due": "Sunday evening"
+                },
+                {
+                  "tag": "Errands",
+                  "title": "Check the shopping list",
+                  "priority": "High",
+                  "estimate": "20 mins",
+                  "due": "Tonight"
+                },
+                {
+                  "tag": "Errands",
+                  "title": "Return the jacket",
+                  "priority": "Low",
+                  "estimate": "10 mins",
+                  "due": "Friday"
+                },
+                {
+                  "tag": "Home",
+                  "title": "Meal prep",
+                  "priority": "Medium",
+                  "estimate": "45 mins",
+                  "due": "Sunday"
+                }
+              ]
+            },
+            "html": "<p>Drag the card right to finish it, left to skip it for later. Slipped? Undo it with one tap.</p><p><small>Sample tasks, so you can play around.</small></p>"
+          },
+          {
             "id": "rules",
             "eyebrow": "Deck Rules",
             "heading": "You define the order",
@@ -82,7 +129,7 @@
               "rule-promotion-landscape.png",
               "order-promotion-landscape.png"
             ],
-            "side": "right",
+            "side": "left",
             "html": "<p>The card that comes up next is entirely under your control:</p><ul><li>Sort by Priority, Due Date, Creation Date, or Estimated Time.</li><li>Drag rules up and down to change which one wins ties.</li><li><strong>Custom Rules</strong> — save presets that combine multiple sort fields (&ldquo;Quick wins first&rdquo;, &ldquo;Deadline crunch&rdquo;, &hellip;) and apply them with one tap.</li><li>Show or hide completed / skipped cards in the deck.</li><li><strong>Auto-skip</strong> — cards that have been sitting for more than 7 days can be skipped automatically.</li></ul>"
           },
           {
@@ -93,7 +140,7 @@
               "add-task-promotion-landscape.png",
               "create-todo-promotion--landscape.png"
             ],
-            "side": "left",
+            "side": "right",
             "html": "<p>Every card can carry:</p><ul><li>Title and details</li><li>Priority (Low / Medium / High)</li><li>Due date (date + time)</li><li>Reminder (quick presets: 15 min, 1 hour, tonight 8PM, tomorrow 9AM, &hellip;)</li><li>Estimated duration (minutes)</li><li>Category &amp; tags</li><li>Schedule: weekday / weekend recurrence</li></ul>"
           },
           {
@@ -103,7 +150,7 @@
             "media": [
               "reminder-notification-promotion--landscape.jpg"
             ],
-            "side": "right",
+            "side": "left",
             "html": "<p>Local push notifications with a custom sound. Complete or skip a task straight from the notification.</p>"
           },
           {
@@ -114,7 +161,7 @@
               "dark-mode-base-promotion-landscape.png",
               "light-to-dark-mode-promotion-landscape.png"
             ],
-            "side": "left",
+            "side": "right",
             "html": "<ul><li><strong>Dark mode</strong></li><li><strong>Floating navbar</strong> — swap the standard tab bar for a floating pill</li><li><strong>Welcome walkthrough</strong> — a guided tour on first launch, replayable any time from Settings</li></ul>"
           },
           {
@@ -233,11 +280,11 @@
         "dark": {
           "accent": "#2dd4bf",
           "on": "#04201d",
-          "deep": "#0a1716",
-          "from": "#10211f",
-          "to": "#16302c",
-          "bg": "#0a1413",
-          "card": "#12201e"
+          "deep": "#0b1b19",
+          "from": "#0f1e1c",
+          "to": "#15292a",
+          "bg": "#0a1514",
+          "card": "#101d1b"
         }
       },
       "marketing": {
@@ -267,6 +314,16 @@
             "html": "<p>Mirror Art is a mindful drawing experience for iPhone and Android. A shape appears on one side of your screen — your job is to draw its mirror image on the other side. The closer your reflection matches the target, the higher your score.</p><p>It's part game, part art tool, part focus practice. No penalties, no rush unless you want it. Just you, your finger, and a mirror.</p>"
           },
           {
+            "id": "try",
+            "eyebrow": "Try it",
+            "heading": "Draw anything. Meet your twin.",
+            "side": "left",
+            "demo": {
+              "type": "mirror"
+            },
+            "html": "<p>Draw on either half and its reflection appears on the other side, live. Switch between left&ndash;right and top&ndash;bottom, just like in the game.</p><p><small>A small taste of the real thing. In the game you also get a shape to match, a score and a grade.</small></p>"
+          },
+          {
             "id": "how",
             "eyebrow": "How it works",
             "heading": "Three scores. One grade.",
@@ -274,7 +331,7 @@
               "scroes-and-grade-marketing-promotion.png",
               "stroke-count-marketing-promotion.png"
             ],
-            "side": "left",
+            "side": "right",
             "html": "<p>Pick a difficulty. A shape appears on one half of the canvas as your <strong>template</strong>. On the other half, you draw its reflection. When you finish, Mirror Art scores your work on three measures, the same ones you see on the result screen:</p><ul><li><strong>Accuracy</strong> — how close your strokes land to the mirrored target</li><li><strong>Coverage</strong> — how completely you traced the shape</li><li><strong>Clean lines</strong> — how tidy the drawing is; stray marks, over-drawing and extra strokes lower it</li></ul><p>Your final score maps to a grade: <strong>F → D → C → B → A → S</strong>. Grade thresholds scale to the mode — Easy and Medium have no time bonus, so S is reachable there without racing the clock.</p>"
           },
           {
@@ -291,7 +348,7 @@
               "daily-challenge-marketing-promotion.png",
               "streak-marketing-promotion.png"
             ],
-            "side": "right",
+            "side": "left",
             "html": "<p>One shape per day, the same for every player worldwide. Your score enters the daily leaderboard. Miss a day and your streak resets, unless a streak shield has your back.</p>"
           },
           {

@@ -804,16 +804,14 @@ html[data-theme="dark"] .mk-themed {
   position: relative;
   margin: clamp(24px, 4vw, 56px) 0;
   padding: clamp(48px, 7vw, 96px) 0;
-  background:
-    radial-gradient(70% 60% at 85% 0%, color-mix(in srgb, var(--mk-accent) 14%, transparent), transparent 70%),
-    linear-gradient(180deg, transparent, var(--mk-from) 14%, var(--mk-from) 86%, transparent);
+  background: radial-gradient(60% 45% at 80% 40%, color-mix(in srgb, var(--mk-accent) 10%, transparent), transparent);
 }
 
 .mk-inside__top {
   display: grid;
   grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
   gap: clamp(28px, 6vw, 96px);
-  align-items: center;
+  align-items: start;
   justify-content: center;
 }
 
@@ -2423,3 +2421,355 @@ html.mk-entering body::before {
     display: none;
   }
 }
+
+/* ---------- Interactive explainers ---------- */
+.mk-demo {
+  display: none;
+}
+
+.js .mk-demo {
+  --ok: #15803d;
+  --no: #b91c1c;
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: clamp(14px, 2vw, 22px);
+  border: 1px solid var(--mk-line);
+  border-radius: 28px;
+  background: color-mix(in oklab, var(--mk-card) 88%, var(--mk-from));
+  box-shadow: 0 34px 60px -34px rgba(15, 27, 61, 0.35);
+}
+
+html[data-theme="dark"] .js .mk-demo {
+  --ok: #4ade80;
+  --no: #f87171;
+}
+
+.mk-demo__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.mk-demo__bar--center {
+  justify-content: center;
+  margin: 18px 0 0;
+}
+
+.mk-seg {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--mk-line);
+  border-radius: 999px;
+  background: var(--mk-card);
+}
+
+.mk-seg button {
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mk-muted);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out);
+}
+
+.mk-seg button[aria-pressed="true"] {
+  background: var(--mk-accent);
+  color: var(--mk-on-accent);
+}
+
+.mk-demo__tools {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.mk-demo__btn {
+  padding: 7px 14px;
+  border: 1px solid var(--mk-line);
+  border-radius: 999px;
+  background: var(--mk-card);
+  color: var(--mk-ink);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: border-color var(--dur-quick) var(--ease-out), transform var(--dur-quick) var(--ease-out);
+}
+
+.mk-demo__btn:hover:not(:disabled) {
+  border-color: var(--mk-accent);
+  transform: translateY(-1px);
+}
+
+.mk-demo__btn:disabled,
+.mk-round:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.mk-demo__stage {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--mk-card);
+  box-shadow: inset 0 0 0 1px var(--mk-line);
+}
+
+.mk-demo__stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.mk-demo__hint {
+  position: absolute;
+  right: 0;
+  bottom: 14px;
+  left: 0;
+  margin: 0;
+  color: var(--mk-muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: center;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.is-drawn .mk-demo__hint {
+  opacity: 0;
+}
+
+/* Swipe deck */
+.mk-deck {
+  position: relative;
+  height: clamp(300px, 56vw, 360px);
+  margin-bottom: 30px;
+  touch-action: pan-y;
+  outline-offset: 6px;
+}
+
+.mk-sc {
+  position: absolute;
+  inset: 0 7%;
+  z-index: calc(10 - var(--i, 0));
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 22px;
+  border: 1px solid var(--mk-line);
+  border-radius: 24px;
+  background: var(--mk-card);
+  box-shadow: 0 22px 40px -22px rgba(15, 27, 61, 0.45);
+  transform: translateY(calc(var(--i, 0) * 14px)) scale(calc(1 - var(--i, 0) * 0.05));
+  transform-origin: 50% 100%;
+  transition: transform 0.4s var(--ease-out);
+  user-select: none;
+}
+
+.mk-sc.is-top {
+  cursor: grab;
+}
+
+.mk-sc.is-drag {
+  cursor: grabbing;
+}
+
+.mk-sc__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mk-sc__tag {
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--mk-accent);
+  color: var(--mk-on-accent);
+  font-size: 0.74rem;
+  font-weight: 760;
+}
+
+.mk-sc__count {
+  color: var(--mk-muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.mk-sc__title {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  color: var(--mk-ink);
+  font-size: clamp(1.3rem, 3.4vw, 1.7rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.mk-sc__meta {
+  display: grid;
+  gap: 4px;
+}
+
+.mk-sc__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+}
+
+.mk-sc__label {
+  color: var(--mk-muted);
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mk-sc__value {
+  color: var(--mk-ink);
+  font-weight: 760;
+}
+
+.mk-sc__value.is-high { color: var(--no); }
+.mk-sc__value.is-medium { color: #b7791f; }
+.mk-sc__value.is-low { color: var(--ok); }
+
+.mk-sc__stamp {
+  position: absolute;
+  top: 54px;
+  padding: 4px 12px;
+  border: 3px solid currentColor;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mk-sc__stamp--done {
+  left: 22px;
+  color: var(--ok);
+  transform: rotate(-12deg);
+}
+
+.mk-sc__stamp--later {
+  right: 22px;
+  color: var(--no);
+  transform: rotate(12deg);
+}
+
+.mk-sc__empty {
+  position: absolute;
+  inset: 0 7%;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  border: 2px dashed var(--mk-line);
+  border-radius: 24px;
+  color: var(--mk-muted);
+  text-align: center;
+}
+
+.mk-sc__empty strong {
+  color: var(--mk-ink);
+  font-size: 1.3rem;
+}
+
+.mk-round {
+  padding: 10px 20px;
+  border: 1px solid var(--mk-line);
+  border-radius: 999px;
+  background: var(--mk-card);
+  color: var(--mk-ink);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--dur-quick) var(--ease-out), border-color var(--dur-quick) var(--ease-out);
+}
+
+.mk-round:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.mk-round--done {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+.mk-round--later {
+  border-color: var(--no);
+  color: var(--no);
+}
+
+.mk-demo__status {
+  margin: 12px 0 0;
+  color: var(--mk-muted);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+/* Inside the game: list items drive the carousel */
+.mk-inside.is-auto .mk-inside__copy li,
+.mk-inside__copy li[role="button"] {
+  cursor: pointer;
+}
+
+.mk-inside__copy li[role="button"]:focus-visible {
+  outline: 2px solid var(--mk-accent);
+  outline-offset: 2px;
+}
+
+.mk-inside__copy li.is-active::before {
+  box-shadow: 0 0 0 5px color-mix(in oklab, var(--mk-accent) 25%, transparent);
+}
+
+
+
+/* ---------- Softer color blends (greens and blues melt into each other) ---------- */
+.mk-themed {
+  --mk-mid: color-mix(in oklab, var(--mk-strong) 52%, var(--mk-deep));
+}
+
+@supports (background: linear-gradient(in oklab, red, blue)) {
+  .mk-cta {
+    background:
+      radial-gradient(90% 120% at 12% 0%, color-mix(in oklab, var(--mk-strong) 60%, white 12%), transparent 70%),
+      linear-gradient(135deg in oklab, var(--mk-strong) 0%, var(--mk-mid) 46%, var(--mk-deep) 100%);
+  }
+
+  .mk-tcard {
+    background:
+      radial-gradient(120% 70% at 85% 0%, color-mix(in oklab, var(--mk-to) 34%, transparent), transparent 66%),
+      linear-gradient(160deg in oklab, var(--mk-strong) 0%, var(--mk-mid) 55%, var(--mk-deep) 100%);
+  }
+
+  .mk-inside {
+    background: radial-gradient(60% 45% at 80% 40%, color-mix(in oklab, var(--mk-accent) 10%, transparent), transparent);
+  }
+
+  .gallery {
+    background: linear-gradient(180deg in oklab, var(--mk-from), color-mix(in oklab, var(--mk-from) 55%, var(--mk-to)));
+  }
+}
+
+.mk-footer::before {
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--mk-accent) 70%, var(--mk-deep)), transparent);
+  opacity: 0.34;
+  filter: blur(46px);
+}
+
