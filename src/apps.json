@@ -244,6 +244,8 @@
         "tagline": "Draw. Mirror. Reflect. — A meditative drawing game where every stroke you make becomes half of a symmetric composition.",
         "ribbon": [
           "Free play",
+          "Ink colors",
+          "Pinch to zoom",
           "Series",
           "Daily Challenge",
           "Campaign",
@@ -256,12 +258,68 @@
           {
             "id": "about",
             "eyebrow": "What is Mirror Art?",
-            "heading": "A mindful drawing experience",
+            "heading": "You draw its twin",
             "media": [
-              "@icon"
+              "mirror-twin-marketing-promotion.png",
+              "your-drawing-marketing-promotion.png"
             ],
             "side": "right",
             "html": "<p>Mirror Art is a mindful drawing experience for iPhone and Android. A shape appears on one side of your screen — your job is to draw its mirror image on the other side. The closer your reflection matches the target, the higher your score.</p><p>It's part game, part art tool, part focus practice. No penalties, no rush unless you want it. Just you, your finger, and a mirror.</p>"
+          },
+          {
+            "id": "how",
+            "eyebrow": "How it works",
+            "heading": "Three scores. One grade.",
+            "media": [
+              "scroes-and-grade-marketing-promotion.png",
+              "stroke-count-marketing-promotion.png"
+            ],
+            "side": "left",
+            "html": "<p>Pick a difficulty. A shape appears on one half of the canvas as your <strong>template</strong>. On the other half, you draw its reflection. When you finish, Mirror Art scores your work on three measures, the same ones you see on the result screen:</p><ul><li><strong>Accuracy</strong> — how close your strokes land to the mirrored target</li><li><strong>Coverage</strong> — how completely you traced the shape</li><li><strong>Clean lines</strong> — how tidy the drawing is; stray marks, over-drawing and extra strokes lower it</li></ul><p>Your final score maps to a grade: <strong>F → D → C → B → A → S</strong>. Grade thresholds scale to the mode — Easy and Medium have no time bonus, so S is reachable there without racing the clock.</p>"
+          },
+          {
+            "id": "axis",
+            "eyebrow": "The mirror axis",
+            "heading": "Left–right or top–bottom",
+            "html": "<p>The mirror line runs between the two canvas halves. You choose the layout in Settings:</p><ul><li><strong>Left–Right</strong> (default) — vertical mirror line. Perfect for most shapes; your drawing appears the &ldquo;right way up.&rdquo;</li><li><strong>Top–Bottom</strong> — horizontal mirror line. More challenging; some shapes appear upside-down when reflected.</li></ul><p>Because top–bottom flips can feel unnatural, there's an <strong>Auto-Flip Canvas</strong> setting (on by default). When enabled, your drawing area is quietly flipped along the mirror axis — so shapes always appear the natural way up while you draw, and the score still measures a true reflection.</p>"
+          },
+          {
+            "id": "daily",
+            "eyebrow": "Daily Challenge",
+            "heading": "One shape a day. Same for everyone.",
+            "media": [
+              "daily-challenge-marketing-promotion.png",
+              "streak-marketing-promotion.png"
+            ],
+            "side": "right",
+            "html": "<p>One shape per day, the same for every player worldwide. Your score enters the daily leaderboard. Miss a day and your streak resets, unless a streak shield has your back.</p>"
+          },
+          {
+            "id": "watch",
+            "eyebrow": "Watch",
+            "heading": "See it in motion",
+            "reels": [
+              {
+                "type": "video",
+                "file": "attractive-marketinf-reels-promotion.mp4",
+                "title": "Can you draw its twin?"
+              },
+              {
+                "type": "video",
+                "file": "emotional-marketing-promotion.mp4",
+                "title": "One shape a day"
+              },
+              {
+                "type": "image",
+                "file": "daily-challenge-marketing-vertical-promotion.png",
+                "title": "The same shape for everyone"
+              },
+              {
+                "type": "image",
+                "file": "adress-promotion.png",
+                "title": "Can you get an S?"
+              }
+            ]
           },
           {
             "id": "why",
@@ -290,27 +348,6 @@
               }
             ],
             "outro": "<p><em>Suitable for ages 13 and up. No violence, no chat, no ads.</em></p>"
-          },
-          {
-            "id": "how",
-            "eyebrow": "How it works",
-            "heading": "Scored on three measures",
-            "html": "<p>Pick a difficulty. A shape appears on one half of the canvas as your <strong>template</strong>. On the other half, you draw its reflection. When you finish, Mirror Art scores your work on three measures, the same ones you see on the result screen:</p>",
-            "cards": [
-              {
-                "title": "Accuracy",
-                "body": "How close your strokes land to the mirrored target."
-              },
-              {
-                "title": "Coverage",
-                "body": "How completely you traced the shape."
-              },
-              {
-                "title": "Clean lines",
-                "body": "How tidy the drawing is. Stray marks, over-drawing and extra strokes lower it."
-              }
-            ],
-            "outro": "<p>Your final score maps to a grade: <strong>F → D → C → B → A → S</strong>. Grade thresholds scale to the mode — Easy and Medium have no time bonus, so S is reachable there without racing the clock.</p><h3>The mirror axis</h3><p>The mirror line runs between the two canvas halves. You choose the layout in Settings:</p><ul><li><strong>Left–Right</strong> (default) — vertical mirror line. Perfect for most shapes; your drawing appears the &ldquo;right way up.&rdquo;</li><li><strong>Top–Bottom</strong> — horizontal mirror line. More challenging; some shapes appear upside-down when reflected.</li></ul><p>Because top–bottom flips can feel unnatural, there's an <strong>Auto-Flip Canvas</strong> setting (on by default). When enabled, your drawing area is quietly flipped along the mirror axis — so shapes always appear the natural way up while you draw, and the score still measures a true reflection.</p>"
           },
           {
             "id": "modes",
@@ -444,7 +481,48 @@
             "outro": "<p><small>Prices are shown in the store. Subscriptions renew automatically unless cancelled at least 24 hours before the period ends. See <a href=\"/mirror-art/terms/\">Terms</a> and <a href=\"/mirror-art/privacy/\">Privacy</a>.</small></p>"
           }
         ],
-        "headline": "Draw. Mirror. Reflect."
+        "headline": "Draw. Mirror. Reflect.",
+        "video": {
+          "file": "marketing-video.mp4",
+          "poster": "can-u-draw-marketing-promotion.png"
+        },
+        "card": "can-u-draw-marketing-promotion.png",
+        "inside": {
+          "id": "inside",
+          "eyebrow": "Inside the game",
+          "heading": "See exactly how it plays",
+          "html": "<p>Real screens from Mirror Art, from the first stroke to your grade.</p><ul><li><strong>Drawing area</strong> — template on top, your mirror below.</li><li><strong>Finger gestures</strong> — pinch to zoom, two fingers to pan.</li><li><strong>Ink colors</strong> — pick an ink and the whole drawing recolors.</li><li><strong>Three scores, one grade</strong> — accuracy, coverage, clean lines.</li><li><strong>Draw your own</strong> — draw it, name it, share it.</li><li><strong>Community &amp; ranks</strong> — play their shapes, climb the leaderboard.</li></ul>",
+          "video": {
+            "file": "game-inside-marketing-content.mp4",
+            "poster": "game-inside-marketing-content.jpg"
+          },
+          "screens": [
+            {
+              "file": "01-drawing-area.png",
+              "title": "Drawing area: template on top, your mirror below"
+            },
+            {
+              "file": "02-finger-gestures.png",
+              "title": "Finger gestures: pinch to zoom, two fingers to pan"
+            },
+            {
+              "file": "03-ink-colors.png",
+              "title": "Ink colors: pick an ink and the whole drawing recolors"
+            },
+            {
+              "file": "04-three-scores.png",
+              "title": "Three scores, one grade: accuracy, coverage, clean lines"
+            },
+            {
+              "file": "05-draw-your-own.png",
+              "title": "Draw your own: draw it, name it, share it"
+            },
+            {
+              "file": "06-community-ranks.png",
+              "title": "Community and ranks: play their shapes, climb the leaderboard"
+            }
+          ]
+        }
       },
       "storeLinks": {
         "appStore": "#",

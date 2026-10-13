@@ -83,6 +83,8 @@ In `src/apps.json`, per app:
 
 - A chapter with `media` renders text beside the visual: one file is a single frame, two files are a stacked pair (front, back). Use `"@icon"` to show the app icon. `side` is `left` or `right`; it alternates by default.
 - A chapter without `media` renders centered, with optional `cards`, `chips`, `html` (intro) and `outro`.
+- A centered chapter can also hold `reels`: `[{ "type": "video" | "image", "file": "...", "title": "..." }]`, shown as vertical 9:16 cards (videos play muted while on screen, with a sound button).
+- `inside` (optional) is a featured block right below the ribbon: a phone-framed gameplay video (`video.file`, `video.poster`), a bullet list (`html`), and a large carousel of store-style screens (`screens: [{ file, title }]`, portrait 1290x2796 works well). Files live in `marketingcontents/<slug>/`.
 - `chapters[0]` renders first, then the App Views carousel, then the rest.
 - Missing media files are skipped, so an app with an empty folder still renders (hero shows the large icon).
 - The build also writes `sitemap.xml` and `robots.txt`.

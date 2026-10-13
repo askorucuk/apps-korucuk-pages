@@ -133,7 +133,7 @@
   }
 
   // Hero video: sound toggle, pause off-screen, honour reduced motion
-  each(".mk-video", function (box) {
+  each(".mk-video, .mk-reel, .mk-phone", function (box) {
     var video = box.querySelector("video");
     var btn = box.querySelector(".mk-video__sound");
     if (!video) return;

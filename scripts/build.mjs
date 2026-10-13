@@ -544,19 +544,20 @@ const storeBadges = (app) => {
   <p class="store-note"><span aria-hidden="true">*</span> Links will become active once the app is launched.</p>`;
 };
 
-const gallery = (shots) => {
+const gallery = (shots, { tall = false } = {}) => {
   if (!shots.length) return "";
   const slides = shots
-    .map(
-      (src, i) =>
-        `<figure class="gallery__slide">
+    .map((shot, i) => {
+      const src = typeof shot === "string" ? shot : shot.src;
+      const alt = typeof shot === "string" ? `App view ${i + 1}` : shot.alt;
+      return `<figure class="gallery__slide">
           <div class="gallery__frame">
-            <img src="${escapeHtml(src)}" alt="App view ${i + 1}" loading="${i < 2 ? "eager" : "lazy"}">
+            <img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="${i < 2 ? "eager" : "lazy"}">
           </div>
-        </figure>`
-    )
+        </figure>`;
+    })
     .join("");
-  return `<div class="gallery gallery--coverflow" data-count="${shots.length}" tabindex="0" role="region" aria-roledescription="carousel" aria-label="App views">
+  return `<div class="gallery gallery--coverflow${tall ? " gallery--tall" : ""}" data-count="${shots.length}" tabindex="0" role="region" aria-roledescription="carousel" aria-label="App views">
     <button class="gallery__nav gallery__nav--prev" type="button" aria-label="Previous view">&larr;</button>
     <div class="gallery__viewport">
       <div class="gallery__track">${slides}</div>
@@ -603,11 +604,40 @@ const resolveMedia = async (app) => {
         console.warn(`[${app.slug}] chapter media missing: ${file}`);
       }
     }
-    chapters.push({ ...chapter, srcs });
+    const reelItems = [];
+    for (const reel of chapter.reels || []) {
+      if (await exists(join(dir, reel.file))) {
+        reelItems.push({ ...reel, src: `${base}/${reel.file}` });
+      } else {
+        console.warn(`[${app.slug}] reel missing: ${reel.file}`);
+      }
+    }
+    chapters.push({ ...chapter, srcs, reelItems });
   }
 
   const card = m.card && (await exists(join(dir, m.card))) ? `${base}/${m.card}` : video?.poster || null;
-  return { video, chapters, card };
+  let inside = null;
+  if (m.inside) {
+    const ins = m.inside;
+    const insVideo =
+      ins.video?.file && (await exists(join(dir, ins.video.file)))
+        ? {
+            src: `${base}/${ins.video.file}`,
+            poster: ins.video.poster && (await exists(join(dir, ins.video.poster))) ? `${base}/${ins.video.poster}` : null
+          }
+        : null;
+    const screens = [];
+    for (const sc of ins.screens || []) {
+      if (await exists(join(dir, sc.file))) {
+        screens.push({ src: `${base}/${sc.file}`, alt: sc.title });
+      } else {
+        console.warn(`[${app.slug}] screen missing: ${sc.file}`);
+      }
+    }
+    if (insVideo || screens.length) inside = { ...ins, video: insVideo, screens };
+  }
+
+  return { video, chapters, card, inside };
 };
 
 const soundIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>`;
@@ -662,11 +692,23 @@ const renderChapter = (chapter, index, app, side) => {
   const chips = chapter.chips?.length
     ? `<ul class="mk-chips" data-reveal>${chapter.chips.map((c) => `<li>${escapeHtml(c)}</li>`).join("")}</ul>`
     : "";
+  const reels = chapter.reelItems?.length
+    ? `<div class="mk-reels">${chapter.reelItems
+        .map((r, i) => {
+          const sound = `<button class="mk-video__sound" type="button" aria-pressed="false">${soundIcon}<span>Sound</span></button>`;
+          const media =
+            r.type === "video"
+              ? `<video muted loop playsinline preload="metadata" aria-label="${escapeHtml(r.title)}"><source src="${escapeHtml(r.src)}#t=0.1" type="video/mp4"></video>${sound}`
+              : `<img src="${escapeHtml(r.src)}" width="1080" height="1920" alt="${escapeHtml(r.title)}" loading="lazy">`;
+          return `<figure class="mk-reel" data-reveal style="--d:${i % 4}"><div class="mk-reel__media">${media}</div><figcaption>${escapeHtml(r.title)}</figcaption></figure>`;
+        })
+        .join("")}</div>`
+    : "";
   const outro = chapter.outro ? `<div class="mk-copy mk-copy--outro" data-reveal>${chapter.outro}</div>` : "";
 
   return `<section class="mk-chapter mk-chapter--center mk-wrap" id="${escapeHtml(id)}">
     <div class="mk-head${first ? "" : " mk-stagger"}">${eyebrow}${heading}${copy}</div>
-    ${cards}${chips}${outro}
+    ${cards}${reels}${chips}${outro}
   </section>`;
 };
 
@@ -725,7 +767,34 @@ const marketingPage = (owner, app, shots, media) => {
       </section>`
     : "";
 
+  const ins = media.inside;
+  const insideSection = ins
+    ? `<section class="mk-inside" id="${escapeHtml(ins.id || "inside")}">
+        <div class="mk-wrap">
+          <div class="mk-inside__top">
+            ${
+              ins.video
+                ? `<div class="mk-phone" data-reveal>
+                    <video muted loop playsinline preload="metadata"${ins.video.poster ? ` poster="${escapeHtml(ins.video.poster)}"` : ""} aria-label="${escapeHtml(app.name)} gameplay">
+                      <source src="${escapeHtml(ins.video.src)}" type="video/mp4">
+                    </video>
+                    <button class="mk-video__sound" type="button" aria-pressed="false">${soundIcon}<span>Play with sound</span></button>
+                  </div>`
+                : ""
+            }
+            <div class="mk-inside__copy mk-stagger">
+              <p class="mk-eyebrow">${escapeHtml(ins.eyebrow || "Inside the game")}</p>
+              <h2>${escapeHtml(ins.heading)}</h2>
+              <div class="mk-copy">${ins.html || ""}</div>
+            </div>
+          </div>
+          ${ins.screens.length ? `<div class="mk-inside__gallery" data-reveal>${gallery(ins.screens, { tall: true })}</div>` : ""}
+        </div>
+      </section>`
+    : "";
+
   const railItems = [
+    ...(ins ? [{ id: ins.id || "inside", label: ins.eyebrow || "Inside the game" }] : []),
     ...media.chapters.map((c, i) => ({ id: c.id || `chapter-${i + 1}`, label: c.eyebrow || c.heading })),
     ...(shots.length ? [{ id: "app-views", label: "App Views" }] : []),
     { id: "download", label: "Download" }
@@ -733,7 +802,7 @@ const marketingPage = (owner, app, shots, media) => {
   if (shots.length) {
     const viewsAt = railItems.findIndex((r) => r.id === "app-views");
     const [views] = railItems.splice(viewsAt, 1);
-    railItems.splice(Math.min(1, media.chapters.length), 0, views);
+    railItems.splice(Math.min(1 + (ins ? 1 : 0), media.chapters.length + (ins ? 1 : 0)), 0, views);
   }
   const rail = `<nav class="mk-rail" aria-label="Page chapters">${railItems
     .map((r) => `<a href="#${escapeHtml(r.id)}" data-label="${escapeHtml(r.label)}" aria-label="${escapeHtml(r.label)}"></a>`)
@@ -751,6 +820,8 @@ const marketingPage = (owner, app, shots, media) => {
     </section>
 
     ${ribbon(m.ribbon)}
+
+    ${insideSection}
 
     ${chapterHtml[0] || ""}
     ${appViews}

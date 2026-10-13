@@ -799,6 +799,203 @@ html[data-theme="dark"] .mk-themed {
   transform: none;
 }
 
+/* Inside the game: gameplay video in a phone, plus the store screens */
+.mk-inside {
+  position: relative;
+  margin: clamp(24px, 4vw, 56px) 0;
+  padding: clamp(48px, 7vw, 96px) 0;
+  background:
+    radial-gradient(70% 60% at 85% 0%, color-mix(in srgb, var(--mk-accent) 14%, transparent), transparent 70%),
+    linear-gradient(180deg, transparent, var(--mk-from) 14%, var(--mk-from) 86%, transparent);
+}
+
+.mk-inside__top {
+  display: grid;
+  grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+  gap: clamp(28px, 6vw, 96px);
+  align-items: center;
+  justify-content: center;
+}
+
+.mk-inside__copy h2 {
+  margin: 0 0 16px;
+  color: var(--mk-ink);
+  font-size: clamp(2rem, 4.2vw, 3.2rem);
+  font-weight: 820;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+
+.mk-inside__copy .mk-copy ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.mk-inside__copy .mk-copy li {
+  position: relative;
+  padding: 10px 0 10px 28px;
+  border-bottom: 1px solid var(--mk-line);
+}
+
+.mk-inside__copy .mk-copy li::before {
+  content: "";
+  position: absolute;
+  top: 1.15em;
+  left: 4px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--mk-accent);
+}
+
+.mk-phone {
+  position: relative;
+  width: min(100%, 340px);
+  margin: 0 auto;
+  overflow: hidden;
+  aspect-ratio: 9 / 19.5;
+  border: 10px solid #0e1514;
+  border-radius: 46px;
+  background: #0e1514;
+  box-shadow: 0 50px 90px -30px rgba(15, 27, 61, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.mk-phone::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  z-index: 2;
+  width: 84px;
+  height: 24px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #000;
+}
+
+.mk-phone video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 34px;
+  object-fit: cover;
+}
+
+.mk-phone .mk-video__sound {
+  right: 50%;
+  bottom: 18px;
+  transform: translateX(50%);
+}
+
+.mk-inside__gallery {
+  margin-top: clamp(40px, 6vw, 72px);
+}
+
+.gallery--tall .gallery__viewport {
+  min-height: clamp(640px, 82vh, 880px);
+}
+
+.gallery--tall .gallery__slide {
+  flex-basis: clamp(300px, 28vw, 420px);
+}
+
+.gallery--tall .gallery__slide img {
+  max-height: clamp(560px, 70vh, 780px);
+}
+
+@media (max-width: 880px) {
+  .mk-inside__top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mk-phone {
+    width: min(76%, 320px);
+  }
+}
+
+@media (max-width: 640px) {
+  .gallery--tall .gallery__viewport {
+    min-height: 560px;
+  }
+
+  .gallery--tall .gallery__slide {
+    flex-basis: 250px;
+  }
+
+  .gallery--tall .gallery__slide img {
+    max-height: 500px;
+  }
+}
+
+/* Vertical clips and posters */
+.mk-reels {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 24px);
+}
+
+.mk-reel {
+  margin: 0;
+}
+
+.mk-reel__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 9 / 16;
+  border-radius: 22px;
+  background: #0b1020;
+  box-shadow: 0 26px 50px -22px rgba(15, 27, 61, 0.45), 0 0 0 1px var(--mk-line);
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+}
+
+.mk-reel:hover .mk-reel__media {
+  transform: translateY(-6px);
+  box-shadow: 0 38px 64px -24px rgba(15, 27, 61, 0.55), 0 0 0 1px var(--mk-line);
+}
+
+.mk-reel__media video,
+.mk-reel__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mk-reel figcaption {
+  padding: 12px 4px 0;
+  color: var(--mk-muted);
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .mk-reels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .mk-reels {
+    display: flex;
+    overflow-x: auto;
+    padding: 4px 4px 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mk-reel {
+    flex: 0 0 66%;
+    scroll-snap-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-reel:hover .mk-reel__media {
+    transform: none;
+  }
+}
+
 /* ---------- Chapter rail ---------- */
 .mk-rail {
   position: fixed;
