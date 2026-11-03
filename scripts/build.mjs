@@ -176,6 +176,7 @@ const siteFooter = (app) => {
           <li><a href="/${app.slug}/support/">Support</a></li>
           <li><a href="/${app.slug}/privacy/">Privacy Policy</a></li>
           <li><a href="/${app.slug}/terms/">Terms of Use</a></li>
+          ${app.kvkkNotice ? `<li><a href="/${app.slug}/kvkk-notice/">KVKK Aydınlatma Metni</a></li>` : ""}
           <li><a href="/${app.slug}/account-deletion/">Account Deletion</a></li>
           <li><a href="/${app.slug}/referrer/">Referrer Page</a></li>
         </ul>`
@@ -277,6 +278,7 @@ const shell = ({ title, description, app, active, path, ogImage, jsonLd, main, r
 const DOC_TABS = [
   ["privacy", "Privacy Policy"],
   ["terms", "Terms of Use"],
+  ["kvkk-notice", "Aydınlatma (KVKK)"],
   ["support", "Support"],
   ["account-deletion", "Account Deletion"],
   ["referrer", "Referrer"]
@@ -285,11 +287,13 @@ const DOC_TABS = [
 const docTabs = (app, key) =>
   `<nav class="mk-tabs" aria-label="Documents">
     <span class="mk-tabs__pill" aria-hidden="true"></span>
-    ${DOC_TABS.map(([k, label]) => `<a href="/${app.slug}/${k}/"${k === key ? ' aria-current="page"' : ""}>${label}</a>`).join("")}
+    ${DOC_TABS.filter(([k]) => k !== "kvkk-notice" || app.kvkkNotice).map(([k, label]) => `<a href="/${app.slug}/${k}/"${k === key ? ' aria-current="page"' : ""}>${label}</a>`).join("")}
   </nav>`;
 
 const layout = ({ title, app, content }) => {
-  const key = /Privacy/.test(title)
+  const key = /Aydınlatma|KVKK/.test(title)
+    ? "kvkk-notice"
+    : /Privacy/.test(title)
     ? "privacy"
     : /Terms/.test(title)
       ? "terms"
@@ -382,6 +386,48 @@ const termsPage = (owner, app) =>
     </article>`
   });
 
+// KVKK (Law No. 6698) disclosure notice; Turkish text is authoritative. Content comes from app.kvkkNotice / app.kvkkNoticeEn in src/apps.json (trusted HTML)
+const kvkkSections = (n) =>
+  n.sections
+    .map(
+      (sec) =>
+        `<h2>${escapeHtml(sec.heading)}</h2>${(sec.paragraphs || []).map((para) => `<p>${para}</p>`).join("")}${
+          sec.items ? `<ul>${sec.items.map((item) => `<li>${item}</li>`).join("")}</ul>` : ""
+        }${sec.after ? `<p>${sec.after}</p>` : ""}`
+    )
+    .join("");
+
+const kvkkPage = (owner, app) => {
+  const tr = app.kvkkNotice;
+  const en = app.kvkkNoticeEn;
+  const block = (n, lang, id, eyebrow, effective, contact, privacyNote) => `<article class="document" lang="${lang}" id="${id}">
+      <p class="eyebrow">${eyebrow}</p>
+      <h1>${escapeHtml(app.name)} ${escapeHtml(n.title)}</h1>
+      <p>${escapeHtml(n.description)}</p>
+      <div class="meta">
+        <span class="pill">${effective} ${escapeHtml(n.effectiveDate || app.effectiveDate)}</span>
+        <span class="pill">${escapeHtml(app.platforms.join(", "))}</span>
+        <span class="pill">${contact} ${escapeHtml(app.supportEmail)}</span>
+      </div>
+      <p>${n.intro}</p>
+      ${kvkkSections(n)}
+      ${privacyNote}
+    </article>`;
+  const trBlock = block(tr, "tr", "tr", "KVKK Aydınlatma Metni", "Yürürlük", "İletişim", `<p>İngilizce gizlilik politikası için <a href="/${app.slug}/privacy/">Privacy Policy</a> sayfasına bakabilirsiniz.</p>`);
+  const enBlock = en
+    ? block(en, "en", "en", "KVKK Notice", "Effective", "Contact", `<p>For the full privacy policy, see the <a href="/${app.slug}/privacy/">Privacy Policy</a> page.</p>`)
+    : "";
+  // English is the default; the Turkish text shows when the TR link targets #tr (CSS :target without JS, data-kvkk with JS)
+  return layout({
+    title: `${app.name} ${en ? en.title : tr.title}`,
+    app,
+    content: en
+      ? `<nav class="lang-switch" aria-label="Language"><a href="#en" hreflang="en" lang="en" title="English"><span class="lang-switch__flag" aria-hidden="true">🇬🇧</span><span>EN</span></a><a href="#tr" hreflang="tr" lang="tr" title="Türkçe"><span class="lang-switch__flag" aria-hidden="true">🇹🇷</span><span>TR</span></a></nav>
+    ${enBlock}${trBlock}`
+      : trBlock
+  });
+};
+
 const supportPage = (owner, app) =>
   layout({
     title: `${app.name} Support`,
@@ -422,7 +468,7 @@ const accountDeletionPage = (owner, app) =>
 
 const referrerPage = (owner, app) => {
   const origin = owner.website || "https://apps.korucuk.com";
-  const paths = ["", "policy/", "privacy/", "terms/", "support/", "account-deletion/", "referrer/"];
+  const paths = ["", "policy/", "privacy/", "terms/", ...(app.kvkkNotice ? ["kvkk-notice/"] : []), "support/", "account-deletion/", "referrer/"];
   return layout({
     title: `${app.name} Referrer`,
     app,
@@ -525,6 +571,7 @@ const homePage = ({ owner, apps, media }) => {
 const storeBadges = (app) => {
   const appStore = app.storeLinks?.appStore || "#";
   const playStore = app.storeLinks?.playStore || "#";
+  const pending = [appStore === "#" && "App Store", playStore === "#" && "Google Play"].filter(Boolean);
   return `<div class="store-badges">
     <a class="store-badge" href="${escapeHtml(appStore)}" aria-label="Download on the App Store">
       <img class="store-badge__icon store-badge__icon--apple" src="/badges/apple.svg" alt="" aria-hidden="true">
@@ -541,7 +588,11 @@ const storeBadges = (app) => {
       </span>
     </a>
   </div>
-  <p class="store-note"><span aria-hidden="true">*</span> Links will become active once the app is launched.</p>`;
+  ${
+    pending.length
+      ? `<p class="store-note"><span aria-hidden="true">*</span> ${pending.join(" and ")} ${pending.length > 1 ? "links" : "link"} will become active once the app is launched.</p>`
+      : ""
+  }`;
 };
 
 const gallery = (shots, { tall = false } = {}) => {
@@ -886,7 +937,7 @@ const marketingPage = (owner, app, shots, media) => {
 const sitemap = (origin, apps) => {
   const urls = ["/"];
   for (const app of apps) {
-    urls.push(`/${app.slug}/`, `/${app.slug}/privacy/`, `/${app.slug}/terms/`, `/${app.slug}/support/`, `/${app.slug}/account-deletion/`);
+    urls.push(`/${app.slug}/`, `/${app.slug}/privacy/`, `/${app.slug}/terms/`, ...(app.kvkkNotice ? [`/${app.slug}/kvkk-notice/`] : []), `/${app.slug}/support/`, `/${app.slug}/account-deletion/`);
   }
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -957,6 +1008,7 @@ const build = async () => {
     await writePage(`${app.slug}/policy`, legacyRedirect(`/${app.slug}/privacy/`));
     await writePage(`${app.slug}/privacy`, policyPage(source.owner, app));
     await writePage(`${app.slug}/terms`, termsPage(source.owner, app));
+    if (app.kvkkNotice) await writePage(`${app.slug}/kvkk-notice`, kvkkPage(source.owner, app));
     await writePage(`${app.slug}/support`, supportPage(source.owner, app));
     await writePage(`${app.slug}/referrer`, referrerPage(source.owner, app));
     await writePage(`${app.slug}/referer`, legacyRedirect(`/${app.slug}/referrer/`));

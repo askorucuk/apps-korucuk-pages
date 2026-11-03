@@ -15,7 +15,7 @@
         "iOS",
         "Android"
       ],
-      "effectiveDate": "2026-05-06",
+      "effectiveDate": "2026-10-30",
       "supportEmail": "apps-support@korucuk.com",
       "description": "Swipe Todos is a simple task management app for creating, organizing, and completing personal to-do items.",
       "category": "ProductivityApplication",
@@ -213,44 +213,50 @@
         "headline": "One task at a time."
       },
       "storeLinks": {
-        "appStore": "#",
+        "appStore": "https://apps.apple.com/tr/app/swipe-todos/id6812285250",
         "playStore": "#"
       },
       "dataCollected": [
-        "Account information, such as email address, display name, authentication provider, and user ID",
-        "Optional profile photo if you choose to upload one",
-        "Task content you create, such as task title, description, priority, tags, category, due date, reminder time, status, and completion history",
-        "App preferences and automation rules you configure inside Swipe Todos",
-        "Limited technical data processed by Firebase and Google Play services to operate authentication, storage, database, security, and app distribution features"
+        "Account information: email address, display name, sign-in method (email, Google or guest) and a unique user ID. If you sign in with Google, your Google profile name and profile photo link",
+        "Task content you create: title, description, priority, tags, keywords, category, due date, reminder time and repeat, schedule days, estimated time, status, and completion or skip history",
+        "App preferences: language, dark mode, notification and display options, avatar colour or initials, and the deck sorting rules you configure",
+        "Feedback you choose to send us from inside the app",
+        "Usage timestamps, such as when your account and settings were created and when the app was last used",
+        "Diagnostic data for crash and error reporting (Sentry): app version, device model, operating system version, error details and your user ID. Task titles, descriptions, names and email addresses are removed or masked before this data is sent",
+        "Unfinished new-task drafts, kept only on your device for up to 24 hours and never sent to our servers"
       ],
       "dataNotCollected": [
-        "Precise location",
+        "Precise or approximate location",
         "Contacts",
         "Payment information",
         "Health or fitness information",
-        "Advertising identifiers for targeted advertising"
+        "Advertising identifiers or profiles for targeted advertising",
+        "Browsing activity outside the app"
       ],
       "thirdParties": [
-        "Google Firebase Authentication for email, anonymous, and Google sign-in",
-        "Google Cloud Firestore for storing your tasks, settings, and rules",
-        "Google Firebase Storage for optional profile photos",
-        "Google Play services and Google Play Store for app distribution and platform security",
-        "Expo notification APIs for scheduling reminders on your device"
+        "Google Firebase Authentication for email, guest (anonymous) and Google sign-in",
+        "Google Cloud Firestore for storing your tasks, settings, rules and feedback",
+        "Google Firebase Storage for an optional profile photo, if that option is available in your version",
+        "Google Sign-In, if you choose to sign in with your Google account",
+        "Sentry (sentry.io) for crash and error reporting",
+        "Apple App Store and Google Play Store for app distribution and platform security, under their own policies",
+        "Expo notification APIs for scheduling reminders on your device (reminders are local; we do not send remote push notifications)"
       ],
       "permissions": [
         "Notifications permission, used only to show task reminders when you enable reminders",
-        "Photo library permission, used only when you choose to upload a profile photo"
+        "Photo library permission, used only if you choose to upload a profile photo and that option is available in your version"
       ],
       "dataUsage": [
         "To create, sync, display, update, complete, skip, restore, and delete your Swipe Todos tasks",
         "To provide account sign-in, account management, and optional profile features",
-        "To save app preferences and reminder settings",
+        "To save app preferences, rules and reminder settings",
         "To send local task reminders when you enable notifications",
-        "To maintain app security, prevent abuse, and troubleshoot service issues",
-        "To respond to support requests and privacy requests"
+        "To detect, diagnose and fix crashes and errors",
+        "To maintain app security and prevent abuse",
+        "To receive and review feedback you send, and to respond to support and privacy requests"
       ],
-      "retention": "We keep your account information, tasks, preferences, rules, and optional profile photo while your account remains active or as needed to provide Swipe Todos. Tasks moved to trash may be permanently deleted automatically after 10 days. If you delete your account, the app attempts to delete your tasks, rules, settings, and optional profile photo associated with that account, unless retention is required by law or needed for legitimate security purposes.",
-      "choices": "You can update your profile information in the app where available. You can delete individual tasks, permanently delete tasks, or delete your account from the app. You may also request access, correction, or deletion of your personal information by contacting us at apps-support@korucuk.com.",
+      "retention": "We keep your account information, tasks, preferences, rules and feedback while your account remains active or as needed to provide Swipe Todos. Tasks you delete move to the trash and are permanently deleted automatically after 10 days. If you turn on the optional skipped-task clean-up setting, tasks skipped for more than 1 day move to the trash. Unfinished drafts stay on your device for up to 24 hours. Crash and error diagnostics are kept by Sentry for a limited period. If you delete your account, the app attempts to delete your tasks, rules, settings and any profile photo associated with that account, unless retention is required by law or needed for legitimate security purposes.",
+      "choices": "You can update your profile information in the app where available, delete tasks, and delete your account from the app (Profile > Delete Account). You may also request access, correction, deletion or restriction of your personal information, or object to its processing, by contacting us at apps-support@korucuk.com. See Your Rights below.",
       "accountDeletion": {
         "inApp": "You can request deletion of your Swipe Todos account from inside the app by opening Profile and choosing Delete Account. When account deletion is completed, Swipe Todos attempts to delete the account and associated app data, including tasks, rules, settings, and optional profile photo.",
         "dataDeleted": [
@@ -260,13 +266,13 @@
           "Optional profile photo uploaded through the app"
         ]
       },
-      "termsEffectiveDate": "2026-10-13",
+      "termsEffectiveDate": "2026-10-30",
       "termsIntro": "These Terms of Use (\"Terms\") govern your use of Swipe Todos (the \"App\"), provided by Ahmet Said Korucuk (\"we\", \"us\"). By creating an account or using the App you agree to these Terms. If you do not agree, please do not create an account or use the App.",
       "termsFull": [
         {
           "heading": "1. The service",
           "paragraphs": [
-            "Swipe Todos is a personal to-do app that shows one task at a time. You can swipe to complete or skip tasks, organize them with lists, tags and rules, and receive reminders. Some features (such as list rules and cloud sync) require an account."
+            "Swipe Todos is a personal to-do app that shows one task at a time. You can swipe to complete or skip tasks, organize them with tags, rules and reminders, and receive reminders. Some features (such as list rules and cloud sync) require an account. The App is currently free and has no paid features; if that changes, we will tell you before you pay for anything."
           ]
         },
         {
@@ -278,76 +284,338 @@
         {
           "heading": "3. Accounts and guest mode",
           "paragraphs": [
-            "You can use the App as a guest with a limit of 5 tasks, or create an account with email and password or Google Sign-In to remove the limit and sync your data. You are responsible for keeping your credentials confidential and for all activity under your account. Provide accurate information and tell us if you suspect unauthorized access."
+            "You can use the App as a guest with a limit of 5 tasks, or create an account with email and password or Google Sign-In to remove the limit and sync your data. Guest data is tied to your device and may be lost if you delete the App or clear its data. You are responsible for keeping your sign-in details confidential and for all activity under your account. Provide accurate information and tell us if you suspect unauthorized access."
           ]
         },
         {
           "heading": "4. Your content",
           "paragraphs": [
-            "The tasks, notes and other information you enter (\"Your Content\") belong to you. You grant us a limited license to store, process and display Your Content solely to operate the App for you. Your Content is private to your account and is not shared with other users."
+            "The tasks, notes and other information you enter (\"Your Content\") belong to you. You grant us a limited license to store, process and display Your Content solely to operate the App for you. Your Content is private to your account and is not shared with other users. You are responsible for Your Content: do not enter anything unlawful, and do not store other people's sensitive personal data without a lawful reason."
           ]
         },
         {
-          "heading": "5. Acceptable use",
+          "heading": "5. Trash, skipped tasks and data loss",
+          "paragraphs": [
+            "Tasks you delete move to the trash and are permanently deleted after 10 days. If you turn on the optional \"clean up skipped cards\" setting, tasks skipped for more than 1 day also move to the trash. Unfinished drafts are kept on your device for up to 24 hours. Permanently deleted data cannot be recovered. We take reasonable care of your data but do not guarantee backups, so keep a separate copy of anything important."
+          ]
+        },
+        {
+          "heading": "6. Acceptable use",
           "paragraphs": [
             "You agree not to misuse the App. This includes trying to break, probe or disrupt the App or its servers, accessing other users' data, reverse engineering the App except where the law allows it, using automated means to create accounts or load the service, or using the App for anything unlawful."
           ]
         },
         {
-          "heading": "6. Notifications",
+          "heading": "7. Notifications and reminders",
           "paragraphs": [
-            "If you allow notifications, the App sends local reminders for your tasks. You can turn notifications off at any time in your device settings."
+            "If you allow notifications, the App schedules local reminders on your device. Reminders depend on your device, operating system, battery and Do Not Disturb settings and permissions, so we cannot guarantee that every reminder will appear on time or at all. You can turn notifications off at any time in your device settings."
           ]
         },
         {
-          "heading": "7. Third-party services",
+          "heading": "8. License and ownership",
           "paragraphs": [
-            "The App relies on third-party services such as Firebase (authentication and data storage), Google Sign-In and Sentry (crash reporting). Their own terms and privacy policies apply to their services."
+            "We grant you a personal, limited, non-exclusive, non-transferable and revocable license to use the App for your own purposes. The App, its design, code, name and logo belong to us and are protected by law; you may not copy, sell, rent or redistribute them. If you send us feedback or ideas, we may use them without obligation to you."
           ]
         },
         {
-          "heading": "8. Privacy",
+          "heading": "9. Third-party services",
           "paragraphs": [
-            "Our Privacy Policy explains what data we collect and how we use it: <a href=\"/swipe-todos/privacy/\">https://apps.korucuk.com/swipe-todos/privacy/</a>. By using the App you acknowledge it."
+            "The App relies on third-party services such as Firebase (authentication and data storage), Google Sign-In and Sentry (crash reporting). Their own terms and privacy policies apply to their services. You also acquire the App through the Apple App Store or Google Play, whose terms apply to your download; Apple and Google are not responsible for the App, its maintenance or support."
           ]
         },
         {
-          "heading": "9. Deleting your account",
+          "heading": "10. Privacy",
           "paragraphs": [
-            "You can delete your account and its data at any time in the App under Profile > Delete Account. Deleted data cannot be recovered. We may suspend or terminate accounts that violate these Terms."
+            "Our Privacy Policy explains what data we collect and how we use it: <a href=\"/swipe-todos/privacy/\">https://apps.korucuk.com/swipe-todos/privacy/</a>. By using the App you acknowledge it. Users in Türkiye can also read our KVKK notice (Aydınlatma Metni): <a href=\"/swipe-todos/kvkk-notice/\">https://apps.korucuk.com/swipe-todos/kvkk-notice/</a>."
           ]
         },
         {
-          "heading": "10. Availability and changes",
+          "heading": "11. Deleting your account and termination",
+          "paragraphs": [
+            "You can stop using the App at any time and delete your account and its data in the App under Profile > Delete Account. Deleted data cannot be recovered. We may suspend or end your access if you seriously or repeatedly break these Terms, and we will explain why where we reasonably can. Sections that by their nature should continue (such as ownership, disclaimers and limitation of liability) stay in effect after termination."
+          ]
+        },
+        {
+          "heading": "12. Availability and changes",
           "paragraphs": [
             "We work to keep the App available and reliable but do not guarantee uninterrupted or error-free service. We may change, suspend or discontinue features at any time. We may update these Terms; if the changes are material, we will tell you in the App. Continued use after an update means you accept the new Terms."
           ]
         },
         {
-          "heading": "11. Disclaimer",
+          "heading": "13. Disclaimer",
           "paragraphs": [
             "The App is provided \"as is\" and \"as available\" without warranties of any kind, to the extent permitted by law. Do not rely on the App as your only copy of important information or for time-critical reminders."
           ]
         },
         {
-          "heading": "12. Limitation of liability",
+          "heading": "14. Limitation of liability",
           "paragraphs": [
             "To the extent permitted by law, we are not liable for indirect, incidental or consequential damages, or for loss of data, profits or opportunities arising from your use of the App. Nothing in these Terms limits liability that cannot be limited by law, including your statutory consumer rights."
           ]
         },
         {
-          "heading": "13. Governing law",
+          "heading": "15. Governing law and disputes",
           "paragraphs": [
-            "These Terms are governed by the laws of the Republic of Türkiye, without affecting any mandatory consumer protections of the country where you live."
+            "These Terms are governed by the laws of the Republic of Türkiye, without affecting any mandatory consumer protections of the country where you live. If you are a consumer, you may bring a complaint to the consumer arbitration committee or consumer court where you live, within the limits set by law."
           ]
         },
         {
-          "heading": "14. Contact",
+          "heading": "16. General",
+          "paragraphs": [
+            "If a part of these Terms is found invalid, the rest stays in effect. If we do not enforce a right right away, we do not give it up. These Terms and the documents they refer to are the whole agreement between you and us about the App. You may not transfer your rights under these Terms without our consent. Translations are provided for convenience; if they differ, the Turkish version applies for users in Türkiye and the English version otherwise."
+          ]
+        },
+        {
+          "heading": "17. Contact",
           "paragraphs": [
             "Questions about these Terms: <a href=\"mailto:apps-support@korucuk.com\">apps-support@korucuk.com</a>. Support: <a href=\"/swipe-todos/support/\">https://apps.korucuk.com/swipe-todos/support/</a>."
           ]
         }
-      ]
+      ],
+      "policySections": [
+        {
+          "heading": "Legal Bases for Processing",
+          "paragraphs": [
+            "We process your information to provide the app you asked for (performance of our agreement with you), to keep it secure and fix errors (our legitimate interests, which do not override your rights), to answer your requests, and where the law requires us to. We do not ask for consent to process the data above, because it is not needed to provide the app; reminders depend only on the notification permission you control on your device."
+          ]
+        },
+        {
+          "heading": "Where Your Data Is Processed",
+          "paragraphs": [
+            "Firebase and Sentry are operated by companies that run servers in several countries, so your information may be processed outside Türkiye or outside the country where you live. When this happens we rely on the safeguards the applicable law provides, such as the rules for international transfers in Türkiye's Personal Data Protection Law (KVKK, Article 9) and, where it applies, the GDPR. Contact us if you would like more detail."
+          ]
+        },
+        {
+          "heading": "Guest Accounts and Data on Your Device",
+          "paragraphs": [
+            "If you continue without an account, the app creates an anonymous account tied to your device. Guest data may be lost if you delete the app or clear its data, and a guest account cannot be recovered. Some information, such as unfinished drafts, stays only on your device."
+          ]
+        },
+        {
+          "heading": "Your Rights",
+          "paragraphs": [
+            "Depending on where you live, you can ask us to:"
+          ],
+          "items": [
+            "Tell you whether we process your personal data and give you a copy or information about it",
+            "Correct incomplete or inaccurate data",
+            "Delete or anonymise your data",
+            "Restrict processing or object to it",
+            "Notify third parties who received your data of corrections or deletions",
+            "Receive your data in a usable form, where the law allows"
+          ]
+        },
+        {
+          "heading": "How to Use Your Rights",
+          "paragraphs": [
+            "Write to <a href=\"mailto:apps-support@korucuk.com\">apps-support@korucuk.com</a> from the email address linked to your account. We may ask you to confirm your identity. We answer within 30 days. If you are not satisfied, you can complain to the Personal Data Protection Board (KVKK) in Türkiye or to your local data protection authority."
+          ]
+        },
+        {
+          "heading": "Turkish Users (KVKK Notice)",
+          "paragraphs": [
+            "Users in Türkiye can read our detailed notice under Law No. 6698 here: <a href=\"/swipe-todos/kvkk-notice/\">KVKK Aydınlatma Metni (Turkish)</a>."
+          ]
+        },
+        {
+          "heading": "Data Breaches",
+          "paragraphs": [
+            "If a security incident affects your personal data, we will notify the competent authority and the people affected as required by law, including notifying the Personal Data Protection Board in Türkiye within 72 hours of becoming aware of it."
+          ]
+        }
+      ],
+      "kvkkNoticeEn": {
+        "title": "KVKK Notice (Turkish Law No. 6698)",
+        "description": "Disclosure notice for Swipe Todos under Article 10 of Turkish Personal Data Protection Law No. 6698 (KVKK).",
+        "effectiveDate": "2026-10-30",
+        "intro": "This notice explains how your personal data is processed when you use Swipe Todos, as required by Article 10 of Turkish Personal Data Protection Law No. 6698 (\"KVKK\") and the Communiqué on the Procedures and Principles to be Followed in Fulfilling the Disclosure Obligation. The Turkish version is the authoritative text; this English version is provided for convenience.",
+        "sections": [
+          {
+            "heading": "1. Data Controller",
+            "paragraphs": [
+              "Data controller: Ahmet Said Korucuk (Korucuk Apps)<br>Contact: <a href=\"mailto:apps-support@korucuk.com\">apps-support@korucuk.com</a><br>Address: Yelki Mahallesi, 2360 Sokak, No:7, Daire No:4, Güzelbahçe / İzmir, Türkiye"
+            ]
+          },
+          {
+            "heading": "2. Personal Data Processed",
+            "items": [
+              "<strong>Identity:</strong> display name (your Google profile name if you sign in with Google)",
+              "<strong>Contact:</strong> email address",
+              "<strong>App content:</strong> the title, description, priority, tags, keywords, dates, reminders, status and history of your todos; your sorting rules and preferences (language, theme, avatar color or initials)",
+              "<strong>Transaction security:</strong> user ID, sign-in method (email, Google or guest), account creation and last-use time, error and crash logs (app version, device model, OS version; todo titles, descriptions, names and email addresses are masked)",
+              "<strong>Visual data (optional):</strong> a link to your profile photo if you sign in with Google",
+              "<strong>Other:</strong> the feedback text you send us from within the app"
+            ]
+          },
+          {
+            "heading": "3. Purposes of Processing",
+            "items": [
+              "Providing the app; creating, syncing and storing your todos",
+              "Account creation, sign-in and account management",
+              "Showing reminders on your device",
+              "Ensuring information security and preventing abuse",
+              "Detecting and fixing errors and crashes",
+              "Responding to support requests, feedback and applications",
+              "Fulfilling legal obligations"
+            ]
+          },
+          {
+            "heading": "4. Collection Method and Legal Bases",
+            "paragraphs": [
+              "Your data is collected electronically while you use the app, from the information you enter and from technical logs the app generates automatically. Processing relies on the following legal bases in Article 5(2) of KVKK:"
+            ],
+            "items": [
+              "Processing is directly related to the establishment or performance of a contract (Art. 5/2-c): providing the app and your account",
+              "Processing is necessary for the legitimate interests of the data controller, provided it does not harm your fundamental rights and freedoms (Art. 5/2-f): security, error detection and fixing",
+              "Compliance with a legal obligation (Art. 5/2-ç) and establishment, exercise or protection of a right (Art. 5/2-e)"
+            ]
+          },
+          {
+            "heading": "5. Transfer of Personal Data",
+            "paragraphs": [
+              "Your personal data is not sold or shared for advertising. It is processed by or shared with the following service providers only as needed to run the app:"
+            ],
+            "items": [
+              "Google (Firebase Authentication, Cloud Firestore, Firebase Storage, Sign in with Google): authentication, data storage and sync",
+              "Sentry (Functional Software, Inc.): crash and error reporting",
+              "Apple App Store and Google Play: distribution of the app",
+              "Competent public authorities: only where required by law"
+            ],
+            "after": "The servers of these providers may be located outside Türkiye. Transfers abroad are made in line with the conditions in Article 9 of KVKK (adequacy decision, appropriate safeguards, standard contract, etc.)."
+          },
+          {
+            "heading": "6. Retention Period",
+            "paragraphs": [
+              "Your data is kept while your account remains active or as long as needed to provide the service. Todos you delete move to the trash and are permanently deleted after 10 days. If you turn on the optional \"Clear skipped\" setting, todos skipped for more than 1 day move to the trash. Unfinished drafts are kept only on your device for at most 24 hours. When you delete your account, we attempt to delete your todos, rules, settings and, if any, your profile photo; exceptions apply where a legal retention obligation or a legitimate security need exists."
+            ]
+          },
+          {
+            "heading": "7. Your Rights as a Data Subject (KVKK Art. 11)",
+            "paragraphs": [
+              "By applying to the data controller, you may request to:"
+            ],
+            "items": [
+              "Learn whether your personal data is processed",
+              "Request information if it has been processed",
+              "Learn the purpose of processing and whether it is used accordingly",
+              "Know the third parties to whom your data is transferred, in Türkiye or abroad",
+              "Request correction if data is incomplete or inaccurate",
+              "Request deletion or destruction under KVKK Art. 7",
+              "Request that corrections, deletions and destructions be notified to third parties to whom your data was transferred",
+              "Object to a result against you arising from analysis of your data exclusively by automated systems",
+              "Claim compensation if you suffer damage from unlawful processing"
+            ]
+          },
+          {
+            "heading": "8. How to Apply",
+            "paragraphs": [
+              "You can send your requests from the email address linked to your account to <a href=\"mailto:apps-support@korucuk.com\">apps-support@korucuk.com</a>; we may ask for additional information to verify your identity. Your application is concluded free of charge within 30 days at the latest, depending on the nature of the request; if the process requires a separate cost, the fee in the tariff set by the Personal Data Protection Board may be charged. If you find our response insufficient, you may file a complaint with the Personal Data Protection Board within 30 days of learning our response and in any case within 60 days of your application."
+            ]
+          },
+          {
+            "heading": "9. Data Security",
+            "paragraphs": [
+              "Reasonable technical and organizational measures are taken to prevent unlawful processing of and access to your data: user-specific access rules, encrypted communication and the security controls of our service providers. In the event of a data breach, the Personal Data Protection Board and, where necessary, the affected individuals are notified within 72 hours at the latest after we become aware of it."
+            ]
+          }
+        ]
+      },
+      "kvkkNotice": {
+        "title": "KVKK Aydınlatma Metni",
+        "description": "6698 sayılı Kişisel Verilerin Korunması Kanunu m.10 kapsamında Swipe Todos için aydınlatma metni.",
+        "effectiveDate": "2026-10-30",
+        "intro": "Bu Aydınlatma Metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun (\"KVKK\") 10. maddesi ve Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ uyarınca, Swipe Todos uygulamasını kullanırken kişisel verilerinizin nasıl işlendiği konusunda sizi bilgilendirmek amacıyla hazırlanmıştır.",
+        "sections": [
+          {
+            "heading": "1. Veri Sorumlusu",
+            "paragraphs": [
+              "Veri sorumlusu: Ahmet Said Korucuk (Korucuk Apps)<br>İletişim: <a href=\"mailto:apps-support@korucuk.com\">apps-support@korucuk.com</a><br>Adres: Yelki Mahallesi, 2360 Sokak, No:7, Daire No:4, Güzelbahçe / İzmir"
+            ]
+          },
+          {
+            "heading": "2. İşlenen Kişisel Veriler",
+            "items": [
+              "<strong>Kimlik:</strong> görünen ad (Google ile giriş yaparsanız Google profil adı)",
+              "<strong>İletişim:</strong> e-posta adresi",
+              "<strong>Uygulama içeriği:</strong> oluşturduğunuz görevlerin başlığı, açıklaması, önceliği, etiketleri, anahtar kelimeleri, tarihleri, hatırlatıcıları, durumu ve geçmişi; sıralama kuralları ve tercihleriniz (dil, tema, avatar rengi veya baş harfleri)",
+              "<strong>İşlem güvenliği:</strong> kullanıcı kimliği, giriş yöntemi (e-posta, Google veya misafir), hesap oluşturma ve son kullanım zamanı, hata ve çökme kayıtları (uygulama sürümü, cihaz modeli, işletim sistemi sürümü; görev başlığı, açıklama, ad ve e-posta bilgisi maskelenerek)",
+              "<strong>Görsel veri (isteğe bağlı):</strong> Google ile giriş yaparsanız profil fotoğrafı bağlantısı",
+              "<strong>Diğer:</strong> uygulama içinden bize gönderdiğiniz geri bildirim metni"
+            ]
+          },
+          {
+            "heading": "3. Kişisel Verilerin İşlenme Amaçları",
+            "items": [
+              "Uygulamanın sunulması; görevlerinizin oluşturulması, senkronize edilmesi ve saklanması",
+              "Hesap oluşturma, giriş ve hesap yönetimi",
+              "Hatırlatıcıların cihazınızda gösterilmesi",
+              "Bilgi güvenliğinin sağlanması ve kötüye kullanımın önlenmesi",
+              "Hata ve çökmelerin tespit edilip giderilmesi",
+              "Destek, geri bildirim ve başvuruların yanıtlanması",
+              "Hukuki yükümlülüklerin yerine getirilmesi"
+            ]
+          },
+          {
+            "heading": "4. Kişisel Verilerin Toplanma Yöntemi ve Hukuki Sebepleri",
+            "paragraphs": [
+              "Verileriniz, uygulamayı kullanmanız sırasında elektronik ortamda, sizin girdiğiniz bilgiler ve uygulamanın otomatik olarak ürettiği teknik kayıtlar yoluyla toplanır. İşleme faaliyetleri KVKK'nın 5. maddesinin 2. fıkrasındaki şu hukuki sebeplere dayanır:"
+            ],
+            "items": [
+              "Bir sözleşmenin kurulması veya ifasıyla doğrudan ilgili olması (m.5/2-c): uygulamanın ve hesabınızın sunulması",
+              "İlgili kişinin temel hak ve özgürlüklerine zarar vermemek kaydıyla veri sorumlusunun meşru menfaatleri için zorunlu olması (m.5/2-f): güvenlik, hata tespiti ve giderilmesi",
+              "Hukuki yükümlülüğün yerine getirilmesi (m.5/2-ç) ve bir hakkın tesisi, kullanılması veya korunması (m.5/2-e)"
+            ]
+          },
+          {
+            "heading": "5. Kişisel Verilerin Aktarılması",
+            "paragraphs": [
+              "Kişisel verileriniz satılmaz ve reklam amacıyla paylaşılmaz. Uygulamanın çalışması için yalnızca aşağıdaki hizmet sağlayıcılarla işlenir veya paylaşılır:"
+            ],
+            "items": [
+              "Google (Firebase Authentication, Cloud Firestore, Firebase Storage, Google ile Giriş): kimlik doğrulama, veri saklama ve senkronizasyon",
+              "Sentry (Functional Software, Inc.): çökme ve hata raporlama",
+              "Apple App Store ve Google Play: uygulamanın dağıtımı",
+              "Yetkili kamu kurum ve kuruluşları: yalnızca yasal bir zorunluluk olması halinde"
+            ],
+            "after": "Bu hizmet sağlayıcıların sunucuları Türkiye dışındaki ülkelerde bulunabilir. Yurt dışına aktarım, KVKK'nın 9. maddesinde öngörülen şartlara (yeterlilik kararı, uygun güvenceler, standart sözleşme vb.) uygun olarak yapılır."
+          },
+          {
+            "heading": "6. Saklama Süresi",
+            "paragraphs": [
+              "Verileriniz, hesabınız aktif kaldığı veya hizmetin sunulması için gerekli olduğu sürece saklanır. Sildiğiniz görevler çöp kutusuna taşınır ve 10 gün sonra kalıcı olarak silinir. İsteğe bağlı \"Atlananları temizle\" ayarını açarsanız 1 günden uzun süre atlanmış görevler çöp kutusuna taşınır. Tamamlanmamış taslaklar yalnızca cihazınızda ve en fazla 24 saat tutulur. Hesabınızı sildiğinizde görevleriniz, kurallarınız, ayarlarınız ve varsa profil fotoğrafınız silinmeye çalışılır; yasal bir saklama yükümlülüğü veya meşru güvenlik ihtiyacı bunun istisnasıdır."
+            ]
+          },
+          {
+            "heading": "7. İlgili Kişi Olarak Haklarınız (KVKK m.11)",
+            "paragraphs": [
+              "Veri sorumlusuna başvurarak şunları talep edebilirsiniz:"
+            ],
+            "items": [
+              "Kişisel verilerinizin işlenip işlenmediğini öğrenme",
+              "İşlenmişse buna ilişkin bilgi talep etme",
+              "İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme",
+              "Yurt içinde veya yurt dışında verilerin aktarıldığı üçüncü kişileri bilme",
+              "Eksik veya yanlış işlenmişse düzeltilmesini isteme",
+              "KVKK m.7 çerçevesinde silinmesini veya yok edilmesini isteme",
+              "Düzeltme, silme ve yok etme işlemlerinin verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme",
+              "İşlenen verilerin münhasıran otomatik sistemler ile analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme",
+              "Kanuna aykırı işleme nedeniyle zarara uğramanız halinde zararın giderilmesini talep etme"
+            ]
+          },
+          {
+            "heading": "8. Başvuru Yöntemi",
+            "paragraphs": [
+              "Taleplerinizi hesabınızla ilişkili e-posta adresinden <a href=\"mailto:apps-support@korucuk.com\">apps-support@korucuk.com</a> adresine iletebilirsiniz; kimliğinizi doğrulamak için ek bilgi isteyebiliriz. Başvurunuz, talebin niteliğine göre en geç 30 gün içinde ücretsiz olarak sonuçlandırılır; işlemin ayrıca bir maliyet gerektirmesi halinde Kişisel Verileri Koruma Kurulu tarafından belirlenen tarifedeki ücret alınabilir. Başvurunuza verilen cevabı yetersiz bulursanız, cevabı öğrendiğiniz tarihten itibaren 30 gün ve her halde başvuru tarihinden itibaren 60 gün içinde Kişisel Verileri Koruma Kurulu'na şikâyette bulunabilirsiniz."
+            ]
+          },
+          {
+            "heading": "9. Veri Güvenliği",
+            "paragraphs": [
+              "Verilerinizin hukuka aykırı işlenmesini ve erişilmesini önlemek için makul teknik ve idari tedbirler alınır: kullanıcıya özel erişim kuralları, şifrelenmiş iletişim ve hizmet sağlayıcıların güvenlik kontrolleri. Bir veri ihlali olması halinde, ihlalin öğrenilmesinden itibaren en geç 72 saat içinde Kişisel Verileri Koruma Kurulu'na ve gerektiğinde ilgili kişilere bildirim yapılır."
+            ]
+          }
+        ]
+      }
     },
     {
       "slug": "mirror-art",

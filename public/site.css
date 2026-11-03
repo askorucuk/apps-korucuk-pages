@@ -1597,8 +1597,12 @@ html[data-theme="dark"] .mk-themed {
 }
 
 .mk-orbit img {
+  display: block;
   width: clamp(64px, 11vw, 96px);
+  height: auto;
   aspect-ratio: 1;
+  object-fit: cover;
+  flex-shrink: 0;
   border-radius: 24%;
   background: #fff;
   box-shadow: 0 20px 40px rgba(15, 27, 61, 0.22);
@@ -1606,7 +1610,8 @@ html[data-theme="dark"] .mk-themed {
 }
 
 .mk-orbit a {
-  display: inline-block;
+  display: block;
+  flex: none;
   border-radius: 24%;
   transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
 }
@@ -2773,3 +2778,117 @@ html[data-theme="dark"] .js .mk-demo {
   filter: blur(46px);
 }
 
+
+/* Home hero on phones: room for the raised hammer, and a visible gap between the words */
+@media (max-width: 640px) {
+  .mk-home-hero h1 {
+    margin-top: 1.1em;
+    word-spacing: 0.1em;
+  }
+
+  .mk-craft__tool {
+    width: 0.62em;
+    height: 0.62em;
+  }
+}
+
+/* Document tabs on phones: one swipeable row, big touch targets, no hover step */
+@media (max-width: 640px) {
+  .mk-tabs {
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mk-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mk-tabs a {
+    flex: none;
+    padding: 12px 18px;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@media (hover: none) {
+  .mk-tabs a {
+    transition: none;
+  }
+}
+
+/* ---------- KVKK notice: EN / TR switch ---------- */
+.lang-switch {
+  display: flex;
+  gap: 4px;
+  width: fit-content;
+  margin: 0 0 16px auto;
+  padding: 4px;
+  border: 1px solid var(--mk-line);
+  border-radius: 999px;
+  background: var(--mk-card);
+}
+
+.lang-switch a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: var(--mk-muted) !important;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out), transform var(--dur-quick) var(--ease-out);
+}
+
+.lang-switch__flag {
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lang-switch a:hover {
+  background: color-mix(in oklab, var(--mk-accent) 12%, transparent);
+  color: var(--mk-ink) !important;
+}
+
+.lang-switch a:hover .lang-switch__flag {
+  transform: scale(1.18) rotate(-6deg);
+}
+
+.lang-switch a:active {
+  transform: scale(0.96);
+}
+
+.lang-switch a:focus-visible {
+  outline: 2px solid var(--mk-accent);
+  outline-offset: 2px;
+}
+
+.lang-switch a.is-active,
+.lang-switch a.is-active:hover,
+html:not([data-kvkk]) .lang-switch a[href="#en"],
+html:not([data-kvkk]) .lang-switch:has(~ #tr:target) a[href="#tr"] {
+  background: var(--mk-accent);
+  color: var(--mk-on-accent) !important;
+}
+
+html:not([data-kvkk]) .lang-switch:has(~ #tr:target) a[href="#en"] {
+  background: transparent;
+  color: var(--mk-muted) !important;
+}
+
+/* Which notice shows. Without JS the #tr target decides; with JS data-kvkk does */
+#tr { display: none; }
+html:not([data-kvkk]) #tr:target { display: block; }
+html:not([data-kvkk]) #en:has(~ #tr:target) { display: none; }
+html[data-kvkk="tr"] #tr { display: block; }
+html[data-kvkk="tr"] #en { display: none; }
+html[data-kvkk="en"] #tr { display: none; }

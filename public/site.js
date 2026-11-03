@@ -95,6 +95,30 @@
     });
   }
 
+  // KVKK notice: switch EN / TR in place, without jumping the page
+  each(".lang-switch", function (nav) {
+    var links = Array.prototype.slice.call(nav.querySelectorAll("a"));
+    var root = document.documentElement;
+    var set = function (lang) {
+      root.setAttribute("data-kvkk", lang);
+      links.forEach(function (a) {
+        var on = a.getAttribute("href") === "#" + lang;
+        a.classList.toggle("is-active", on);
+        if (on) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+    };
+    set(window.location.hash === "#tr" ? "tr" : "en");
+    links.forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        var lang = a.getAttribute("href") === "#tr" ? "tr" : "en";
+        set(lang);
+        try { history.replaceState(null, "", "#" + lang); } catch (err) {}
+      });
+    });
+  });
+
   // Sliding pill for document tabs
   each(".mk-tabs", function (nav) {
     var pill = nav.querySelector(".mk-tabs__pill");
@@ -117,12 +141,17 @@
     move(active);
     void pill.offsetWidth;
     pill.style.transition = "";
+    // Only a real mouse drives the pill; a tap goes straight to the link, no hover step in between
     tabs.forEach(function (t) {
-      t.addEventListener("pointerenter", function () { move(t); });
-      t.addEventListener("focus", function () { move(t); });
+      t.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") move(t); });
+      t.addEventListener("focus", function () { if (t.matches(":focus-visible")) move(t); });
     });
-    nav.addEventListener("pointerleave", function () { move(active); });
+    nav.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") move(active); });
     window.addEventListener("resize", function () { move(active); });
+    // On phones the row scrolls sideways: bring the current tab into view
+    if (active && nav.scrollWidth > nav.clientWidth) {
+      nav.scrollLeft = Math.max(0, active.offsetLeft - (nav.clientWidth - active.offsetWidth) / 2);
+    }
   });
 
   // Pointer tilt (fine pointers only)
