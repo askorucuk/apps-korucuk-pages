@@ -176,7 +176,7 @@ const siteFooter = (app) => {
           <li><a href="/${app.slug}/support/">Support</a></li>
           <li><a href="/${app.slug}/privacy/">Privacy Policy</a></li>
           <li><a href="/${app.slug}/terms/">Terms of Use</a></li>
-          ${app.kvkkNotice ? `<li><a href="/${app.slug}/kvkk-notice/">KVKK Aydınlatma Metni</a></li>` : ""}
+          ${app.kvkkNotice ? `<li><a href="/${app.slug}/kvkk-notice/">KVKK Disclosure Notice</a></li>` : ""}
           <li><a href="/${app.slug}/account-deletion/">Account Deletion</a></li>
           <li><a href="/${app.slug}/referrer/">Referrer Page</a></li>
         </ul>`
@@ -278,7 +278,7 @@ const shell = ({ title, description, app, active, path, ogImage, jsonLd, main, r
 const DOC_TABS = [
   ["privacy", "Privacy Policy"],
   ["terms", "Terms of Use"],
-  ["kvkk-notice", "Aydınlatma (KVKK)"],
+  ["kvkk-notice", "Disclosure (KVKK)"],
   ["support", "Support"],
   ["account-deletion", "Account Deletion"],
   ["referrer", "Referrer"]

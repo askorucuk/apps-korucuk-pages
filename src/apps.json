@@ -1036,6 +1036,212 @@
         }
       ],
       "termsAccountsNote": "Purchases, Coink and your Plus status belong to your Mirror Art account. Deleting the account does not cancel a store subscription.",
+      "kvkkNotice": {
+        "title": "KVKK Aydınlatma Metni",
+        "description": "6698 sayılı Kişisel Verilerin Korunması Kanunu m.10 kapsamında Mirror Art için aydınlatma metni.",
+        "effectiveDate": "2026-11-05",
+        "intro": "Bu Aydınlatma Metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun (\"KVKK\") 10. maddesi ve Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ uyarınca, Mirror Art uygulamasını kullanırken kişisel verilerinizin nasıl işlendiği konusunda sizi bilgilendirmek amacıyla hazırlanmıştır.",
+        "sections": [
+          {
+            "heading": "1. Veri Sorumlusu",
+            "paragraphs": [
+              "Veri sorumlusu: Ahmet Said Korucuk (Korucuk Apps)<br>İletişim: <a href=\"mailto:apps-support@korucuk.com\">apps-support@korucuk.com</a><br>Adres: Yelki Mahallesi, 2360 Sokak, No:7, Daire No:4, Güzelbahçe / İzmir"
+            ]
+          },
+          {
+            "heading": "2. İşlenen Kişisel Veriler",
+            "items": [
+              "<strong>Kimlik:</strong> görünen ad",
+              "<strong>İletişim:</strong> e-posta adresi",
+              "<strong>Hesap ve oturum:</strong> kullanıcı kimliği, oturum bilgisi, kimlik doğrulama kayıtları",
+              "<strong>Oyun verisi:</strong> skorlar, notlar, simetri yüzdesi, süre, zorluk, günlük görev katılımı, seri, XP, seviye ilerlemesi, sıralama kayıtları ve ayarlarınız (düzen, renk, ses, dil gibi)",
+              "<strong>Topluluk içeriği:</strong> yayınladığınız çizimler, başlık ve açıklamaları, verdiğiniz oylar ve yaptığınız şikâyetler",
+              "<strong>Satın alma ve abonelik:</strong> satın aldığınız ürünler (Coink paketleri, Mirror Art Plus), satın alma tarihi, abonelik durumu ve bitiş tarihi, Coink bakiyesi ve hareket geçmişi. Kart veya banka bilgileriniz işlenmez; ödemeyi Apple veya Google alır.",
+              "<strong>İşlem güvenliği ve kullanım:</strong> uygulama kurulumuna özgü rastgele cihaz kimliği, uygulama sürümü, platform, ürün kullanım olayları, hata ve çökme kayıtları (kullanıcı kimliği ile; e-posta ve IP adresi hata raporlamaya gönderilmez)",
+              "<strong>Bildirim:</strong> anlık bildirim jetonu, platform ve saat dilimi (yalnızca bildirimleri açarsanız)",
+              "Konum, rehber, fotoğraf veya kamera, sağlık verisi ve reklam kimliği işlenmez."
+            ]
+          },
+          {
+            "heading": "3. Kişisel Verilerin İşlenme Amaçları",
+            "items": [
+              "Uygulamanın sunulması; hesap oluşturma, giriş, e-posta doğrulama ve profil yönetimi",
+              "Skorların, sıralamaların, günlük görevlerin, serilerin ve topluluk özelliklerinin çalıştırılması",
+              "Coink ve Plus satın alımlarının doğrulanması, bakiye ve abonelik durumunun yönetilmesi, mükerrer veya hileli işlemlerin önlenmesi",
+              "Topluluk içeriğinin denetlenmesi ve şikâyetlerin ele alınması",
+              "Günlük görev bildirimlerinin gönderilmesi (yalnızca bildirimleri açarsanız)",
+              "Bilgi güvenliğinin sağlanması, kötüye kullanımın önlenmesi, hata ve çökmelerin tespit edilip giderilmesi, uygulamanın iyileştirilmesi",
+              "Destek, geri bildirim ve başvuruların yanıtlanması; hukuki yükümlülüklerin yerine getirilmesi"
+            ]
+          },
+          {
+            "heading": "4. Kişisel Verilerin Toplanma Yöntemi ve Hukuki Sebepleri",
+            "paragraphs": [
+              "Verileriniz, uygulamayı kullanmanız sırasında elektronik ortamda; sizin girdiğiniz bilgiler, uygulamanın otomatik olarak ürettiği teknik kayıtlar ve ödeme sağlayıcılarından gelen doğrulama bildirimleri yoluyla toplanır. İşleme faaliyetleri KVKK'nın 5. maddesinin 2. fıkrasındaki şu hukuki sebeplere dayanır:"
+            ],
+            "items": [
+              "Bir sözleşmenin kurulması veya ifasıyla doğrudan ilgili olması (m.5/2-c): hesabınızın ve oyun özelliklerinin sunulması, satın aldığınız ürünlerin size tanımlanması",
+              "İlgili kişinin temel hak ve özgürlüklerine zarar vermemek kaydıyla veri sorumlusunun meşru menfaatleri için zorunlu olması (m.5/2-f): güvenlik, kötüye kullanımın önlenmesi, hata tespiti ve giderilmesi, topluluk içeriğinin denetimi",
+              "Hukuki yükümlülüğün yerine getirilmesi (m.5/2-ç) ve bir hakkın tesisi, kullanılması veya korunması (m.5/2-e): vergi ve muhasebe kayıtları, uyuşmazlıkların çözümü",
+              "Açık rıza (m.5/1): anlık bildirimler. Cihaz izni ve uygulama ayarı sizin tercihinizdir; istediğiniz zaman kapatabilirsiniz."
+            ]
+          },
+          {
+            "heading": "5. Kişisel Verilerin Aktarılması",
+            "paragraphs": [
+              "Kişisel verileriniz satılmaz ve reklam amacıyla paylaşılmaz. Uygulamanın çalışması için yalnızca aşağıdaki hizmet sağlayıcılarla işlenir veya paylaşılır:"
+            ],
+            "items": [
+              "Supabase: kimlik doğrulama ve veritabanı (hesap, oyun, topluluk ve satın alma kayıtlarının saklanması)",
+              "RevenueCat, Inc.: mağaza satın alımlarının ve aboneliğin doğrulanması (kullanıcı kimliği, ürün, tarih, mağaza makbuzu)",
+              "Sentry (Functional Software, Inc.): çökme ve hata raporlama",
+              "Expo: anlık bildirimlerin iletilmesi (yalnızca bildirimleri açarsanız)",
+              "Apple App Store ve Google Play: uygulamanın dağıtımı, ödeme ve abonelik işlemleri",
+              "Yetkili kamu kurum ve kuruluşları: yalnızca yasal bir zorunluluk olması halinde"
+            ],
+            "after": "Bu hizmet sağlayıcıların sunucuları Türkiye dışındaki ülkelerde bulunabilir. Yurt dışına aktarım, KVKK'nın 9. maddesinde öngörülen şartlara (yeterlilik kararı, uygun güvenceler, standart sözleşme vb.) uygun olarak yapılır."
+          },
+          {
+            "heading": "6. Saklama Süresi",
+            "paragraphs": [
+              "Hesap verileriniz hesabınız aktif kaldığı sürece saklanır. Hesabınızı uygulamadan sildiğinizde (Ayarlar → Hesabı sil) hesabınız ve bağlı uygulama verileriniz silinir; yasal bir saklama yükümlülüğü veya meşru güvenlik ihtiyacı bunun istisnasıdır. Satın alma ve abonelik kayıtları vergi, dolandırıcılık önleme ve uyuşmazlık süreleri için gerektiği kadar saklanabilir. Ürün kullanım olayları 60 gün sonra silinir.",
+              "Hesabınızı silmek, App Store veya Google Play üzerindeki aboneliğinizi iptal etmez; aboneliği mağazadan ayrıca iptal etmeniz gerekir."
+            ]
+          },
+          {
+            "heading": "7. İlgili Kişi Olarak Haklarınız (KVKK m.11)",
+            "paragraphs": [
+              "Veri sorumlusuna başvurarak şunları talep edebilirsiniz:"
+            ],
+            "items": [
+              "Kişisel verilerinizin işlenip işlenmediğini öğrenme",
+              "İşlenmişse buna ilişkin bilgi talep etme",
+              "İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme",
+              "Yurt içinde veya yurt dışında verilerin aktarıldığı üçüncü kişileri bilme",
+              "Eksik veya yanlış işlenmişse düzeltilmesini isteme",
+              "KVKK m.7 çerçevesinde silinmesini veya yok edilmesini isteme",
+              "Düzeltme, silme ve yok etme işlemlerinin verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme",
+              "İşlenen verilerin münhasıran otomatik sistemler ile analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme",
+              "Kanuna aykırı işleme nedeniyle zarara uğramanız halinde zararın giderilmesini talep etme"
+            ]
+          },
+          {
+            "heading": "8. Başvuru Yöntemi",
+            "paragraphs": [
+              "Taleplerinizi hesabınızla ilişkili e-posta adresinden <a href=\"mailto:apps-support@korucuk.com\">apps-support@korucuk.com</a> adresine iletebilirsiniz; kimliğinizi doğrulamak için ek bilgi isteyebiliriz. Başvurunuz, talebin niteliğine göre en geç 30 gün içinde ücretsiz olarak sonuçlandırılır; işlemin ayrıca bir maliyet gerektirmesi halinde Kişisel Verileri Koruma Kurulu tarafından belirlenen tarifedeki ücret alınabilir. Başvurunuza verilen cevabı yetersiz bulursanız, cevabı öğrendiğiniz tarihten itibaren 30 gün ve her halde başvuru tarihinden itibaren 60 gün içinde Kişisel Verileri Koruma Kurulu'na şikâyette bulunabilirsiniz."
+            ]
+          },
+          {
+            "heading": "9. Veri Güvenliği",
+            "paragraphs": [
+              "Verilerinizin hukuka aykırı işlenmesini ve erişilmesini önlemek için makul teknik ve idari tedbirler alınır: kullanıcıya özel erişim kuralları, şifrelenmiş iletişim ve hizmet sağlayıcıların güvenlik kontrolleri. Bir veri ihlali olması halinde, ihlalin öğrenilmesinden itibaren en geç 72 saat içinde Kişisel Verileri Koruma Kurulu'na ve gerektiğinde ilgili kişilere bildirim yapılır."
+            ]
+          }
+        ]
+      },
+      "kvkkNoticeEn": {
+        "title": "KVKK Notice (Turkish Law No. 6698)",
+        "description": "Disclosure notice for Mirror Art under Article 10 of Turkish Personal Data Protection Law No. 6698 (KVKK).",
+        "effectiveDate": "2026-11-05",
+        "intro": "This notice explains how your personal data is processed when you use Mirror Art, as required by Article 10 of Turkish Personal Data Protection Law No. 6698 (\"KVKK\"). The Turkish text is authoritative.",
+        "sections": [
+          {
+            "heading": "1. Data Controller",
+            "paragraphs": [
+              "Data controller: Ahmet Said Korucuk (Korucuk Apps)<br>Contact: <a href=\"mailto:apps-support@korucuk.com\">apps-support@korucuk.com</a><br>Address: Yelki Mahallesi, 2360 Sokak, No:7, Daire No:4, Güzelbahçe / İzmir"
+            ]
+          },
+          {
+            "heading": "2. Personal Data Processed",
+            "items": [
+              "<strong>Identity:</strong> display name",
+              "<strong>Contact:</strong> email address",
+              "<strong>Account and session:</strong> user ID, session information, authentication records",
+              "<strong>Game data:</strong> scores, grades, symmetry percentage, time, difficulty, Daily Challenge participation, streak, XP, level progress, leaderboard records and your settings (layout, colour, sound, language)",
+              "<strong>Community content:</strong> drawings you publish, their titles and descriptions, the votes you cast and the reports you make",
+              "<strong>Purchases and subscription:</strong> products you buy (Coink packs, Mirror Art Plus), purchase date, subscription status and end date, Coink balance and history. Card or bank details are not processed; Apple or Google takes the payment.",
+              "<strong>Security and usage:</strong> a random per-install device ID, app version, platform, product usage events, error and crash reports (with a user ID; email and IP address are not sent to error reporting)",
+              "<strong>Notifications:</strong> push token, platform and time zone (only if you turn notifications on)",
+              "Location, contacts, photos or camera, health data and advertising identifiers are not processed."
+            ]
+          },
+          {
+            "heading": "3. Purposes of Processing",
+            "items": [
+              "Providing the app: account creation, sign-in, email verification and profile management",
+              "Running scores, leaderboards, Daily Challenges, streaks and community features",
+              "Verifying Coink and Plus purchases, managing balance and subscription status, preventing duplicate or fraudulent transactions",
+              "Moderating community content and handling reports",
+              "Sending daily challenge notifications (only if you turn them on)",
+              "Keeping the service secure, preventing abuse, finding and fixing errors and crashes, improving the app",
+              "Answering support requests and complying with legal obligations"
+            ]
+          },
+          {
+            "heading": "4. Collection Method and Legal Grounds",
+            "paragraphs": [
+              "Your data is collected electronically while you use the app: information you enter, technical records the app produces, and confirmation messages from payment providers. Processing relies on these grounds in Article 5(2) of KVKK:"
+            ],
+            "items": [
+              "Necessary for the conclusion or performance of a contract (Art. 5/2-c): providing your account and game features, assigning purchased products to you",
+              "Legitimate interests of the controller, without harming your fundamental rights (Art. 5/2-f): security, abuse prevention, error detection and fixing, community moderation",
+              "Compliance with a legal obligation (Art. 5/2-ç) and establishment, exercise or protection of a right (Art. 5/2-e): tax and accounting records, resolving disputes",
+              "Explicit consent (Art. 5/1): push notifications. The device permission and the in-app setting are your choice; you can turn them off at any time."
+            ]
+          },
+          {
+            "heading": "5. Transfer of Personal Data",
+            "paragraphs": [
+              "Your personal data is not sold or shared for advertising. It is processed by, or shared only with, the following service providers so the app can work:"
+            ],
+            "items": [
+              "Supabase: authentication and database (storing account, game, community and purchase records)",
+              "RevenueCat, Inc.: verifying store purchases and subscriptions (user ID, product, date, store receipt)",
+              "Sentry (Functional Software, Inc.): crash and error reporting",
+              "Expo: delivering push notifications (only if you turn them on)",
+              "Apple App Store and Google Play: app distribution, payments and subscriptions",
+              "Authorised public bodies: only where there is a legal obligation"
+            ],
+            "after": "The servers of these providers may be located outside Türkiye. Transfers abroad are made in line with the conditions in Article 9 of KVKK (adequacy decision, appropriate safeguards, standard contract, etc.)."
+          },
+          {
+            "heading": "6. Retention",
+            "paragraphs": [
+              "Your account data is kept while your account is active. When you delete your account in the app (Settings → Delete account), your account and the app data linked to it are deleted, except where a legal retention duty or a legitimate security need applies. Purchase and subscription records may be kept as long as needed for tax, fraud prevention and dispute purposes. Product usage events are deleted after 60 days.",
+              "Deleting your account does not cancel an App Store or Google Play subscription; cancel it in the store separately."
+            ]
+          },
+          {
+            "heading": "7. Your Rights (KVKK Art. 11)",
+            "paragraphs": [
+              "You may apply to the data controller to:"
+            ],
+            "items": [
+              "Learn whether your personal data is processed",
+              "Request information if it has been processed",
+              "Learn the purpose of processing and whether it is used accordingly",
+              "Know the third parties to whom data is transferred in Türkiye or abroad",
+              "Request correction if it is incomplete or inaccurate",
+              "Request deletion or destruction under Article 7 of KVKK",
+              "Request that correction, deletion and destruction be notified to the third parties the data was transferred to",
+              "Object to an unfavourable result produced solely by automated analysis of your data",
+              "Claim compensation if you suffer damage because of unlawful processing"
+            ]
+          },
+          {
+            "heading": "8. How to Apply",
+            "paragraphs": [
+              "Send your requests from the email address linked to your account to <a href=\"mailto:apps-support@korucuk.com\">apps-support@korucuk.com</a>; we may ask for extra information to verify your identity. Your application is answered free of charge within 30 days at the latest, depending on the nature of the request; if the process needs a separate cost, the fee in the tariff set by the Personal Data Protection Board may be charged. If you find the reply insufficient, you can complain to the Personal Data Protection Board within 30 days of learning the reply and in any case within 60 days of applying."
+            ]
+          },
+          {
+            "heading": "9. Data Security",
+            "paragraphs": [
+              "Reasonable technical and administrative measures are taken to prevent unlawful processing of and access to your data: per-user access rules, encrypted communication and the security controls of service providers. In case of a data breach, the Personal Data Protection Board and, where needed, the persons concerned are notified within 72 hours at the latest after the breach is learned."
+            ]
+          }
+        ]
+      },
       "supportSections": [
         {
           "heading": "Purchases & Plus",
