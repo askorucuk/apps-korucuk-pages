@@ -663,6 +663,83 @@
     render();
   });
 
+  // Try it (Dailoopy): tap through a sample day and watch the progress line fill up
+  each('[data-demo="loop"]', function (demo) {
+    var tiles = Array.prototype.slice.call(demo.querySelectorAll(".mk-tile"));
+    var moods = Array.prototype.slice.call(demo.querySelectorAll(".mk-mood"));
+    var fill = demo.querySelector(".mk-loop__fill");
+    var count = demo.querySelector(".mk-loop__count");
+    var done = demo.querySelector(".mk-loop__done");
+    var stops = Array.prototype.slice.call(demo.querySelectorAll(".mk-loop__line i"));
+    var state = {};
+    var fmt = function (n) { return n.toLocaleString("en-US"); };
+
+    var isDone = function (t) {
+      var s = state[t.dataset.tile];
+      return t.dataset.kind === "check" ? !!s : s >= Number(t.dataset.goal);
+    };
+    var paint = function (t) {
+      var kind = t.dataset.kind;
+      var val = t.querySelector(".mk-tile__val");
+      var s = state[t.dataset.tile];
+      var d = isDone(t);
+      t.classList.toggle("is-done", d);
+      if (kind === "check") {
+        t.setAttribute("aria-pressed", d ? "true" : "false");
+        val.textContent = d ? "Done" : "Tap to log";
+      } else {
+        var goal = Number(t.dataset.goal);
+        t.style.setProperty("--lvl", Math.min(1, s / goal));
+        var unit = t.hasAttribute("data-hide-unit") ? "" : " " + t.dataset.unit;
+        val.textContent = s ? fmt(s) + " / " + fmt(goal) + unit : "0" + unit;
+        t.setAttribute("aria-label", t.querySelector(".mk-tile__name").textContent + ", " + val.textContent + (d ? ", goal reached" : ". Tap to add " + fmt(Number(t.dataset.step)) + " " + t.dataset.unit));
+      }
+    };
+    var update = function (fromTap) {
+      var n = tiles.filter(isDone).length;
+      fill.style.transform = "scaleX(" + n / tiles.length + ")";
+      stops.forEach(function (el, i) { el.classList.toggle("is-on", i < n); });
+      count.textContent = n + " of " + tiles.length + " done";
+      var all = n === tiles.length;
+      done.hidden = !all;
+      demo.classList.toggle("is-complete", all);
+      if (all && fromTap) {
+        demo.classList.remove("is-pop");
+        void demo.offsetWidth;
+        demo.classList.add("is-pop");
+      }
+    };
+    var reset = function () {
+      tiles.forEach(function (t) { state[t.dataset.tile] = t.dataset.kind === "check" ? false : 0; paint(t); });
+      moods.forEach(function (m) { m.setAttribute("aria-pressed", "false"); });
+      update(false);
+    };
+    tiles.forEach(function (t) {
+      t.addEventListener("click", function () {
+        var key = t.dataset.tile;
+        if (t.dataset.kind === "check") {
+          state[key] = !state[key];
+        } else {
+          if (isDone(t)) return;
+          state[key] = Math.min(Number(t.dataset.goal), state[key] + Number(t.dataset.step));
+        }
+        t.classList.remove("is-bump");
+        void t.offsetWidth;
+        t.classList.add("is-bump");
+        paint(t);
+        update(true);
+      });
+    });
+    moods.forEach(function (m) {
+      m.addEventListener("click", function () {
+        moods.forEach(function (o) { o.setAttribute("aria-pressed", o === m ? "true" : "false"); });
+      });
+    });
+    var resetBtn = demo.querySelector("[data-reset]");
+    if (resetBtn) resetBtn.addEventListener("click", reset);
+    reset();
+  });
+
   // Home hero: a small forge. "crafted" is heated, struck three times, and cooled.
   var craft = document.querySelector(".mk-craft");
   var forge = document.querySelector(".mk-forge");

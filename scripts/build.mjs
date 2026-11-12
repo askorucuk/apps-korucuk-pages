@@ -721,6 +721,30 @@ const demoMarkup = (demo, reveal = true) => {
       </div>
     </div>`;
   }
+  if (demo.type === "loop") {
+    const check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+    const plus = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+    const moods = [["Awful", "#f2735f", "M8 9l3 1.5M16 9l-3 1.5M8.5 16.5c1-1.2 2-1.7 3.5-1.7s2.5.5 3.5 1.7"], ["Bad", "#f1b7ef", "M8 9l3 1.5M16 9l-3 1.5M9 16h6"], ["Okay", "#f2d96a", "M8.5 10v1M15.5 10v1M9 16c1-.8 2-.8 3 0s2 .8 3 0"], ["Good", "#b6e4f0", "M8.5 10v1.2M15.5 10v1.2M8.5 15c1 1.3 2.2 1.9 3.5 1.9s2.5-.6 3.5-1.9"], ["Great", "#d9ef5b", "M8.5 10v1.2M15.5 10v1.2M7.5 14.5c1.2 2.3 2.8 3.4 4.5 3.4s3.3-1.1 4.5-3.4z"]];
+    const tile = (id, cls, name, meta, kind, extra = "") =>
+      `<button type="button" class="mk-tile mk-tile--${cls}" data-tile="${id}" data-kind="${kind}"${extra}><span class="mk-tile__fill" aria-hidden="true"></span><span class="mk-tile__name">${name}</span><span class="mk-tile__val">Tap to log</span><span class="mk-tile__meta">${meta}</span><span class="mk-tile__btn" aria-hidden="true"><span class="mk-tile__plus">${plus}</span><span class="mk-tile__check">${check}</span></span></button>`;
+    return `<div class="mk-demo mk-demo--loop" data-demo="loop"${rv}>
+      <div class="mk-loop__mood">
+        <p class="mk-loop__q">How are you feeling?</p>
+        <div class="mk-moods" role="group" aria-label="Mood">${moods
+          .map(([label, color, path]) => `<button type="button" class="mk-mood" data-mood="${label}" aria-pressed="false" aria-label="${label}" style="--mc:${color}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${path}"/></svg><span>${label}</span></button>`)
+          .join("")}</div>
+      </div>
+      <div class="mk-loop__progress" aria-live="polite"><span class="mk-loop__line"><span class="mk-loop__fill"></span><i></i><i></i><i></i><i></i></span><span class="mk-loop__count">0 of 4 done</span></div>
+      <div class="mk-loop__grid">
+        ${tile("meal", "meal", "Breakfast", "08:30 &middot; daily", "check")}
+        ${tile("water", "water", "Water", "09:00 &middot; daily", "count", ' data-step="250" data-goal="2000" data-unit="ml"')}
+        ${tile("steps", "steps", "Steps", "20:00 &middot; daily", "count", ' data-step="1000" data-goal="8000" data-unit="steps" data-hide-unit')}
+        ${tile("sleep", "sleep", "Sleep", "23:00 &middot; daily", "check")}
+      </div>
+      <p class="mk-loop__done" aria-live="polite" hidden>Loop closed. That is a full day.</p>
+      <div class="mk-demo__bar mk-demo__bar--center"><button type="button" class="mk-demo__btn" data-reset>Start over</button></div>
+    </div>`;
+  }
   if (demo.type === "swipe") {
     return `<div class="mk-demo mk-demo--swipe" data-demo="swipe" data-cards="${escapeHtml(JSON.stringify(demo.cards || []))}"${rv}>
       <div class="mk-deck" tabindex="0" role="group" aria-label="Task deck. Drag a card, or use the arrow keys: right for done, left for later, Backspace to undo."></div>
@@ -855,7 +879,7 @@ const marketingPage = (owner, app, shots, media) => {
 
   const ins = media.inside;
   const insideSection = ins
-    ? `<section class="mk-inside" id="${escapeHtml(ins.id || "inside")}">
+    ? `<section class="mk-inside${ins.video ? "" : " mk-inside--novideo"}" id="${escapeHtml(ins.id || "inside")}">
         <div class="mk-wrap">
           <div class="mk-inside__top">
             ${

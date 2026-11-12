@@ -2892,3 +2892,295 @@ html:not([data-kvkk]) #en:has(~ #tr:target) { display: none; }
 html[data-kvkk="tr"] #tr { display: block; }
 html[data-kvkk="tr"] #en { display: none; }
 html[data-kvkk="en"] #tr { display: none; }
+
+/* ---------- Try it (Dailoopy): a sample day ---------- */
+.mk-demo--loop {
+  --ink-d: #2a1b3d;
+  --dl-line: color-mix(in oklab, var(--mk-ink) 14%, transparent);
+}
+
+.mk-loop__q {
+  margin: 0 0 10px;
+  color: var(--mk-ink);
+  font-weight: 750;
+}
+
+.mk-moods {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.mk-mood {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 10px 4px 8px;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  background: var(--mk-card);
+  color: var(--mk-muted);
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 650;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out);
+}
+
+.mk-mood svg {
+  width: 34px;
+  height: 34px;
+  padding: 4px;
+  border-radius: 11px;
+  background: var(--mc);
+  color: var(--ink-d);
+}
+
+.mk-mood:hover {
+  transform: translateY(-3px);
+}
+
+.mk-mood[aria-pressed="true"] {
+  border-color: var(--mk-accent);
+  color: var(--mk-ink);
+  transform: translateY(-3px) scale(1.06);
+}
+
+.mk-loop__progress {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 18px 2px 14px;
+}
+
+.mk-loop__line {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  height: 14px;
+}
+
+.mk-loop__line::before,
+.mk-loop__fill {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  left: 7px;
+  height: 4px;
+  margin-top: -2px;
+  border-radius: 4px;
+  background: var(--dl-line);
+}
+
+.mk-loop__fill {
+  right: 7px;
+  background: var(--mk-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease-out);
+}
+
+.mk-loop__line i {
+  position: relative;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--dl-line);
+  border-radius: 50%;
+  background: var(--mk-card);
+  transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mk-loop__line i.is-on {
+  border-color: var(--mk-accent);
+  background: var(--mk-accent);
+  transform: scale(1.25);
+}
+
+.mk-loop__count {
+  min-width: 5.6em;
+  color: var(--mk-muted);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.mk-loop__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.mk-tile {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 2px;
+  min-height: 118px;
+  padding: 14px 14px 12px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 22px;
+  background: var(--tile);
+  color: var(--ink-d);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter var(--dur-quick) var(--ease-out);
+}
+
+.mk-tile:hover {
+  transform: translateY(-2px);
+  filter: saturate(1.08);
+}
+
+.mk-tile:active {
+  transform: scale(0.97);
+}
+
+.mk-tile:focus-visible {
+  outline: 3px solid var(--mk-accent);
+  outline-offset: 3px;
+}
+
+.mk-tile--meal { --tile: #f4de7a; }
+.mk-tile--water { --tile: #bfe6f1; }
+.mk-tile--steps { --tile: #efc7f0; }
+.mk-tile--sleep { --tile: #a8e3c8; }
+
+.mk-tile__fill {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.55);
+  transform: scaleY(var(--lvl, 0));
+  transform-origin: bottom;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.mk-tile--meal .mk-tile__fill,
+.mk-tile--sleep .mk-tile__fill {
+  transform: scaleY(0);
+}
+
+.mk-tile.is-done .mk-tile__fill {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.mk-tile.is-done.mk-tile--meal .mk-tile__fill,
+.mk-tile.is-done.mk-tile--sleep .mk-tile__fill {
+  transform: scaleY(1);
+}
+
+.mk-tile > * {
+  position: relative;
+}
+
+.mk-tile > .mk-tile__fill {
+  position: absolute;
+}
+
+.mk-tile__name {
+  font-size: 1.02rem;
+  font-weight: 800;
+}
+
+.mk-tile__val {
+  align-self: center;
+  font-size: 1.1rem;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.mk-tile__meta {
+  font-size: 0.74rem;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.mk-tile__btn {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 2px solid var(--ink-d);
+  border-radius: 50%;
+  background: #fff;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mk-tile__btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mk-tile__btn > span {
+  display: grid;
+  grid-area: 1 / 1;
+  transition: opacity var(--dur-quick) var(--ease-out), transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mk-tile__check { opacity: 0; transform: scale(0.4) rotate(-30deg); }
+.mk-tile--meal .mk-tile__plus,
+.mk-tile--sleep .mk-tile__plus { display: none; }
+.mk-tile--meal .mk-tile__check,
+.mk-tile--sleep .mk-tile__check { opacity: 0.35; transform: none; }
+
+.mk-tile.is-done .mk-tile__btn {
+  background: #d9ef5b;
+  transform: scale(1.08);
+}
+
+.mk-tile.is-done .mk-tile__plus { opacity: 0; transform: scale(0.4); }
+.mk-tile.is-done .mk-tile__check { opacity: 1; transform: none; }
+
+.mk-tile.is-bump {
+  animation: mk-bump 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes mk-bump {
+  0% { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+.mk-loop__done {
+  margin: 14px 0 0;
+  color: var(--mk-ink);
+  font-weight: 750;
+  text-align: center;
+}
+
+.mk-demo--loop.is-pop .mk-loop__done {
+  animation: mk-rise var(--dur-base) var(--ease-out) both;
+}
+
+.mk-demo--loop.is-pop .mk-loop__count {
+  animation: mk-bump 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: var(--mk-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-tile.is-bump,
+  .mk-demo--loop.is-pop .mk-loop__done,
+  .mk-demo--loop.is-pop .mk-loop__count {
+    animation: none;
+  }
+}
+
+/* Inside the app, no phone video: copy on top, screens below */
+.mk-inside--novideo .mk-inside__top {
+  grid-template-columns: minmax(0, 720px);
+}
+
+/* Few reels (e.g. two): keep them centered at a phone-like width instead of stretching */
+.mk-reels:has(> .mk-reel:nth-child(2):last-child) {
+  grid-template-columns: repeat(2, minmax(0, 280px));
+  justify-content: center;
+}
