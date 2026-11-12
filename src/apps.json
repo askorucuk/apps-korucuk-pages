@@ -1261,9 +1261,9 @@
         "iOS",
         "Android"
       ],
-      "effectiveDate": "2026-11-12",
+      "effectiveDate": "2026-11-13",
       "supportEmail": "apps-support@korucuk.com",
-      "description": "Dailoopy is a daily routine tracker for water, medicine, sleep, steps, meals, stool, urine, mood and menstrual cycle, with a private book for your own plans.",
+      "description": "Dailoopy is a daily routine tracker for water, medicine, sleep, steps, meals, stool, urine, mood and menstrual cycle, with a private book for your own plans. Free to use, with an optional Dailoopy Plus subscription.",
       "category": "HealthApplication",
       "theme": {
         "accent": "#5b43c7",
@@ -1290,7 +1290,8 @@
           "Cycle",
           "Mood",
           "Your book",
-          "Private"
+          "Private",
+          "Free to start"
         ],
         "chapters": [
           {
@@ -1344,6 +1345,21 @@
               }
             ],
             "outro": "<p>Statistics show your completion and mood over 7 days, 30 days, 90 days or a year.</p>"
+          },
+          {
+            "id": "plus",
+            "eyebrow": "Free and Plus",
+            "heading": "Free to start, Plus for more",
+            "cards": [
+              {
+                "title": "Free",
+                "body": "Up to 8 routines, statistics for 30 days, reminders, medicine alerts and daily logging. Always free."
+              },
+              {
+                "title": "Dailoopy Plus",
+                "body": "Unlimited routines, 90-day and one-year statistics, cycle insights and predictions, and the Book. Monthly or yearly, cancel any time in the store."
+              }
+            ]
           },
           {
             "id": "watch",
@@ -1417,12 +1433,13 @@
         "Routine content you create: routine names, schedules, goals, reminder settings and notes",
         "Records you make: water amounts, sleep, steps, calories, meals, a daily mood (1 to 5), and items you write in your book",
         "Health records (special category data), only for the routines you choose to add: stool color and consistency, urine color and amount, period, flow, symptoms and discharge records, and medicine name, dose, schedule and taken status. You confirm in the app, before adding such a routine, that you understand how this data is handled",
+        "Purchase and subscription status, if you buy Dailoopy Plus: whether Plus is active, the product (monthly or yearly), purchase and renewal dates, tied to your account ID. The payment itself is taken by Apple or Google; we never see your card or bank details",
         "Technical error reports (crash and error type, app version, device model and operating system) that contain no user ID, e-mail, message text or record contents"
       ],
       "dataNotCollected": [
         "Precise or approximate location",
         "Contacts",
-        "Payment information (the app has no purchases)",
+        "Payment card or bank details (payments are handled entirely by Apple or Google; we never see them)",
         "Photos, camera or microphone content",
         "Advertising identifiers or profiles for targeted advertising",
         "Browsing activity outside the app"
@@ -1431,7 +1448,8 @@
         "Google Firebase Authentication for email sign-up, email confirmation, sign-in and password reset",
         "Google Cloud Firestore (EU region, Frankfurt) for storing your routines, records, moods, book items and profile",
         "Sentry (Functional Software, Inc.) for crash and error reports without user identity or record contents",
-        "Apple App Store and Google Play for distributing the app"
+        "RevenueCat, Inc. to verify store purchases and manage your Dailoopy Plus subscription status (receives your account ID, the product, purchase dates and the store receipt)",
+        "Apple App Store and Google Play for distributing the app and processing payments and subscriptions"
       ],
       "permissions": [
         "Notifications permission, used only to show reminders that are scheduled on your device when you turn reminders on. Reminders for stool, urine, cycle and medicine never show the routine name on the lock screen"
@@ -1441,6 +1459,7 @@
         "To provide sign-up, email confirmation, sign-in and account features",
         "To schedule reminders on your device",
         "To compute statistics and your cycle estimate from your own records",
+        "To verify your Dailoopy Plus subscription and unlock Plus features",
         "To keep the app secure, prevent abuse, and find and fix errors"
       ],
       "policySections": [
@@ -1463,20 +1482,35 @@
           ]
         },
         {
+          "heading": "Purchases and Dailoopy Plus",
+          "paragraphs": [
+            "Dailoopy is free to use. Dailoopy Plus is an optional auto-renewing subscription (monthly or yearly) sold through the Apple App Store and Google Play. Reminders, medicine alerts and daily logging always stay free. You can cancel or manage Plus at any time in your Apple ID or Google Play subscription settings. Deleting your Dailoopy account does not cancel a store subscription; cancel it in the store as well.",
+            "To know whether Plus is active, Dailoopy uses RevenueCat, which receives your account ID, the product and the store receipt. Health data and your records are never sent to RevenueCat, Apple or Google as part of a purchase."
+          ]
+        },
+        {
           "heading": "Medical Notice",
           "paragraphs": [
             "Dailoopy helps you keep track. It does not provide medical advice, diagnosis or treatment. Cycle predictions are approximate estimates from calendar data and must not be used for birth control or medical decisions. Talk to a health professional about symptoms and medicines."
           ]
         }
       ],
-      "retention": "We keep your account information, routines, records, moods and book items while your account is active. When you delete your account in the app, they are deleted from our servers; copies in the backups of our service providers are deleted on those providers' own schedules shortly afterwards.",
+      "retention": "We keep your account information, routines, records, moods and book items while your account is active. When you delete your account in the app, they are deleted from our servers; copies in the backups of our service providers are deleted on those providers' own schedules shortly afterwards. Purchase and subscription records held by the stores and RevenueCat may be kept as long as needed for tax, fraud-prevention or refund-dispute purposes.",
       "choices": "You can edit or delete routines and records in the app, change your name and avatar, turn reminders off, sign out, and delete your account from the app (Profile > Settings > Delete my account). You may also ask us to access, correct, delete or export your data, or withdraw your consent, by emailing us from the address of your account.",
       "children": "Dailoopy is intended for users aged 16 and older and is not directed to children. We do not knowingly collect personal information from children under 16. If you believe a child has provided personal information, contact us so we can review and delete it.",
       "termsSpecific": [
         "Dailoopy is a personal tracking app. It is not a medical device or a health service, and its records and estimates are for information only. In an emergency or for health decisions, consult a health professional.",
-        "You must be at least 16 years old and confirm your email address to use Dailoopy. You are responsible for keeping your password safe."
+        "You must be at least 16 years old and confirm your email address to use Dailoopy. You are responsible for keeping your password safe.",
+        "Dailoopy is free to use. Some features are part of the optional Dailoopy Plus subscription, described below."
       ],
       "termsSections": [
+        {
+          "heading": "Dailoopy Plus",
+          "paragraphs": [
+            "Dailoopy Plus is an auto-renewing subscription (monthly or yearly). A free trial may be offered; if so, it is shown in the app before you subscribe and is available once per Apple ID or Google account. Unless you cancel at least 24 hours before the end of the current period, the subscription renews automatically and your store account is charged the price shown at purchase. Manage or cancel in your Apple ID or Google Play settings; cancelling stops future renewals and Plus stays active until the paid period ends. Refunds are handled by Apple or Google under their policies.",
+            "Free accounts can keep up to 8 active routines and see statistics for up to 30 days. Plus adds unlimited routines, statistics for 90 days and a year, cycle insights and predictions, and the Book. Reminders, medicine alerts and daily logging always stay free. Features and limits may change as the app evolves, and we will say so in the app."
+          ]
+        },
         {
           "heading": "Your Data",
           "paragraphs": [
@@ -1488,7 +1522,8 @@
         "Confirmation email did not arrive (check your spam folder, then tap Send again in the app)",
         "Sign-in, password reset and account questions",
         "Routines, reminders and cycle estimate questions",
-        "Data access, correction or deletion requests"
+        "Data access, correction or deletion requests",
+        "Dailoopy Plus: restoring a purchase, cancelling, or refunds"
       ],
       "accountDeletion": {
         "inApp": "Open Profile, go to Settings and tap Delete my account. Enter your password to confirm. Dailoopy then deletes your account and your data from its servers, removes local data and scheduled reminders from your device, and signs you out.",
@@ -1499,10 +1534,18 @@
           "Your moods and book items",
           "The unsent change queue, the offline copy and reminders on your device"
         ],
-        "notice": "Deleting your account is permanent and cannot be undone.",
-        "retention": "Most data is deleted when the deletion request is processed. Copies in our service providers' backups are deleted on their own schedules shortly afterwards. Limited records may be kept where the law requires, for security, or to resolve disputes."
+        "notice": "Deleting your account is permanent and cannot be undone. It does <strong>not</strong> cancel an App Store or Google Play subscription. Cancel Dailoopy Plus in your Apple ID subscriptions or in Google Play &rarr; Payments &amp; subscriptions first, otherwise the store may keep charging you.",
+        "retention": "Most data is deleted when the deletion request is processed. Copies in our service providers' backups are deleted on their own schedules shortly afterwards. Limited records may be kept where the law requires, for security, to resolve disputes, or as purchase records needed for tax, fraud-prevention or refund-dispute purposes."
       },
       "supportSections": [
+        {
+          "heading": "Dailoopy Plus",
+          "items": [
+            "<strong>Plus is missing after reinstalling or on a new phone:</strong> open the Plus screen in the app and tap Restore purchases while signed in to the same Dailoopy account and the same Apple ID or Google account you bought with. If it still does not show, email us with the store receipt or order number.",
+            "<strong>Cancel Plus:</strong> Apple ID &rarr; Subscriptions, or Google Play &rarr; Payments &amp; subscriptions &rarr; Subscriptions. Cancelling in the app is not possible; the stores handle it.",
+            "<strong>Refunds:</strong> request them from Apple at <a href=\"https://reportaproblem.apple.com\">reportaproblem.apple.com</a> or from your Google Play order history."
+          ]
+        },
         {
           "heading": "Your Data and Privacy",
           "items": [
@@ -1515,7 +1558,7 @@
       "kvkkNotice": {
         "title": "KVKK Aydınlatma Metni",
         "description": "6698 sayılı Kişisel Verilerin Korunması Kanunu m.10 kapsamında Dailoopy için aydınlatma metni.",
-        "effectiveDate": "2026-11-12",
+        "effectiveDate": "2026-11-13",
         "intro": "Bu Aydınlatma Metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun (\"KVKK\") 10. maddesi ve Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ uyarınca, Dailoopy uygulamasını kullanırken kişisel verilerinizin nasıl işlendiği konusunda sizi bilgilendirmek amacıyla hazırlanmıştır.",
         "sections": [
           {
@@ -1533,7 +1576,8 @@
               "<strong>Rutinler ve kayıtlar:</strong> oluşturduğunuz rutinler, saatler, hedefler, hatırlatma ayarları ve notlar; su, uyku, adım, kalori ve öğün kayıtları; günlük ruh haliniz; ajandanıza yazdığınız öğeler",
               "<strong>Sağlık verisi (özel nitelikli kişisel veri):</strong> yalnızca eklemeyi seçtiğiniz rutinler için dışkı rengi ve kıvamı, idrar rengi ve miktarı, adet, akış, belirti ve akıntı kayıtları ile ilaç adı, dozu, saatleri ve alındı bilgisi",
               "<strong>İşlem güvenliği ve hata:</strong> uygulama sürümü, cihaz modeli ve işletim sistemi, hata ve çökme türü (kullanıcı kimliği, e-posta, ileti metni veya kayıt içeriği hata raporlamaya gönderilmez)",
-              "Konum, rehber, fotoğraf veya kamera, ödeme bilgisi ve reklam kimliği işlenmez."
+              "<strong>Satın alma ve abonelik:</strong> Dailoopy Plus satın alırsanız ürün (aylık veya yıllık), satın alma ve yenileme tarihleri ile abonelik durumu, hesap kimliğinize bağlı olarak. Kart veya banka bilgileriniz işlenmez; ödemeyi Apple veya Google alır.",
+              "Konum, rehber, fotoğraf veya kamera ve reklam kimliği işlenmez."
             ]
           },
           {
@@ -1543,6 +1587,7 @@
               "Rutinlerinizin, kayıtlarınızın, ruh halinizin ve ajandanızın saklanması ve gösterilmesi; istatistiklerin ve döngü tahmininin sizin kayıtlarınızdan hesaplanması",
               "Hatırlatmaların cihazınızda kurulması (yalnızca hatırlatmaları açarsanız)",
               "Bilgi güvenliğinin sağlanması, kötüye kullanımın önlenmesi, hata ve çökmelerin tespit edilip giderilmesi",
+              "Dailoopy Plus aboneliğinin doğrulanması ve Plus özelliklerinin açılması (yalnızca satın aldıysanız)",
               "Destek, geri bildirim ve başvuruların yanıtlanması; hukuki yükümlülüklerin yerine getirilmesi"
             ]
           },
@@ -1553,6 +1598,7 @@
             ],
             "items": [
               "Bir sözleşmenin kurulması veya ifasıyla doğrudan ilgili olması (m.5/2-c): hesabınızın ve takip özelliklerinin sunulması",
+              "Hukuki yükümlülüğün yerine getirilmesi (m.5/2-ç): satın alma ve abonelik kayıtları için vergi ve muhasebe yükümlülükleri",
               "İlgili kişinin temel hak ve özgürlüklerine zarar vermemek kaydıyla veri sorumlusunun meşru menfaatleri için zorunlu olması (m.5/2-f): güvenlik, kötüye kullanımın önlenmesi, hata tespiti ve giderilmesi",
               "Hukuki yükümlülüğün yerine getirilmesi (m.5/2-ç) ve bir hakkın tesisi, kullanılması veya korunması (m.5/2-e)",
               "<strong>Açık rıza (m.6/2 ve m.5/1):</strong> sağlık verileri özel nitelikli kişisel veridir ve yalnızca açık rızanızla işlenir. İlk dışkı, idrar, döngü veya ilaç rutininizi eklemeden önce uygulama içinde bu bilgilendirmeyi okuyup onaylarsınız; onay zamanı profilinizle birlikte saklanır. Rızanızı istediğiniz zaman hesabınızı silerek geri alabilirsiniz. Hatırlatma bildirimleri de tercihinize bağlıdır."
@@ -1566,14 +1612,16 @@
             "items": [
               "Google (Firebase Authentication ve Cloud Firestore): kimlik doğrulama ve veritabanı (hesap, rutin, kayıt, ruh hali, ajanda ve sağlık verilerinin saklanması)",
               "Sentry (Functional Software, Inc.): çökme ve hata raporlama (kullanıcı kimliği ve kayıt içeriği olmadan)",
-              "Apple App Store ve Google Play: uygulamanın dağıtımı",
+              "RevenueCat, Inc.: mağaza satın alımlarının ve Plus aboneliğinin doğrulanması (hesap kimliği, ürün, satın alma tarihleri, mağaza makbuzu; sağlık verisi veya kayıt içeriği gönderilmez)",
+              "Apple App Store ve Google Play: uygulamanın dağıtımı, ödeme ve abonelik işlemleri",
               "Yetkili kamu kurum ve kuruluşları: yalnızca yasal bir zorunluluk olması halinde"
             ]
           },
           {
             "heading": "6. Saklama Süresi",
             "paragraphs": [
-              "Verileriniz hesabınız aktif kaldığı sürece saklanır. Hesabınızı uygulamadan sildiğinizde (Profil → Ayarlar → Hesabımı sil) hesabınız ve tüm verileriniz sunucudan silinir; hizmet sağlayıcıların yedeklerindeki kopyalar kendi döngülerinde kısa süre içinde silinir. Yasal bir saklama yükümlülüğü veya meşru güvenlik ihtiyacı bunun istisnasıdır. İnternet olmadan açılış için cihazda tutulan kopya (sağlık kayıtlarının içeriği olmadan) çıkış yaptığınızda ve hesabı sildiğinizde silinir."
+              "Verileriniz hesabınız aktif kaldığı sürece saklanır. Hesabınızı uygulamadan sildiğinizde (Profil → Ayarlar → Hesabımı sil) hesabınız ve tüm verileriniz sunucudan silinir; hizmet sağlayıcıların yedeklerindeki kopyalar kendi döngülerinde kısa süre içinde silinir. Yasal bir saklama yükümlülüğü veya meşru güvenlik ihtiyacı bunun istisnasıdır. İnternet olmadan açılış için cihazda tutulan kopya (sağlık kayıtlarının içeriği olmadan) çıkış yaptığınızda ve hesabı sildiğinizde silinir.",
+              "Hesabınızı silmek, App Store veya Google Play üzerindeki aboneliğinizi iptal etmez; aboneliği mağazadan ayrıca iptal etmeniz gerekir. Satın alma ve abonelik kayıtları vergi, dolandırıcılık önleme ve uyuşmazlık süreleri için gerektiği kadar saklanabilir."
             ]
           },
           {
@@ -1610,7 +1658,7 @@
       "kvkkNoticeEn": {
         "title": "KVKK Notice (Turkish Law No. 6698)",
         "description": "Disclosure notice for Dailoopy under Article 10 of Turkish Personal Data Protection Law No. 6698 (KVKK).",
-        "effectiveDate": "2026-11-12",
+        "effectiveDate": "2026-11-13",
         "intro": "This notice explains how your personal data is processed when you use Dailoopy, as required by Article 10 of Turkish Personal Data Protection Law No. 6698 (\"KVKK\"). The Turkish text is authoritative.",
         "sections": [
           {
@@ -1628,7 +1676,8 @@
               "<strong>Routines and records:</strong> routines, schedules, goals, reminder settings and notes you create; water, sleep, steps, calories and meal records; your daily mood; items you write in your book",
               "<strong>Health data (special category):</strong> only for the routines you choose to add: stool color and consistency, urine color and amount, period, flow, symptom and discharge records, and medicine name, dose, times and taken status",
               "<strong>Security and errors:</strong> app version, device model and operating system, type of error or crash (no user ID, email, message text or record contents are sent to error reporting)",
-              "Location, contacts, photos or camera, payment information and advertising identifiers are not processed."
+              "<strong>Purchases and subscription:</strong> if you buy Dailoopy Plus, the product (monthly or yearly), purchase and renewal dates and subscription status, tied to your account ID. Your card or bank details are not processed; Apple or Google takes the payment.",
+              "Location, contacts, photos or camera and advertising identifiers are not processed."
             ]
           },
           {
@@ -1638,6 +1687,7 @@
               "Storing and showing your routines, records, mood and book; computing statistics and the cycle estimate from your own records",
               "Scheduling reminders on your device (only if you turn reminders on)",
               "Information security, abuse prevention, detecting and fixing errors and crashes",
+              "Verifying your Dailoopy Plus subscription and unlocking Plus features (only if you bought it)",
               "Answering support requests and complying with legal obligations"
             ]
           },
@@ -1648,6 +1698,7 @@
             ],
             "items": [
               "Necessary for the performance of a contract (Art. 5/2-c): providing your account and tracking features",
+              "Compliance with a legal obligation (Art. 5/2-ç): tax and accounting duties for purchase and subscription records",
               "Legitimate interests of the controller, without harming your fundamental rights (Art. 5/2-f): security, abuse prevention, error fixing",
               "Compliance with a legal obligation (Art. 5/2-ç) and establishment, exercise or protection of a right (Art. 5/2-e)",
               "<strong>Explicit consent (Art. 6/2 and 5/1):</strong> health data is special category data and is processed only with your explicit consent. Before you add your first stool, urine, cycle or medicine routine, the app shows this information and asks you to confirm; the time of your confirmation is stored with your profile. You can withdraw consent at any time by deleting your account. Reminder notifications also depend on your choice."
@@ -1661,14 +1712,16 @@
             "items": [
               "Google (Firebase Authentication and Cloud Firestore): authentication and database (storing account, routine, record, mood, book and health data)",
               "Sentry (Functional Software, Inc.): crash and error reporting (without user identity or record contents)",
-              "Apple App Store and Google Play: distribution of the app",
+              "RevenueCat, Inc.: verifying store purchases and the Plus subscription (account ID, product, purchase dates, store receipt; no health data or record contents are sent)",
+              "Apple App Store and Google Play: distribution of the app, payments and subscriptions",
               "Competent public authorities: only where legally required"
             ]
           },
           {
             "heading": "6. Retention",
             "paragraphs": [
-              "Your data is kept while your account is active. When you delete your account in the app (Profile → Settings → Delete my account) your account and all your data are deleted from the server; copies in service providers' backups are deleted on their own schedules shortly afterwards, except where a legal retention duty or a legitimate security need applies. The offline copy kept on your device (without the contents of health records) is removed when you sign out or delete your account."
+              "Your data is kept while your account is active. When you delete your account in the app (Profile → Settings → Delete my account) your account and all your data are deleted from the server; copies in service providers' backups are deleted on their own schedules shortly afterwards, except where a legal retention duty or a legitimate security need applies. The offline copy kept on your device (without the contents of health records) is removed when you sign out or delete your account.",
+              "Deleting your account does not cancel a subscription on the App Store or Google Play; cancel it in the store as well. Purchase and subscription records may be kept as long as needed for tax, fraud-prevention and dispute periods."
             ]
           },
           {
@@ -1701,7 +1754,8 @@
             ]
           }
         ]
-      }
+      },
+      "termsAccountsNote": "Your Plus status belongs to your Dailoopy account. Deleting the account does not cancel a store subscription."
     }
   ]
 }

@@ -500,6 +500,7 @@ const CATEGORY_LABELS = {
   ProductivityApplication: "Productivity",
   GameApplication: "Game",
   LifestyleApplication: "Lifestyle",
+  HealthApplication: "Health & Fitness",
   UtilitiesApplication: "Utilities"
 };
 
